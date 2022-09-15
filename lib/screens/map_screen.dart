@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 
 import './atmDetails_screen.dart';
 import '../widgets/map.dart';
+import '../widgets/ATMlist.dart';
 
 class MapScreen extends StatefulWidget {
   static const routeName = '/map';
@@ -57,10 +58,16 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentLocation == null
-          ? const Center(child: CircularProgressIndicator())
-          : Map(_markers, _currentLocation!),
-      // body: ATMDetailsScreen(),
+      //appBar: AppBar(title: Text('Map'),),
+      body: //ATMlist(),
+          Stack(
+        children: [
+          _currentLocation == null
+              ? const Center(child: CircularProgressIndicator())
+              : Map(_markers, _currentLocation!),
+          ATMlist(),
+        ],
+      ),
     );
   }
 }
