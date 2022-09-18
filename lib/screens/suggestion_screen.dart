@@ -47,7 +47,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
 
   Future<void> _bankSelection(BuildContext context) async {
     final name = await Navigator.of(context).pushNamed('/banks');
-    bank.text = name.toString();
+    name != null ? bank.text = name.toString() : bank.text = "";
   }
 
   @override
@@ -219,7 +219,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                           style: ElevatedButton.styleFrom(
                               onPrimary: AppColors().white,
                               primary: AppColors().primary500,
-                              padding: EdgeInsets.symmetric(vertical: 20),
+                              padding: EdgeInsets.symmetric(vertical: 12),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12))),
                         ),
