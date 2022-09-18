@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
-import 'atm_details_screen.dart';
 import './atm_list_screen.dart';
 import '../widgets/map.dart';
 import '../widgets/atm_list.dart';
