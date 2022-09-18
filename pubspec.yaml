@@ -33,6 +33,7 @@ dependencies:
   google_maps_flutter: ^2.2.0
   location: ^4.4.0
   geolocator: ^9.0.1
+  material_floating_search_bar: ^0.3.7
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -55,27 +56,21 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
-
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
+  assets:
+    - assets/images/ACB.png
+    - assets/images/Bac A Bank.png
+    - assets/images/BIDV.png
+    - assets/images/HDBank.png
+    - assets/images/KienLongBank.jpg
+    - assets/images/MB Bank.png
+    - assets/images/OCB.png
+    - assets/images/PVcombank.jpg
+    - assets/images/sacom new.png
+    - assets/images/SeABank.png
+    - assets/images/Standard Chartered Bank.png
+    - assets/images/TPbank.png
+    - assets/images/VPBank.png
   fonts:
     - family: SF-Pro-Display
       fonts:
