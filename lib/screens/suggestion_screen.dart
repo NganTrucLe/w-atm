@@ -102,58 +102,70 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(24)),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 0, style: BorderStyle.none)),
-                  prefixIcon: Icon(
-                    Icons.search_sharp,
-                    color: AppTheme.colors.neutral600,
+      appBar: AppBar(
+        title: Text('ATM Details',
+            style: TextStyle(
+              color: Colors.black,
+            )),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 16),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(width: 0, style: BorderStyle.none)),
+                    prefixIcon: Icon(
+                      Icons.search_sharp,
+                      color: AppTheme.colors.neutral600,
+                    ),
+                    hintText: "Search",
                   ),
-                  hintText: "Search",
+                ),
+              ),
+            Expanded(
+              child: Container(
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      margin: EdgeInsets.only(bottom: 16),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: AppTheme.colors.white,
+                          backgroundImage: AssetImage(images[index]),
+                        ),
+                        title: Text(
+                          bankNames[index],
+                          style: TextStyle(
+                            fontFamily: 'SF-Pro-Text',
+                            fontSize: 17.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: images.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
                 ),
               ),
             ),
-          ),
-          ListView.builder(
-            itemBuilder: (BuildContext, index) {
-              return Card(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: AppTheme.colors.white,
-                    backgroundImage: AssetImage(images[index]),
-                  ),
-                  title: Text(
-                    bankNames[index],
-                    style: TextStyle(
-                      fontFamily: 'SF-Pro-Text',
-                      fontSize: 17.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              );
-            },
-            itemCount: images.length,
-            shrinkWrap: true,
-            padding: EdgeInsets.all(5),
-            scrollDirection: Axis.vertical,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
