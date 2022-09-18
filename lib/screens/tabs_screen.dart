@@ -64,7 +64,6 @@ class _TabsScreenState extends State<TabsScreen> {
           currentIndex: _selectedPageIndex,
           selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Colors.grey),
-          
     );
   }
 }
