@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:watm/theme/theme_constants.dart';
 import './account_screen.dart';
 import './map_screen.dart';
 import './suggestion_screen.dart';
@@ -43,27 +44,49 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
-          onTap: _selectedPage,
-          items: [
-            BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: Icon(Icons.lightbulb_rounded),
-              label: 'Suggestion',
+        onTap: _selectedPage,
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor: Colors.white,
+            activeIcon: new SvgPicture.asset(
+              'assets/images/suggestion.svg',
+              color: AppTheme.colors.primary500,
             ),
-            BottomNavigationBarItem(
-              backgroundColor: Colors.white,
-              icon: Icon(Icons.map_rounded),
-              label: 'Map',
+            icon: new SvgPicture.asset(
+              'assets/images/suggestion.svg',
+              color: AppTheme.colors.neutral500,
             ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_box_rounded),
-                backgroundColor: Colors.white,
-                label: 'Account')
-          ],
-          backgroundColor: Colors.white,
-          currentIndex: _selectedPageIndex,
-          selectedItemColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Colors.grey),
+            label: 'Suggestion',
+          ),
+          BottomNavigationBarItem(
+            backgroundColor: Colors.white,
+            activeIcon: new SvgPicture.asset(
+              'assets/images/map.svg',
+              color: AppTheme.colors.primary500,
+            ),
+            icon: new SvgPicture.asset(
+              'assets/images/map.svg',
+              color: AppTheme.colors.neutral500,
+            ),
+            label: 'Map',
+          ),
+          BottomNavigationBarItem(
+              activeIcon: new SvgPicture.asset(
+                'assets/images/account.svg',
+                color: AppTheme.colors.primary500,
+              ),
+              icon: new SvgPicture.asset(
+                'assets/images/account.svg',
+                color: AppTheme.colors.neutral500,
+              ),
+              backgroundColor: Colors.white,
+              label: 'Account')
+        ],
+        backgroundColor: Colors.white,
+        currentIndex: _selectedPageIndex,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: AppTheme.colors.neutral500,
+      ),
     );
   }
 }

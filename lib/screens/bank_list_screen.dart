@@ -1,40 +1,41 @@
 import 'package:flutter/material.dart';
-
+import 'package:watm/dummy_bank.dart';
+//import './dummy_bank.dart';
 import 'package:watm/theme/theme_constants.dart';
 
 class BankList extends StatelessWidget {
   static const routeName = '/banks';
 
-  List<String> images = [
-    "assets/images/ACB.png",
-    "assets/images/Bac A Bank.png",
-    "assets/images/BIDV.png",
-    "assets/images/HDBank.png",
-    "assets/images/KienLongBank.jpg",
-    "assets/images/sacom new.png",
-    "assets/images/MB Bank.png",
-    "assets/images/OCB.png",
-    "assets/images/PVcombank.jpg",
-    "assets/images/SeABank.png",
-    "assets/images/Standard Chartered Bank.png",
-    "assets/images/TPbank.png",
-    "assets/images/VPBank.png",
-  ];
-  List<String> bankNames = [
-    "ACB Bank",
-    "Bac A Bank",
-    "BIDV Bank",
-    "HD Bank",
-    "Kien Long Bank",
-    "Sacombank",
-    "MB Bank",
-    "OCB Bank",
-    "PV Bank",
-    "SeA Bank",
-    "Standard Chartered Bank",
-    "TP Bank",
-    "VP Bank",
-  ];
+  // List<String> images = [
+  //   "assets/images/ACB.png",
+  //   "assets/images/Bac A Bank.png",
+  //   "assets/images/BIDV.png",
+  //   "assets/images/HDBank.png",
+  //   "assets/images/KienLongBank.jpg",
+  //   "assets/images/sacom new.png",
+  //   "assets/images/MB Bank.png",
+  //   "assets/images/OCB.png",
+  //   "assets/images/PVcombank.jpg",
+  //   "assets/images/SeABank.png",
+  //   "assets/images/Standard Chartered Bank.png",
+  //   "assets/images/TPbank.png",
+  //   "assets/images/VPBank.png",
+  // ];
+  // List<String> bankNames = [
+  //   "ACB Bank",
+  //   "Bac A Bank",
+  //   "BIDV Bank",
+  //   "HD Bank",
+  //   "Kien Long Bank",
+  //   "Sacombank",
+  //   "MB Bank",
+  //   "OCB Bank",
+  //   "PV Bank",
+  //   "SeA Bank",
+  //   "Standard Chartered Bank",
+  //   "TP Bank",
+  //   "VP Bank",
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -81,15 +82,16 @@ class BankList extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 16),
                       child: ListTile(
                         onTap: () {
-                          routeArgs = bankNames[index];
+                          routeArgs = DUMMY_BANKS[index].name;
                           Navigator.of(context).pop(routeArgs);
                         },
                         leading: CircleAvatar(
                           backgroundColor: AppTheme.colors.white,
-                          backgroundImage: AssetImage(images[index]),
+                          backgroundImage:
+                              AssetImage(DUMMY_BANKS[index].avatarLink),
                         ),
                         title: Text(
-                          bankNames[index],
+                          DUMMY_BANKS[index].name,
                           style: TextStyle(
                             fontFamily: 'SF-Pro-Text',
                             fontSize: 17.0,
@@ -100,7 +102,7 @@ class BankList extends StatelessWidget {
                       ),
                     );
                   },
-                  itemCount: images.length,
+                  itemCount: DUMMY_BANKS.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                 ),
