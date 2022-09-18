@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
-import './atmDetails_screen.dart';
+import 'atm_details_screen.dart';
+import './atm_list_screen.dart';
 import '../widgets/map.dart';
+import '../widgets/atm_list.dart';
 
 class MapScreen extends StatefulWidget {
   static const routeName = '/map';
@@ -36,6 +38,10 @@ class _MapScreenState extends State<MapScreen> {
     return await Geolocator.getCurrentPosition();
   }
 
+  void _fullList(context) {
+    Navigator.of(context).pushNamed(ATMListScreen.routeName);
+  }
+
   @override
   void initState() {
     // Geolocator.getCurrentPosition().then((currLocation) {
@@ -57,10 +63,35 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _currentLocation == null
-          ? const Center(child: CircularProgressIndicator())
-          : Map(_markers, _currentLocation!),
-      // body: ATMDetailsScreen(),
+      body: Stack(
+        children: [
+          _currentLocation == null
+              ? const Center(child: CircularProgressIndicator())
+              : Map(_markers, _currentLocation!),
+          ATMlist(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton.small(
+                  child: Icon(
+                    Icons.zoom_out_map_rounded,
+                    size: 24,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => _fullList(context),
+                  backgroundColor: Theme.of(context).primaryColor,
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
