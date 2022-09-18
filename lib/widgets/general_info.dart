@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 import './table.dart';
+import '../models/atm.dart';
 
 class GeneralInfo extends StatelessWidget {
   final ScrollController scrollController;
+  final ATM ATMInfo;
 
-  GeneralInfo(this.scrollController);
+  GeneralInfo(this.scrollController, this.ATMInfo);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class GeneralInfo extends StatelessWidget {
           ],
         ),
       ),
-      Text('ACB - Da Kao', style: TextStyle(fontSize: 20)),
+      Text('${ATMInfo.bank} - ${ATMInfo.name}', style: TextStyle(fontSize: 20)),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         //textBaseline: TextBaseline.alphabetic,

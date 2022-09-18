@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
-import '../widgets/generalInfo.dart';
+import '../widgets/general_info.dart';
+import '../models/atm.dart';
 
 class ATMDetailsScreen extends StatelessWidget {
   static const routeName = '/ATM-details';
 
   @override
   Widget build(BuildContext context) {
+    final routeArgs = ModalRoute.of(context)?.settings.arguments as ATM;
+    ATM ATMInfo = routeArgs;
     return Scaffold(
         appBar: AppBar(
-          title: Text('ATM Details'),
+          title: Text('ATM Details',
+              style: TextStyle(
+                color: Colors.black,
+              )),
           backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
         ),
         backgroundColor: Colors.grey,
         body: Stack(
@@ -36,7 +45,7 @@ class ATMDetailsScreen extends StatelessWidget {
                       ),
                       child: Padding(
                           padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: GeneralInfo(scrollController)));
+                          child: GeneralInfo(scrollController, ATMInfo)));
                 },
               ),
             ),
@@ -44,31 +53,3 @@ class ATMDetailsScreen extends StatelessWidget {
         ));
   }
 }
-
-
-/*ListView.builder(
-                          itemCount: 5,
-                          controller: scrollController,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index == 0) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 120),
-                                child: Column(
-                                  children: [
-                                    Divider(
-                                      thickness: 5,
-                                      color: Color.fromARGB(255, 161, 161, 161),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            } else {
-                              return Card(
-                                child: ListTile(
-                                  title: Text('${index}'),
-                                ),
-                              );
-                            }
-                          },
-                        ),*/
