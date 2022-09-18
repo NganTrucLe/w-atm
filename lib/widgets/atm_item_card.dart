@@ -10,10 +10,12 @@ class ATM_item_card extends StatelessWidget {
 
   @override
   void selectATM(BuildContext context) {
-    Navigator.of(context).pushNamed(
+    Navigator.of(context)
+        .pushNamed(
       ATMDetailsScreen.routeName,
       arguments: ATMInfo as ATM,
-    ).then((result) {
+    )
+        .then((result) {
       if (result != null) {
         // removeItem(result);
       }

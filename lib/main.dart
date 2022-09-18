@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:watm/screens/atm_details_screen.dart';
 import 'package:watm/screens/atm_list_screen.dart';
+import 'package:watm/screens/bank_list_screen.dart';
 import 'package:watm/theme/theme_constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:watm/theme/colors.dart';
 import './screens/tabs_screen.dart';
 import './screens/account_screen.dart';
 import './screens/map_screen.dart';
@@ -37,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => TabsScreen(),
         SuggestionScreen.routeName: (context) => SuggestionScreen(),
+        BankList.routeName: (context) => BankList(),
         MapScreen.routeName: (context) => MapScreen(),
         AccountScreen.routeName: (context) => AccountScreen(),
         ATMDetailsScreen.routeName: (context) => ATMDetailsScreen(),

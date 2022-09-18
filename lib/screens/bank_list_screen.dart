@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:watm/theme/theme_constants.dart';
 
 class BankList extends StatelessWidget {
+  static const routeName = '/banks';
+
   List<String> images = [
     "assets/images/ACB.png",
     "assets/images/Bac A Bank.png",
@@ -36,19 +38,28 @@ class BankList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var routeArgs = ModalRoute.of(context)?.settings.arguments as String?;
     return Scaffold(
-      body: ListView(
-        children: [
-          SizedBox(
-            height: 25,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Container(
+      appBar: AppBar(
+        title: Text('ATM Details',
+            style: TextStyle(
+              color: Colors.black,
+            )),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 16),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(24)),
+                  borderRadius: BorderRadius.circular(10)),
               child: TextField(
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
@@ -62,33 +73,41 @@ class BankList extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          ListView.builder(
-            itemBuilder: (BuildContext, index) {
-              return Card(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: AppTheme.colors.white,
-                    backgroundImage: AssetImage(images[index]),
-                  ),
-                  title: Text(
-                    bankNames[index],
-                    style: TextStyle(
-                      fontFamily: 'SF-Pro-Text',
-                      fontSize: 17.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
+            Expanded(
+              child: Container(
+                child: ListView.builder(
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      margin: EdgeInsets.only(bottom: 16),
+                      child: ListTile(
+                        onTap: () {
+                          routeArgs = bankNames[index];
+                          Navigator.of(context).pop(routeArgs);
+                        },
+                        leading: CircleAvatar(
+                          backgroundColor: AppTheme.colors.white,
+                          backgroundImage: AssetImage(images[index]),
+                        ),
+                        title: Text(
+                          bankNames[index],
+                          style: TextStyle(
+                            fontFamily: 'SF-Pro-Text',
+                            fontSize: 17.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  itemCount: images.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
                 ),
-              );
-            },
-            itemCount: images.length,
-            shrinkWrap: true,
-            padding: EdgeInsets.all(5),
-            scrollDirection: Axis.vertical,
-          ),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

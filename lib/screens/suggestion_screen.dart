@@ -45,6 +45,11 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     print(_newNotes);
   }
 
+  Future<void> _bankSelection(BuildContext context) async {
+    final name = await Navigator.of(context).pushNamed('/banks');
+    bank.text = name.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -75,7 +80,11 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                           height: 8,
                         ),
                         TextField(
-                          cursorColor: AppColors().primary500,
+                          onTap: () {
+                            _bankSelection(context);
+                          },
+                          readOnly: true,
+                          showCursor: false,
                           controller: bank,
                           decoration: InputDecoration(
                             labelText: 'Bank',

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/atm_details_screen.dart';
 import '../models/atm.dart';
 
 import '../dummy_data.dart';
