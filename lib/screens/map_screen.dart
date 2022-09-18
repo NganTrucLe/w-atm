@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
+import './atmDetails_screen.dart';
 import '../widgets/map.dart';
 
 class MapScreen extends StatefulWidget {
@@ -26,13 +27,28 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  Future<Position> getUserCurrentLocation() async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) async {
+      await Geolocator.requestPermission();
+    });
+    return await Geolocator.getCurrentPosition();
+  }
+
   @override
   void initState() {
-    Geolocator.getCurrentPosition().then((currLocation) {
+    // Geolocator.getCurrentPosition().then((currLocation) {
+    //   setState(() {
+    //     _currentLocation =
+    //         LatLng(currLocation.latitude, currLocation.longitude);
+    //     _addNewMarker('My current location', currLocation);
+    //   });
+    // });
+    getUserCurrentLocation().then((value) async {
       setState(() {
-        _currentLocation =
-            LatLng(currLocation.latitude, currLocation.longitude);
-        _addNewMarker('My current location', currLocation);
+        _currentLocation = LatLng(value.latitude, value.longitude);
+        _addNewMarker('My current location', value);
       });
     });
     super.initState();
@@ -44,6 +60,7 @@ class _MapScreenState extends State<MapScreen> {
       body: _currentLocation == null
           ? const Center(child: CircularProgressIndicator())
           : Map(_markers, _currentLocation!),
+      // body: ATMDetailsScreen(),
     );
   }
 }
