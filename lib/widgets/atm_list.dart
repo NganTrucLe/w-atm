@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../screens/atmDetails_screen.dart';
+import '../screens/atm_details_screen.dart';
 import '../models/atm.dart';
 
 import '../dummy_data.dart';
-import './ATM_item_card.dart';
+import 'atm_item_card.dart';
 
 class ATMlist extends StatelessWidget {
   static const List<ATM> ATMItem = DUMMY_ATMS;

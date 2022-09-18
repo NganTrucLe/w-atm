@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/atm.dart';
-import '../screens/atmDetails_screen.dart';
+import '../screens/atm_details_screen.dart';
 
 class ATM_item_card extends StatelessWidget {
   final ATM ATMInfo;
