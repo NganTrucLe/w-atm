@@ -54,7 +54,12 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _fullList(context) {
-    Navigator.of(context).pushNamed(ATMListScreen.routeName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ATMListScreen(),
+      ),
+    );
   }
 
   @override

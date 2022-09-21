@@ -6,11 +6,12 @@ import '../models/atm.dart';
 
 class ATMDetailsScreen extends StatelessWidget {
   static const routeName = '/ATM-details';
-
+  final ATM ATMInfo;
+  ATMDetailsScreen(this.ATMInfo);
   @override
   Widget build(BuildContext context) {
-    final routeArgs = ModalRoute.of(context)?.settings.arguments as ATM;
-    ATM ATMInfo = routeArgs;
+    //final routeArgs = ModalRoute.of(context)?.settings.arguments as ATM;
+    //ATM ATMInfo = routeArgs;
     return Scaffold(
         appBar: AppBar(
           title: Text('ATM Details',
