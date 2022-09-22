@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watm/screens/bank_list_screen.dart';
 
 import 'package:watm/theme/colors.dart';
 
@@ -43,10 +44,16 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     print(_withdrawing);
     print(_deposit);
     print(_newNotes);
+    Navigator.pop(context);
   }
 
   Future<void> _bankSelection(BuildContext context) async {
-    final name = await Navigator.of(context).pushNamed('/banks');
+    final name = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BankList(),
+      ),
+    );
     name != null ? bank.text = name.toString() : bank.text = "";
   }
 

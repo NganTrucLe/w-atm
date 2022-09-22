@@ -11,7 +11,7 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  var _currentTab = TabItem.map;
+  var _currentTab = TabItem.account;
   final _navigatorKeys = {
     TabItem.suggestion: GlobalKey<NavigatorState>(),
     TabItem.map: GlobalKey<NavigatorState>(),
@@ -35,9 +35,9 @@ class AppState extends State<App> {
             !await _navigatorKeys[_currentTab]!.currentState!.maybePop();
         if (isFirstRouteInCurrentTab) {
           // if not on the 'main' tab
-          if (_currentTab != TabItem.map) {
+          if (_currentTab != TabItem.account) {
             // select 'main' tab
-            _selectTab(TabItem.map);
+            _selectTab(TabItem.account);
             // back button handled by app
             return false;
           }

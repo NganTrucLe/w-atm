@@ -9,7 +9,6 @@ import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
 
 class MapScreen extends StatefulWidget {
-  static const routeName = '/map';
 
   @override
   State<MapScreen> createState() => _MapScreenState();
