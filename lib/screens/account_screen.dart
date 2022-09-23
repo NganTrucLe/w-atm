@@ -7,7 +7,7 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ATM Details',
+        title: Text('Account',
             style: TextStyle(
               color: Colors.black,
             )),
