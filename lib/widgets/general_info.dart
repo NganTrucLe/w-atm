@@ -59,6 +59,21 @@ class GeneralInfo extends StatelessWidget {
         ],
       ),
       CustomTable(),
+      Container(
+        margin: EdgeInsets.only(top: 10),
+        child: ElevatedButton(
+          onPressed: () =>{},
+          child: Text(
+            'Direct',
+          ),
+          style: ElevatedButton.styleFrom(
+              onPrimary: Colors.white,
+              primary: Theme.of(context).primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 12),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12))),
+        ),
+      ),
     ];
     return ListView.builder(
       itemCount: listItem.length,
