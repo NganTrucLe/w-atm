@@ -60,6 +60,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    # Images
     - assets/images/ACB.png
     - assets/images/Bac A Bank.png
     - assets/images/BIDV.png
@@ -78,6 +79,8 @@ flutter:
     - assets/images/account.svg
     - assets/images/map.png
     - assets/images/iconStatus.svg
+    # Json
+    - assets/data.json
   fonts:
     - family: SF-Pro-Display
       fonts:

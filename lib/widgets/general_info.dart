@@ -35,7 +35,7 @@ class GeneralInfo extends StatelessWidget {
           Icon(Icons.call_rounded,
               color: Theme.of(context).primaryColor, size: 24),
           SizedBox(width: 20),
-          Text('+84 28 6265 3500'),
+          Text(ATMInfo.phone != "" ? ATMInfo.phone : '+84 28 6265 3500'),
         ],
       ),
       Row(

@@ -9,7 +9,6 @@ import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
 
 class MapScreen extends StatefulWidget {
-
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
@@ -35,8 +34,19 @@ class _MapScreenState extends State<MapScreen> {
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       setState(() {
-        _currentAddress =
-            '${place.name}, ${place.thoroughfare}, ${place.locality}';
+        if (place.name != "") {
+          _currentAddress = place.name!;
+          if (place.thoroughfare != "") {
+            _currentAddress += " " + place.thoroughfare!;
+          }
+          if (place.locality != "") {
+            _currentAddress += " " + place.locality!;
+          } else {
+            if (place.subAdministrativeArea != "") {
+              _currentAddress += " " + place.subAdministrativeArea!;
+            }
+          }
+        }
       });
     }).catchError((e) {
       debugPrint(e);
