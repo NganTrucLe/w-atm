@@ -6,6 +6,16 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('ATM Details',
+            style: TextStyle(
+              color: Colors.black,
+            )),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+      ),
       body: Container(
         child: Text('Account'),
       ),

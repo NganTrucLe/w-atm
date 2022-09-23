@@ -9,7 +9,6 @@ import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
 
 class MapScreen extends StatefulWidget {
-  static const routeName = '/map';
 
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -54,7 +53,12 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _fullList(context) {
-    Navigator.of(context).pushNamed(ATMListScreen.routeName);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ATMListScreen(),
+      ),
+    );
   }
 
   @override

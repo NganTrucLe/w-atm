@@ -9,17 +9,13 @@ class ATM_item_card extends StatelessWidget {
   ATM_item_card({required this.ATMInfo});
 
   @override
-  void selectATM(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(
-      ATMDetailsScreen.routeName,
-      arguments: ATMInfo as ATM,
-    )
-        .then((result) {
-      if (result != null) {
-        // removeItem(result);
-      }
-    });
+  void selectATM(BuildContext context, ATM ATMInfo) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ATMDetailsScreen(ATMInfo),
+      ),
+    );
   }
 
   @override
@@ -34,6 +30,6 @@ class ATM_item_card extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: InkWell(
-            onTap: () => selectATM(context), child: Text(ATMInfo.bank)));
+            onTap: () => selectATM(context, ATMInfo), child: Text(ATMInfo.bank)));
   }
 }
