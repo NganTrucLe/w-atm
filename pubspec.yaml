@@ -76,6 +76,8 @@ flutter:
     - assets/images/suggestion.svg
     - assets/images/map.svg
     - assets/images/account.svg
+    - assets/images/map.png
+    - assets/images/iconStatus.svg
   fonts:
     - family: SF-Pro-Display
       fonts:
