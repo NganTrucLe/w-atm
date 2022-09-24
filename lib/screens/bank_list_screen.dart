@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:watm/dummy_bank.dart';
+import '../models/bank.dart';
 //import './dummy_bank.dart';
 import 'package:watm/theme/theme_constants.dart';
+import '../widgets/bank_cart.dart';
 
-class BankList extends StatelessWidget {
+class BankList extends StatefulWidget {
   static const routeName = '/banks';
-  
+
+  final List<Bank> list;
+
+  BankList({required this.list});
+
+  @override
+  _BankList createState() => _BankList();
+}
+
+class _BankList extends State<BankList> {
+  TextEditingController? _textEditingController = TextEditingController();
+  List<BankCard> allBanks = [];
+  List<BankCard> bankOnSearch = [];
+
+  @override
+  void initState() {
+    allBanks = widget.list.map((bank) => BankCard(bank)).toList();
+    bankOnSearch = widget.list.map((bank) => BankCard(bank)).toList();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var routeArgs = ModalRoute.of(context)?.settings.arguments as String?;
@@ -31,6 +53,16 @@ class BankList extends StatelessWidget {
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(10)),
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    bankOnSearch = allBanks
+                        .where((element) => element.BankInfo.name
+                            .toLowerCase()
+                            .contains(value.toLowerCase()))
+                        .toList();
+                  });
+                },
+                controller: _textEditingController,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                       borderSide:
@@ -44,38 +76,32 @@ class BankList extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
-                child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index) {
-                    return Card(
-                      margin: EdgeInsets.only(bottom: 16),
-                      child: ListTile(
-                        onTap: () {
-                          routeArgs = DUMMY_BANKS[index].name;
-                          Navigator.of(context).pop(routeArgs);
-                        },
-                        leading: CircleAvatar(
-                          backgroundColor: AppTheme.colors.white,
-                          backgroundImage:
-                              AssetImage(DUMMY_BANKS[index].avatarLink),
-                        ),
-                        title: Text(
-                          DUMMY_BANKS[index].name,
-                          style: TextStyle(
-                            fontFamily: 'SF-Pro-Text',
-                            fontSize: 17.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
+              child: _textEditingController!.text.isNotEmpty &&
+                      bankOnSearch.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.error, size: 60),
+                          SizedBox(height: 15),
+                          Text(
+                            'No Results Found',
+                            style: TextStyle(
+                                fontSize: 35, fontWeight: FontWeight.bold),
+                          )
+                        ],
                       ),
-                    );
-                  },
-                  itemCount: DUMMY_BANKS.length,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                ),
-              ),
+                    )
+                  : ListView.builder(
+                      itemCount: _textEditingController!.text.isNotEmpty
+                          ? bankOnSearch.length
+                          : allBanks.length,
+                      itemBuilder: (content, index) {
+                        return _textEditingController!.text.isNotEmpty
+                            ? bankOnSearch[index]
+                            : allBanks[index];
+                      },
+                    ),
             ),
           ],
         ),
