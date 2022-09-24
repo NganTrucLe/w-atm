@@ -44,7 +44,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     print(_withdrawing);
     print(_deposit);
     print(_newNotes);
-    Navigator.pop(context);
   }
 
   Future<void> _bankSelection(BuildContext context) async {

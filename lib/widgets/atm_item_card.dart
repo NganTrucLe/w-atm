@@ -30,6 +30,12 @@ class ATM_item_card extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: InkWell(
-            onTap: () => selectATM(context, ATMInfo), child: Text(ATMInfo.bank)));
+            onTap: () => selectATM(context, ATMInfo),
+            child: ListTile(
+              title: Text(ATMInfo.name != ""
+                  ? ATMInfo.bank + ' - ' + ATMInfo.name
+                  : ATMInfo.bank),
+              subtitle: Text(ATMInfo.address),
+            )));
   }
 }

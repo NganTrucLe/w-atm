@@ -1,16 +1,10 @@
-import 'package:flutter/foundation.dart';
-
 enum KindOfATM {
   Withdraw,
   Deposit,
   Both,
 }
 
-enum Density {
-  Crowed,
-  Medium,
-  Not
-}
+enum Density { Crowed, Medium, Not }
 
 class ATM {
   final String bank;
@@ -18,7 +12,7 @@ class ATM {
   // final String id; // Tên PGD
   // final String avatarLink;
   final String address;
-  // final String phone;
+  final String phone;
   // final KindOfATM kindOfATM;
   // final int minimumLimit;
   // final bool cashThroughBank;
@@ -30,7 +24,7 @@ class ATM {
     // required this.id,
     // required this.avatarLink,
     required this.address,
-    // required this.phone,
+    required this.phone,
     // required this.kindOfATM,
     // required this.minimumLimit,
     // required this.cashThroughBank,
