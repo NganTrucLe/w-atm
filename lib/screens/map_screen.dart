@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:flutter/services.dart';
+import 'dart:convert';
 
 import './atm_list_screen.dart';
 import '../widgets/map.dart';
 import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
+import '../models/atm.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -17,6 +20,8 @@ class _MapScreenState extends State<MapScreen> {
   final List<Marker> _markers = <Marker>[];
   LatLng? _currentLocation;
   String _currentAddress = "";
+
+  List<ATM> ATMItem = [];
 
   void _addNewMarker(String title, Position location) {
     final newMarker = Marker(
@@ -62,22 +67,41 @@ class _MapScreenState extends State<MapScreen> {
     return await Geolocator.getCurrentPosition();
   }
 
+  Future<dynamic> readJson() async {
+    final String response = await rootBundle.loadString('assets/data.json');
+    return await json.decode(response);
+  }
+
   void _fullList(context) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListScreen(),
+        builder: (context) => ListScreen(list: ATMItem),
       ),
     );
   }
 
   @override
   void initState() {
+    // Create current location marker
     getUserCurrentLocation().then((value) async {
       setState(() {
         _currentLocation = LatLng(value.latitude, value.longitude);
         _getAddressFromLatLng(value);
         _addNewMarker("My current location", value);
+      });
+    });
+    // Read json file
+    readJson().then((data) async {
+      setState(() {
+        var list = data["District 1"] + data["District 2"] + data["District 3"];
+        list.map((item) {
+          ATMItem.add(ATM(
+              bank: item["Bank"] ?? "",
+              name: item["Name"] ?? "",
+              address: item["Address"] ?? "",
+              phone: item["Phone"] ?? ""));
+        }).toList();
       });
     });
     super.initState();
@@ -92,7 +116,7 @@ class _MapScreenState extends State<MapScreen> {
               ? const Center(child: CircularProgressIndicator())
               : Map(_markers, _currentLocation!),
           userLocation(_currentAddress),
-          ATMlist(),
+          ATMlist(list: ATMItem),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
