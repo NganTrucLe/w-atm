@@ -17,7 +17,7 @@ class ATM {
   final String name;
   // final String id; // Tên PGD
   // final String avatarLink;
-  // final String address;
+  final String address;
   // final String phone;
   // final KindOfATM kindOfATM;
   // final int minimumLimit;
@@ -29,7 +29,7 @@ class ATM {
     required this.name,
     // required this.id,
     // required this.avatarLink,
-    // required this.address,
+    required this.address,
     // required this.phone,
     // required this.kindOfATM,
     // required this.minimumLimit,
