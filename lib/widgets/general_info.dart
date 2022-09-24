@@ -26,7 +26,7 @@ class GeneralInfo extends StatelessWidget {
           Icon(Icons.location_on_rounded,
               color: Theme.of(context).primaryColor, size: 24),
           SizedBox(width: 20),
-          Text('232 Pasteur, Ward 10, District 1'),
+          Text(ATMInfo.address),
         ],
       ),
       Row(
