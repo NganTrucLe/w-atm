@@ -2,28 +2,23 @@ import 'package:flutter/material.dart';
 
 import './table.dart';
 import '../models/atm.dart';
+import './status_tag.dart';
 
 class GeneralInfo extends StatelessWidget {
-  final ScrollController scrollController;
   final ATM ATMInfo;
 
-  GeneralInfo(this.scrollController, this.ATMInfo);
+  GeneralInfo(this.ATMInfo);
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> listItem = <Widget>[
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 120),
-        child: Column(
-          children: [
-            Divider(
-              thickness: 5,
-              color: Color.fromARGB(255, 161, 161, 161),
-            ),
-          ],
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('${ATMInfo.bank} - ${ATMInfo.name}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          StatusTag(),
+        ],
       ),
-      Text('${ATMInfo.bank} - ${ATMInfo.name}', style: TextStyle(fontSize: 20)),
       Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         //textBaseline: TextBaseline.alphabetic,
@@ -31,7 +26,7 @@ class GeneralInfo extends StatelessWidget {
           Icon(Icons.location_on_rounded,
               color: Theme.of(context).primaryColor, size: 24),
           SizedBox(width: 20),
-          Text('232 Pasteur, Ward 10, District 1'),
+          Text(ATMInfo.address),
         ],
       ),
       Row(
@@ -77,7 +72,6 @@ class GeneralInfo extends StatelessWidget {
     ];
     return ListView.builder(
       itemCount: listItem.length,
-      controller: scrollController,
       itemBuilder: (BuildContext context, int index) {
         return Container(
           margin: EdgeInsets.symmetric(vertical: 6),
