@@ -3,10 +3,14 @@ import 'package:watm/models/atm.dart';
 import 'package:watm/widgets/atm_result.dart';
 import '../theme/theme_constants.dart';
 import '../widgets/search_result.dart';
-import '../dummy_data.dart';
 
 class ListScreen extends StatefulWidget {
   static const routeName = '/list-screen';
+
+  final List<ATM> list;
+
+  ListScreen({required this.list});
+
   @override
   _ListScreen createState() => _ListScreen();
 }
@@ -15,8 +19,21 @@ class _ListScreen extends State<ListScreen> {
   TextEditingController? _textEditingController = TextEditingController();
   //List<String> atmListOnSearch = [];
   //List<String> atmListOnSearchAddress = [];
-  List<ATMResult> allAtm = DUMMY_ATMS.map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}')).toList();
-  List<ATMResult> atmOnSearch = DUMMY_ATMS.map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}')).toList();
+  List<ATMResult> allAtm = [];
+  List<ATMResult> atmOnSearch = [];
+
+  @override
+  void initState() {
+    allAtm = widget.list
+        .map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}'))
+        .toList();
+    atmOnSearch = widget.list
+        .map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}'))
+        .toList();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +47,9 @@ class _ListScreen extends State<ListScreen> {
             onChanged: (value) {
               setState(() {
                 atmOnSearch = allAtm
-                    .where((element) => element.name.toLowerCase().contains(value.toLowerCase()))
+                    .where((element) => element.name
+                        .toLowerCase()
+                        .contains(value.toLowerCase()))
                     .toList();
               });
             },
@@ -101,8 +120,8 @@ class _ListScreen extends State<ListScreen> {
                   : allAtm.length,
               itemBuilder: (content, index) {
                 return _textEditingController!.text.isNotEmpty
-                  ? atmOnSearch[index]
-                  : allAtm[index];
+                    ? atmOnSearch[index]
+                    : allAtm[index];
               },
             ),
     );
