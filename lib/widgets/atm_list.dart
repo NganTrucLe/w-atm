@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'dart:convert';
 
 import '../models/atm.dart';
 import 'atm_item_card.dart';
 
 class ATMlist extends StatefulWidget {
+  final List<ATM> list;
+
+  ATMlist({required this.list});
+
   @override
   State<ATMlist> createState() => _ATMlistState();
 }
@@ -14,25 +16,9 @@ class _ATMlistState extends State<ATMlist> {
   late ATM _item;
   List<ATM> ATMItem = [];
 
-  Future<dynamic> readJson() async {
-    final String response = await rootBundle.loadString('assets/data.json');
-    return await json.decode(response);
-  }
-
   @override
   void initState() {
-    readJson().then((data) async {
-      setState(() {
-        for (int i = 0; i < data["All"].length; i++) {
-          _item = ATM(
-              bank: data["All"][i]["Bank"],
-              name: data["All"][i]["Name"] ?? "",
-              address: data["All"][i]["Address"],
-              phone: data["All"][i]["Phone"] ?? "");
-          ATMItem.add(_item);
-        }
-      });
-    });
+    ATMItem = widget.list;
     super.initState();
   }
 
