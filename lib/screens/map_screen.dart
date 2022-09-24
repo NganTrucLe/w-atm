@@ -56,7 +56,7 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ATMListScreen(),
+        builder: (context) => ListScreen(),
       ),
     );
   }
