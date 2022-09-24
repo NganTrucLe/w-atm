@@ -15,8 +15,8 @@ class _ListScreen extends State<ListScreen> {
   TextEditingController? _textEditingController = TextEditingController();
   //List<String> atmListOnSearch = [];
   //List<String> atmListOnSearchAddress = [];
-  List<ATMResult> atmOnSearch = [];
   List<ATMResult> allAtm = DUMMY_ATMS.map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}')).toList();
+  List<ATMResult> atmOnSearch = DUMMY_ATMS.map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}')).toList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _ListScreen extends State<ListScreen> {
             onChanged: (value) {
               setState(() {
                 atmOnSearch = allAtm
-                    .where((element) => element.name./*toLowerCase().*/contains(value/*.toLowerCase()*/))
+                    .where((element) => element.name.toLowerCase().contains(value.toLowerCase()))
                     .toList();
               });
             },
@@ -100,7 +100,9 @@ class _ListScreen extends State<ListScreen> {
                   ? atmOnSearch.length
                   : allAtm.length,
               itemBuilder: (content, index) {
-                return ATMResult(DUMMY_ATMS[index], '${DUMMY_ATMS[index].bank} - ${DUMMY_ATMS[index].name}');
+                return _textEditingController!.text.isNotEmpty
+                  ? atmOnSearch[index]
+                  : allAtm[index];
               },
             ),
     );
