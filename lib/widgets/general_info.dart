@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import './table.dart';
 import '../models/atm.dart';
@@ -9,13 +10,27 @@ class GeneralInfo extends StatelessWidget {
 
   GeneralInfo(this.ATMInfo);
 
+  static Future<void> _launchGoogleMap(ATM ATMInfo) async {
+    String query = Uri.encodeComponent(ATMInfo.address);
+    String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
+    if (await canLaunch(googleUrl)) {
+      await launch(googleUrl);
+    } else {
+      throw 'Could not open the map.';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> listItem = <Widget>[
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('${ATMInfo.bank} - ${ATMInfo.name}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(
+              ATMInfo.name != ""
+                  ? '${ATMInfo.bank} - ${ATMInfo.name}'
+                  : '${ATMInfo.bank}',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           StatusTag(),
         ],
       ),
@@ -57,7 +72,7 @@ class GeneralInfo extends StatelessWidget {
       Container(
         margin: EdgeInsets.only(top: 10),
         child: ElevatedButton(
-          onPressed: () =>{},
+          onPressed: () => {_launchGoogleMap(ATMInfo)},
           child: Text(
             'Direct',
           ),
