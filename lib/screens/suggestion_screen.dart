@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:watm/dummy_bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
 
 import 'package:watm/theme/colors.dart';
@@ -50,7 +51,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     final name = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => BankList(),
+        builder: (context) => BankList(list: DUMMY_BANKS),
       ),
     );
     name != null ? bank.text = name.toString() : bank.text = "";
