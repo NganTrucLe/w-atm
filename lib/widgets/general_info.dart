@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:io';
 
 import './table.dart';
 import '../models/atm.dart';
@@ -13,10 +14,24 @@ class GeneralInfo extends StatelessWidget {
   static Future<void> _launchGoogleMap(ATM ATMInfo) async {
     String query = Uri.encodeComponent(ATMInfo.address);
     String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
-    if (await canLaunch(googleUrl)) {
-      await launch(googleUrl);
-    } else {
-      throw 'Could not open the map.';
+    String appleMapUrl = "http://maps.apple.com/?q=$query";
+    if (Platform.isAndroid) {
+      try {
+        if (await canLaunch(googleUrl)) {
+          await launch(googleUrl);
+        }
+      } catch (error) {
+        throw 'Cannot launch Google map';
+      }
+    }
+    if (Platform.isIOS) {
+      try {
+        if (await canLaunch(appleMapUrl)) {
+          await launch(appleMapUrl);
+        }
+      } catch (error) {
+        throw 'Cannot launch Apple map.';
+      }
     }
   }
 
