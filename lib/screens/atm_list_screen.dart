@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:watm/models/atm.dart';
 import 'package:watm/widgets/atm_result.dart';
 import '../theme/theme_constants.dart';
-import '../widgets/search_result.dart';
 
 class ListScreen extends StatefulWidget {
   static const routeName = '/list-screen';
@@ -17,8 +16,6 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreen extends State<ListScreen> {
   TextEditingController? _textEditingController = TextEditingController();
-  //List<String> atmListOnSearch = [];
-  //List<String> atmListOnSearchAddress = [];
   List<ATMResult> allAtm = [];
   List<ATMResult> atmOnSearch = [];
 
@@ -71,35 +68,6 @@ class _ListScreen extends State<ListScreen> {
           color: Colors.black,
         ),
       ),
-      // body\\\
-      // appBar: AppBar(
-      //   title: Container(
-      //     //margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-      //     decoration: BoxDecoration(
-      //       color: Colors.blue.shade200,
-      //       borderRadius: BorderRadius.circular(15),
-      //     ),
-      //     child: TextField(
-      //       onChanged: (value) {
-      //         setState(() {
-      //           atmListOnSearch = atmList
-      //               .where((element) => element.contains(value))
-      //               .toList();
-      //         });
-      //       },
-      //       controller: _textEditingController,
-      //       decoration: InputDecoration(
-      //         prefixIcon: const Icon(Icons.search),
-      //         hintText: 'find an ATM',
-      //         contentPadding: EdgeInsets.all(15),
-      //         border: InputBorder.none,
-      //         errorBorder: InputBorder.none,
-      //         enabledBorder: InputBorder.none,
-      //         focusedBorder: InputBorder.none,
-      //       ),
-      //     ),
-      //   ),
-      // ),
       body: _textEditingController!.text.isNotEmpty && atmOnSearch.isEmpty
           ? Center(
               child: Column(
@@ -114,19 +82,20 @@ class _ListScreen extends State<ListScreen> {
                 ],
               ),
             )
-          : ListView.builder(
-              itemCount: _textEditingController!.text.isNotEmpty
-                  ? atmOnSearch.length
-                  : allAtm.length,
-              itemBuilder: (content, index) {
-                return _textEditingController!.text.isNotEmpty
-                    ? atmOnSearch[index]
-                    : allAtm[index];
-              },
-            ),
+          : Container(
+            margin: EdgeInsets.only(top: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ListView.builder(
+                itemCount: _textEditingController!.text.isNotEmpty
+                    ? atmOnSearch.length
+                    : allAtm.length,
+                itemBuilder: (content, index) {
+                  return _textEditingController!.text.isNotEmpty
+                      ? atmOnSearch[index]
+                      : allAtm[index];
+                },
+              ),
+          ),
     );
   }
 }
-
-// https://www.youtube.com/watch?v=ZHdg2kfKmjI&ab_channel=JohannesMilke
-// https://www.youtube.com/watch?v=XIyyZpZiHWc&ab_channel=CodingwithHadi

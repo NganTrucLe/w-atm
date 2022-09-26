@@ -116,7 +116,9 @@ class _MapScreenState extends State<MapScreen> {
               ? const Center(child: CircularProgressIndicator())
               : Map(_markers, _currentLocation!),
           userLocation(_currentAddress),
-          ATMlist(list: ATMItem),
+          _currentLocation == null
+              ? const Center(child: CircularProgressIndicator())
+              : ATMlist(list: ATMItem, currentLocation: _currentLocation!),
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
