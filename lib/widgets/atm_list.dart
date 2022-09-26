@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../models/atm.dart';
 import 'atm_item_card.dart';
 
 class ATMlist extends StatefulWidget {
   final List<ATM> list;
+  LatLng currentLocation;
 
-  ATMlist({required this.list});
+  ATMlist({required this.list, required this.currentLocation});
 
   @override
   State<ATMlist> createState() => _ATMlistState();
@@ -15,10 +17,12 @@ class ATMlist extends StatefulWidget {
 class _ATMlistState extends State<ATMlist> {
   late ATM _item;
   List<ATM> ATMItem = [];
+  late LatLng origins;
 
   @override
   void initState() {
     ATMItem = widget.list;
+    origins = widget.currentLocation;
     super.initState();
   }
 
@@ -34,7 +38,7 @@ class _ATMlistState extends State<ATMlist> {
               itemCount: ATMItem.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                return ATM_item_card(ATMInfo: ATMItem[index]);
+                return ATM_item_card(ATMInfo: ATMItem[index], origins: origins);
               }),
         )
       ],
