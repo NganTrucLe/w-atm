@@ -17,8 +17,9 @@ enum Status {
 
 class StatusTag extends StatelessWidget {
   @override
+  final Status status;
+  StatusTag(this.status);
   Widget build(BuildContext context) {
-    Status status = Status.working;
     return Container(
         padding: EdgeInsets.symmetric(
           horizontal: 8,

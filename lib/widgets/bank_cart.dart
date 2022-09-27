@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watm/models/bank.dart';
 import 'package:watm/theme/theme_constants.dart';
-import '../models/atm.dart';
-import '../dummy_bank.dart';
 
 class BankCard extends StatelessWidget {
   final Bank BankInfo;
@@ -11,13 +9,14 @@ class BankCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var routeArgs = ModalRoute.of(context)?.settings.arguments as String?;
     return Card(
       margin: EdgeInsets.only(bottom: 16),
       child: ListTile(
-        // onTap: () {
-        //   routeArgs = BankInfo.name;
-        //   Navigator.of(context).pop(routeArgs);
-        // },
+        onTap: () {
+          routeArgs = BankInfo.name;
+          Navigator.of(context).pop(routeArgs);
+        },
         leading: CircleAvatar(
           backgroundColor: AppTheme.colors.white,
           backgroundImage: AssetImage(BankInfo.avatarLink),

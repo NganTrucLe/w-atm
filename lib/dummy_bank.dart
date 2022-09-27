@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import './models/bank.dart';
 
 const DUMMY_BANKS = [
-  Bank(name: 'ACB', avatarLink: 'assets/images/ACB.png'),
+  Bank(name: 'ACB ', avatarLink: 'assets/images/ACB.png'),
+  Bank(name: 'Agribank', avatarLink: 'assets/images/Agribank.png'),
   Bank(name: 'Bac A Bank', avatarLink: 'assets/images/Bac A Bank.png'),
   Bank(name: 'BIDV', avatarLink: 'assets/images/BIDV.png'),
   Bank(name: 'HDBank', avatarLink: 'assets/images/HDBank.png'),

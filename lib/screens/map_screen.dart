@@ -23,10 +23,10 @@ class _MapScreenState extends State<MapScreen> {
 
   List<ATM> ATMItem = [];
 
-  void _addNewMarker(String title, Position location) {
+  void _addNewMarker(String title, double latitude, double longitude) {
     final newMarker = Marker(
         markerId: MarkerId((_markers.length + 1).toString()),
-        position: LatLng(location.latitude, location.longitude),
+        position: LatLng(latitude, longitude),
         infoWindow: InfoWindow(title: title));
 
     setState(() {
@@ -76,7 +76,7 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListScreen(list: ATMItem),
+        builder: (context) => ListScreen(list: ATMItem, origins: _currentLocation as LatLng),
       ),
     );
   }
@@ -88,19 +88,24 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {
         _currentLocation = LatLng(value.latitude, value.longitude);
         _getAddressFromLatLng(value);
-        _addNewMarker("My current location", value);
+        _addNewMarker("My current location", value.latitude, value.longitude);
       });
     });
     // Read json file
     readJson().then((data) async {
       setState(() {
         var list = data["District 1"] + data["District 2"] + data["District 3"];
-        list.map((item) {
+        list.map((item) async {
+          List<Location> locations = await locationFromAddress(item['Address']);
+          _addNewMarker(item['Bank'] + ' - ' + item['Name'],
+              locations[0].latitude, locations[0].longitude);
           ATMItem.add(ATM(
               bank: item["Bank"] ?? "",
               name: item["Name"] ?? "",
               address: item["Address"] ?? "",
-              phone: item["Phone"] ?? ""));
+              phone: item["Phone"] ?? "",
+              latitude: locations[0].latitude,
+              longitude: locations[0].longitude));
         }).toList();
       });
     });
@@ -109,36 +114,40 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          _currentLocation == null
-              ? const Center(child: CircularProgressIndicator())
-              : Map(_markers, _currentLocation!),
-          userLocation(_currentAddress),
-          ATMlist(list: ATMItem),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FloatingActionButton.small(
-                  child: Icon(
-                    Icons.zoom_out_map_rounded,
-                    size: 24,
-                    color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            _currentLocation == null
+                ? const Center(child: CircularProgressIndicator())
+                : Map(_markers, _currentLocation!),
+            userLocation(_currentAddress),
+            _currentLocation == null
+                ? const Center(child: CircularProgressIndicator())
+                : ATMlist(list: ATMItem, currentLocation: _currentLocation!),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FloatingActionButton.small(
+                    child: Icon(
+                      Icons.zoom_out_map_rounded,
+                      size: 24,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => _fullList(context),
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  onPressed: () => _fullList(context),
-                  backgroundColor: Theme.of(context).primaryColor,
                 ),
-              ),
-              SizedBox(
-                width: double.infinity,
-              )
-            ],
-          )
-        ],
+                SizedBox(
+                  width: double.infinity,
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
