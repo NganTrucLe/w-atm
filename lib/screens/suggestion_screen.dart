@@ -45,8 +45,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     if (_withdrawing && _deposit && _newNotes) {
       this.message = "Your amount is below daily ATM withdrawal limit";
       this.instruction = "Change your amount to view suggestion.";
-    } 
-    else if (bank.text == "" || amount.text == "") {
+    } else if (bank.text == "" || amount.text == "") {
       this.message = "You haven’t fill amount yet";
       this.instruction = "Cancel to view map without filling amount.";
     }
@@ -128,7 +127,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                       Icons.list,
                       color: AppColors().neutral500,
                     ),
-<<<<<<< HEAD
                     filled: true,
                     fillColor: AppColors().white,
                     enabledBorder: UnderlineInputBorder(
@@ -288,30 +286,5 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
             ),
             body: appBody,
           );
-=======
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        width: double.infinity,
-                        child: CupertinoButton.filled(
-                          onPressed: () {
-                            submitData();
-                            _showAlertDialog(context);
-                          },
-                          child: Text(
-                            'Apply',
-                            style: TextStyle(
-                              fontFamily: "SF Pro Text",
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ))));
->>>>>>> e8f8337cb6b8d69088370089ccbce1782a37fc73
   }
 }
