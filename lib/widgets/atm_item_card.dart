@@ -8,6 +8,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../helpers/location_helper.dart';
 import '../models/atm.dart';
 import '../screens/atm_details_screen.dart';
+import './status_tag.dart';
+import '../theme/theme_constants.dart';
+import '../dummy_bank.dart';
 
 class ATM_item_card extends StatefulWidget {
   final ATM ATMInfo;
@@ -57,7 +60,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ATMDetailsScreen(ATMInfo),
+        builder: (context) => ATMDetailsScreen(ATMInfo, distance),
       ),
     );
   }
@@ -68,8 +71,8 @@ class _ATM_item_cardState extends State<ATM_item_card> {
     return Container(
         margin: EdgeInsets.only(right: 16),
         width: 320,
-        height: 120,
-        padding: EdgeInsets.all(12),
+        height: 80,
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
@@ -77,16 +80,42 @@ class _ATM_item_cardState extends State<ATM_item_card> {
         child: InkWell(
             onTap: () => selectATM(context, widget.ATMInfo),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ListTile(
-                  title: Text(widget.ATMInfo.name != ""
-                      ? widget.ATMInfo.bank + ' - ' + widget.ATMInfo.name
-                      : widget.ATMInfo.bank),
-                  subtitle: Text(widget.ATMInfo.address),
+                  leading: CircleAvatar(
+                    radius: 16,
+                    backgroundColor: AppTheme.colors.white,
+                    backgroundImage: AssetImage(DUMMY_BANKS[0].avatarLink),
+                  ),
+                  contentPadding: EdgeInsets.zero,
+                  minLeadingWidth: 32,
+                  title: Text(
+                    widget.ATMInfo.name != ""
+                        ? widget.ATMInfo.bank + ' - ' + widget.ATMInfo.name
+                        : widget.ATMInfo.bank,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    maxLines: 1,
+                  ),
+                  subtitle: Text(
+                    widget.ATMInfo.address,
+                    maxLines: 2,
+                    style: TextStyle(overflow: TextOverflow.ellipsis),
+                  ),
                 ),
-                Text(
-                  distance,
-                  style: TextStyle(color: Colors.grey),
+                Row(
+                  textBaseline: TextBaseline.ideographic,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    StatusTag(Status.working),
+                    Text(
+                      distance,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
                 ),
               ],
             )));

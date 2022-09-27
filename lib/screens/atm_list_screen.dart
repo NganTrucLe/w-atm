@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'package:watm/models/atm.dart';
 import 'package:watm/widgets/atm_result.dart';
 import '../theme/theme_constants.dart';
@@ -7,8 +9,9 @@ class ListScreen extends StatefulWidget {
   static const routeName = '/list-screen';
 
   final List<ATM> list;
+  final LatLng origins;
 
-  ListScreen({required this.list});
+  ListScreen({required this.list, required this.origins});
 
   @override
   _ListScreen createState() => _ListScreen();
@@ -19,13 +22,14 @@ class _ListScreen extends State<ListScreen> {
   List<ATMResult> allAtm = [];
   List<ATMResult> atmOnSearch = [];
 
+
   @override
   void initState() {
     allAtm = widget.list
-        .map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}'))
+        .map((atm) => ATMResult(ATMInfo: atm, name: '${atm.bank} - ${atm.name}', origins: widget.origins))
         .toList();
     atmOnSearch = widget.list
-        .map((atm) => ATMResult(atm, '${atm.bank} - ${atm.name}'))
+        .map((atm) => ATMResult(ATMInfo: atm, name: '${atm.bank} - ${atm.name}', origins: widget.origins))
         .toList();
 
     super.initState();
