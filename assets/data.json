@@ -26,17 +26,17 @@
             "Address": "18A Dinh Tien Hoang Str."
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": "CN Sài Gòn",
             "Address": "22-24-26 Pasteur, Phường Nguyễn Thái Bình, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": "Hội Sở",
             "Address": "25 Bis Nguyễn Thị Minh Khai, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": "Sở Y Tế 520",
             "Address": "59 Nguyễn Thị Minh Khai, Phường Bến Thành, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam"
         },
@@ -59,12 +59,12 @@
             "Phone": "1800585888"
         },
         {
-            "Bank": "MB",
+            "Bank": "MBBank",
             "Name": "Hàm Nghi",
             "Address": "Số 55 Nam Kỳ Khởi Nghĩa, phường Nguyễn Thái Bình, quận 1, Hồ Chí Minh"
         },
         {
-            "Bank": "MB",
+            "Bank": "MBBank",
             "Name": "CN Sài Gòn",
             "Address": "Số 172 Hai Bà Trưng, Đa Kao, quận 1, Hồ Chí Minh"
         },
@@ -89,7 +89,7 @@
             "Address": "135 Trần Hưng Đạo, Quận 1, TP.HCM"
         },
         {
-            "Bank": "PVcombank",
+            "Bank": "PVCombank",
             "Name": "Bảy Hiền",
             "Address": "45ABCD Đinh Tiên Hoàng, phường Bến Nghé, quận 1, TP.HCM"
         },
@@ -178,22 +178,22 @@
             "Address": "First & Ground Floor, Shophouse A1-0001, Lot M1, M2 (Sarimi), No. 74, Nguyen Co Thach Street, An Loi Dong Ward, District 2, Ho Chi Minh City"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": " Đông Sài Gòn",
             "Address": "260 Trần Não, Phường Bình An, Quận 2, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": " Nguyễn Duy Trinh",
             "Address": "201 Nguyễn Duy Trinh, Phường Bình Trưng Tây, Quận 2, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": " Thảo Điền",
             "Address": "14S1 Đường số 38, Phường Thảo Điền, Quận 2, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "KienlongBank",
+            "Bank": "Kien Long Bank",
             "Name": " - Showroom Đồng Tâm Quận 2",
             "Address": "36-38 Trần Não, P.An Phú, TP.Thủ Đức",
             "Phone": "(028) 3933 3933"
@@ -234,7 +234,7 @@
             "Address": "444A-446 Cách Mạng Tháng Tám, P.11, Quan 3, Ho Chi Minh"
         },
         {
-            "Bank": "Bac A",
+            "Bank": "Bac A Bank",
             "Name": "Nam Kỳ Khởi Nghĩa",
             "Address": "382C1 Nam Kỳ Khởi Nghĩa, 8, Quận 3, Hồ Chí Minh, Vietnam"
         },
@@ -254,22 +254,22 @@
             "Address": "No 127 Vo Van Tan Street, Ward 3, District 3, Ho Chi Minh city, Viet Nam"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": " Nam Kỳ Khởi Nghĩa",
             "Address": "215 Nam Kỳ Khởi Nghĩa, Phường 7, Quận 3, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": "CN Vạn Hạnh",
             "Address": "374-374B Võ Văn Tần, Phường 5, Quận 3, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "HD",
+            "Bank": "HDBank",
             "Name": " Duy Tân",
             "Address": "69 Phạm Ngọc Thạch, Phường 6, Quận 3, Thành Phố Hồ Chí Minh, Việt Nam"
         },
         {
-            "Bank": "KienlongBank",
+            "Bank": "Kien Long Bank",
             "Name": " - Sài Gòn",
             "Address": "98-108A Cách Mạng Tháng 8, P.Võ Thị Sáu, Q.3, TP.Hồ Chí Minh",
             "Phone": "(028) 3933 3933"
@@ -293,7 +293,7 @@
             "Phone": "1800585888"
         },
         {
-            "Bank": "MB",
+            "Bank": "MBBank",
             "Name": " Bến Thành",
             "Address": "Số 414C  - 414D Nguyễn Thị Minh Khai, phường 5, quận 3, Hồ Chí Minh"
         },

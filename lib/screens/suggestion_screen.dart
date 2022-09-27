@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watm/dummy_bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
-
+import 'package:watm/widgets/validation.dart';
 import 'package:watm/theme/colors.dart';
 
 class SuggestionScreen extends StatefulWidget {
@@ -132,10 +132,11 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                           SizedBox(
                             height: 8,
                           ),
-                          TextField(
+                          TextFormField(
                             cursorColor: AppColors().primary500,
                             controller: amount,
                             decoration: InputDecoration(
+                              labelText: 'Amount',
                               suffixIcon: Padding(
                                 padding: EdgeInsets.all(12),
                                 child: Text(
@@ -157,9 +158,15 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                                   borderSide: BorderSide(
                                       color: AppColors().neutral800)),
                             ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
                             style: TextStyle(color: AppColors().primary500),
                             keyboardType: TextInputType.number,
-                            onSubmitted: (_) => submitData(),
+                            //onSubmitted: (_) => submitData(),
                           ),
                           SizedBox(
                             height: 16,
