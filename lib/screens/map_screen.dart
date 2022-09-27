@@ -23,10 +23,10 @@ class _MapScreenState extends State<MapScreen> {
 
   List<ATM> ATMItem = [];
 
-  void _addNewMarker(String title, Position location) {
+  void _addNewMarker(String title, double latitude, double longitude) {
     final newMarker = Marker(
         markerId: MarkerId((_markers.length + 1).toString()),
-        position: LatLng(location.latitude, location.longitude),
+        position: LatLng(latitude, longitude),
         infoWindow: InfoWindow(title: title));
 
     setState(() {
@@ -76,7 +76,7 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListScreen(list: ATMItem),
+        builder: (context) => ListScreen(list: ATMItem, origins: _currentLocation as LatLng),
       ),
     );
   }
@@ -88,19 +88,24 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {
         _currentLocation = LatLng(value.latitude, value.longitude);
         _getAddressFromLatLng(value);
-        _addNewMarker("My current location", value);
+        _addNewMarker("My current location", value.latitude, value.longitude);
       });
     });
     // Read json file
     readJson().then((data) async {
       setState(() {
         var list = data["District 1"] + data["District 2"] + data["District 3"];
-        list.map((item) {
+        list.map((item) async {
+          List<Location> locations = await locationFromAddress(item['Address']);
+          _addNewMarker(item['Bank'] + ' - ' + item['Name'],
+              locations[0].latitude, locations[0].longitude);
           ATMItem.add(ATM(
               bank: item["Bank"] ?? "",
               name: item["Name"] ?? "",
               address: item["Address"] ?? "",
-              phone: item["Phone"] ?? ""));
+              phone: item["Phone"] ?? "",
+              latitude: locations[0].latitude,
+              longitude: locations[0].longitude));
         }).toList();
       });
     });
