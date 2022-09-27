@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watm/dummy_bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
-
 import 'package:watm/theme/colors.dart';
+import 'package:watm/widgets/modal_widget.dart';
 
 class SuggestionScreen extends StatefulWidget {
   static const routeName = '/suggestion';
@@ -20,7 +20,8 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   bool _withdrawing = false;
   bool _deposit = false;
   bool _newNotes = false;
-
+  String message = "demo";
+  String instruction = "demo";
   TextStyle subheadRegular = TextStyle(
     fontFamily: "SF Pro Text",
     fontSize: 15,
@@ -41,11 +42,46 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   }
 
   void submitData() {
-    print(bank.text);
-    print(double.parse(amount.text));
-    print(_withdrawing);
-    print(_deposit);
-    print(_newNotes);
+    if (_withdrawing && _deposit && _newNotes) {
+      this.message = "Your amount is below daily ATM withdrawal limit";
+      this.instruction = "Change your amount to view suggestion.";
+    } 
+    else if (bank.text == "" || amount.text == "") {
+      this.message = "You haven’t fill amount yet";
+      this.instruction = "Cancel to view map without filling amount.";
+    }
+    //print(bank.text);
+    //print(double.parse(amount.text));
+  }
+
+  void _showAlertDialog(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(
+          message,
+        ),
+        content: Text(
+          instruction,
+        ),
+        actions: [
+          CupertinoDialogAction(
+            child: Text("Cancel"),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          CupertinoDialogAction(
+            child: Text("Change it"),
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _bankSelection(BuildContext context) async {
@@ -92,6 +128,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                       Icons.list,
                       color: AppColors().neutral500,
                     ),
+<<<<<<< HEAD
                     filled: true,
                     fillColor: AppColors().white,
                     enabledBorder: UnderlineInputBorder(
@@ -251,5 +288,30 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
             ),
             body: appBody,
           );
+=======
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        width: double.infinity,
+                        child: CupertinoButton.filled(
+                          onPressed: () {
+                            submitData();
+                            _showAlertDialog(context);
+                          },
+                          child: Text(
+                            'Apply',
+                            style: TextStyle(
+                              fontFamily: "SF Pro Text",
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ))));
+>>>>>>> e8f8337cb6b8d69088370089ccbce1782a37fc73
   }
 }
