@@ -51,8 +51,7 @@ class _ATMResultState extends State<ATMResult> {
                         locations[0].longitude,
                         widget.origins.latitude,
                         widget.origins.longitude)
-                    .toStringAsFixed(1) +
-                " km";
+                    .toStringAsFixed(1);
       });
     } catch (e) {
       print(e);
@@ -88,7 +87,7 @@ class _ATMResultState extends State<ATMResult> {
                       ),
                       backgroundColor: AppTheme.colors.primary500,
                     ),
-                    Text(distance==""?distance:"~km"),
+                    Text('${distance} km'),
                   ],
                 ),
                 SizedBox(
