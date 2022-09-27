@@ -11,7 +11,7 @@ class userLocation extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.white.withOpacity(0.8),
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 40),
+      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
