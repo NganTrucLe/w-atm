@@ -36,7 +36,6 @@ dependencies:
   geocoding: ^2.0.5
   dio: ^4.0.6
   material_floating_search_bar: ^0.3.7
-  url_launcher: ^6.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -81,6 +80,7 @@ flutter:
     - assets/images/account.svg
     - assets/images/map.png
     - assets/images/iconStatus.svg
+    - assets/images/Agribank.png
     # Json
     - assets/data.json
   fonts:

@@ -30,7 +30,8 @@ class ATMDetailsScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              height: 480,
+              constraints: BoxConstraints(minHeight: 450, maxHeight: 500),
+              padding: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 0),
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: SmoothRectangleBorder(
@@ -39,10 +40,7 @@ class ATMDetailsScreen extends StatelessWidget {
                   smoothness: 0.6,
                 ),
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: GeneralInfo(ATMInfo),
-              ),
+              child: GeneralInfo(ATMInfo),
             ),
           ],
         ),
