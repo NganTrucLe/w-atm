@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:watm/dummy_bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
 import 'package:watm/theme/colors.dart';
+import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
 
 class SuggestionScreen extends StatefulWidget {
@@ -42,11 +43,10 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   }
 
   void submitData() {
-    if (_withdrawing && _deposit && _newNotes) {
+    if (double.parse(amount.text) < 50000 || double.parse(amount.text) > 10000000) {
       this.message = "Your amount is below daily ATM withdrawal limit";
       this.instruction = "Change your amount to view suggestion.";
-    } 
-    else if (bank.text == "" || amount.text == "") {
+    } else if (bank.text == "" || amount.text == "") {
       this.message = "You haven’t fill amount yet";
       this.instruction = "Cancel to view map without filling amount.";
     }
@@ -128,7 +128,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                       Icons.list,
                       color: AppColors().neutral500,
                     ),
-<<<<<<< HEAD
                     filled: true,
                     fillColor: AppColors().white,
                     enabledBorder: UnderlineInputBorder(
@@ -239,21 +238,23 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
             child: Container(
               margin: const EdgeInsets.all(5),
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: submitData,
+              child: CupertinoButton(
+                color: AppTheme.colors.primary500,
+                onPressed: () {
+                  submitData();
+                  _showAlertDialog(context);
+                },
                 child: Text(
                   'Apply',
-                  style: headlineSemibold,
+                  style: TextStyle(
+                    fontFamily: "SF Pro Text",
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                style: ElevatedButton.styleFrom(
-                    onPrimary: AppColors().white,
-                    primary: AppColors().primary500,
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12))),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -288,30 +289,5 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
             ),
             body: appBody,
           );
-=======
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        width: double.infinity,
-                        child: CupertinoButton.filled(
-                          onPressed: () {
-                            submitData();
-                            _showAlertDialog(context);
-                          },
-                          child: Text(
-                            'Apply',
-                            style: TextStyle(
-                              fontFamily: "SF Pro Text",
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ))));
->>>>>>> e8f8337cb6b8d69088370089ccbce1782a37fc73
   }
 }

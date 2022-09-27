@@ -8,8 +8,9 @@ import './status_tag.dart';
 
 class GeneralInfo extends StatelessWidget {
   final ATM ATMInfo;
+  final String distance;
 
-  GeneralInfo(this.ATMInfo);
+  GeneralInfo(this.ATMInfo, this.distance);
 
   static Future<void> _launchGoogleMap(ATM ATMInfo) async {
     String query = Uri.encodeComponent(ATMInfo.address);
@@ -40,6 +41,10 @@ class GeneralInfo extends StatelessWidget {
     final List<Widget> listItem = [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [StatusTag(Status.working), Text(distance)],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Text(
@@ -51,10 +56,9 @@ class GeneralInfo extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis,
               ),
-              maxLines: 2,
+              maxLines: 1,
             ),
           ),
-          StatusTag(),
         ],
       ),
       Row(
@@ -119,13 +123,14 @@ class GeneralInfo extends StatelessWidget {
       children: WidgetBuilder(listItem),
     );
   }
-  List<Widget> WidgetBuilder(List<Widget> listItem){
+
+  List<Widget> WidgetBuilder(List<Widget> listItem) {
     List<Widget> array = [];
-    for (int i=0; i<listItem.length; i=i+1){
+    for (int i = 0; i < listItem.length; i = i + 1) {
       array.add(Container(
-          margin: EdgeInsets.symmetric(vertical: 6),
-          child: listItem[i],
-        ));
+        margin: EdgeInsets.symmetric(vertical: 6),
+        child: listItem[i],
+      ));
     }
     return array;
   }
