@@ -47,10 +47,8 @@ class CustomTable extends StatelessWidget {
                     child: Container(
                       height: 50,
                       alignment: Alignment.centerRight,
-                      child: Text(
-                        '${row['value']}',
-                        style: TextStyle(color: AppTheme.colors.neutral600)
-                      ),
+                      child: Text('${row['value']}',
+                          style: TextStyle(color: AppTheme.colors.neutral600)),
                     ),
                   ),
                 ],
