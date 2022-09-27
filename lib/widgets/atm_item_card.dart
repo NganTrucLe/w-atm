@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../helpers/location_helper.dart';
@@ -28,15 +27,13 @@ class _ATM_item_cardState extends State<ATM_item_card> {
     try {
       var response = await Dio().get(
           'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=${widget.origins.latitude},${widget.origins.longitude}&key=${GOOGLE_API_KEY}');
-      List<Location> locations =
-          await locationFromAddress(widget.ATMInfo.address);
       var data = jsonDecode(response.toString());
       setState(() {
         data['status'] == 'OK'
             ? distance = data['rows'][0]['elements'][0]['distance']['text']
             : distance = calculateDistance(
-                        locations[0].latitude,
-                        locations[0].longitude,
+                        widget.ATMInfo.latitude,
+                        widget.ATMInfo.longitude,
                         widget.origins.latitude,
                         widget.origins.longitude)
                     .toStringAsFixed(1) +
