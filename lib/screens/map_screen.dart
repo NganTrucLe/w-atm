@@ -109,38 +109,40 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          _currentLocation == null
-              ? const Center(child: CircularProgressIndicator())
-              : Map(_markers, _currentLocation!),
-          userLocation(_currentAddress),
-          _currentLocation == null
-              ? const Center(child: CircularProgressIndicator())
-              : ATMlist(list: ATMItem, currentLocation: _currentLocation!),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FloatingActionButton.small(
-                  child: Icon(
-                    Icons.zoom_out_map_rounded,
-                    size: 24,
-                    color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            _currentLocation == null
+                ? const Center(child: CircularProgressIndicator())
+                : Map(_markers, _currentLocation!),
+            userLocation(_currentAddress),
+            _currentLocation == null
+                ? const Center(child: CircularProgressIndicator())
+                : ATMlist(list: ATMItem, currentLocation: _currentLocation!),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FloatingActionButton.small(
+                    child: Icon(
+                      Icons.zoom_out_map_rounded,
+                      size: 24,
+                      color: Colors.white,
+                    ),
+                    onPressed: () => _fullList(context),
+                    backgroundColor: Theme.of(context).primaryColor,
                   ),
-                  onPressed: () => _fullList(context),
-                  backgroundColor: Theme.of(context).primaryColor,
                 ),
-              ),
-              SizedBox(
-                width: double.infinity,
-              )
-            ],
-          )
-        ],
+                SizedBox(
+                  width: double.infinity,
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

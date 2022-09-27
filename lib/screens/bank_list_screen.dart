@@ -82,13 +82,20 @@ class _BankList extends State<BankList> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.error, size: 60),
+                          Icon(
+                            Icons.error,
+                            size: 60,
+                            color: AppTheme.colors.neutral500,
+                          ),
                           SizedBox(height: 15),
                           Text(
                             'No Results Found',
                             style: TextStyle(
-                                fontSize: 35, fontWeight: FontWeight.bold),
-                          )
+                              color: AppTheme.colors.neutral500,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                     )
