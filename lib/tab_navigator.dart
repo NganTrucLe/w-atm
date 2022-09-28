@@ -19,7 +19,7 @@ class TabNavigator extends StatelessWidget {
       TabNavigatorRoutes.root: (context) {
         Widget screen = MapScreen();
         if (tabItem.name == 'Account') screen = AccountScreen();
-        else if (tabItem.name == 'Suggestion') screen = SuggestionScreen(list: ATM_item);
+        else if (tabItem.name == 'Suggestion') screen = SuggestionScreen();
         return screen;
       },
     };

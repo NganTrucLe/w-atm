@@ -121,7 +121,6 @@ class _MapScreenState extends State<MapScreen> {
     });
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
