@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
@@ -10,6 +11,7 @@ import '../widgets/map.dart';
 import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
 import '../models/atm.dart';
+import '../models/filterModel.dart';
 import '../widgets/status_tag.dart';
 
 class MapScreen extends StatefulWidget {
@@ -23,6 +25,7 @@ class _MapScreenState extends State<MapScreen> {
   String _currentAddress = "";
 
   List<ATM> ATMItem = [];
+  List<ATM> RenderedATMItem = [];
 
   void _addNewMarker(String title, double latitude, double longitude) {
     final newMarker = Marker(
@@ -101,16 +104,33 @@ class _MapScreenState extends State<MapScreen> {
           List<Location> locations = await locationFromAddress(item['Address']);
           _addNewMarker(item['Bank'] + ' - ' + item['Name'],
               locations[0].latitude, locations[0].longitude);
-          Status ATMStatus = item['Status'].toString().toLowerCase() == Status.maintenance.name ? Status.maintenance : 
-                            item['Status'].toString().toLowerCase() == Status.crowded.name ? Status.crowded : Status.working;
-          Type ATMType = item['Type'] == Type.Withdraw.name ? Type.Withdraw : 
-                          item['Type'] == Type.Deposit.name ? Type.Deposit : Type.Both; 
+          Status ATMStatus = item['Status'].toString().toLowerCase() ==
+                  Status.maintenance.name
+              ? Status.maintenance
+              : item['Status'].toString().toLowerCase() == Status.crowded.name
+                  ? Status.crowded
+                  : Status.working;
+          Type ATMType = item['Type'] == Type.Withdraw.name
+              ? Type.Withdraw
+              : item['Type'] == Type.Deposit.name
+                  ? Type.Deposit
+                  : Type.Both;
           ATMItem.add(ATM(
               bank: item["Bank"] ?? "",
               name: item["Name"] ?? "",
               address: item["Address"] ?? "",
               phone: item["Phone"] ?? "",
-              type: ATMType, 
+              type: ATMType,
+              cashThroughBank: item["CTB"] == 1 ? true : false,
+              status: ATMStatus,
+              latitude: locations[0].latitude,
+              longitude: locations[0].longitude));
+          RenderedATMItem.add(ATM(
+              bank: item["Bank"] ?? "",
+              name: item["Name"] ?? "",
+              address: item["Address"] ?? "",
+              phone: item["Phone"] ?? "",
+              type: ATMType,
               cashThroughBank: item["CTB"] == 1 ? true : false,
               status: ATMStatus,
               latitude: locations[0].latitude,
@@ -120,8 +140,26 @@ class _MapScreenState extends State<MapScreen> {
     });
     super.initState();
   }
+
+  void _applyFilter() {
+    var filter = context.read<FilterModel>();
+    FilterATM filterATM = filter.getFilterATM();
+    print(filterATM.bank);
+    print(ATMItem[0].bank);
+    setState(() {
+      RenderedATMItem = [];
+      ATMItem.map((item) => {
+        if (filterATM.bank == "" || item.bank == filterATM.bank){
+          RenderedATMItem.add(item)
+        }
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    _applyFilter();
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -132,7 +170,8 @@ class _MapScreenState extends State<MapScreen> {
             userLocation(_currentAddress),
             _currentLocation == null
                 ? const Center(child: CircularProgressIndicator())
-                : ATMlist(list: ATMItem, currentLocation: _currentLocation!),
+                : ATMlist(
+                    list: RenderedATMItem, currentLocation: _currentLocation!),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,

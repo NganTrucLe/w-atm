@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import './atm.dart';
 
 class FilterModel extends ChangeNotifier {
-  //String message = "";
-  //String instruction = "";
-  String bank = "";
-  String amount = "";
+  FilterATM filterATM = new FilterATM();
 
-  void update(/*String message, String instruction, */String bank, String amount) {
-    //this.message = message;
-    //this.instruction = instruction;
-    this.bank = bank;
-    this.amount = amount;
-    
+
+  void update(FilterATM filterATM) {
+    this.filterATM = filterATM;
     notifyListeners();
+  }
+
+  FilterATM getFilterATM(){
+    return this.filterATM;
   }
 }
