@@ -11,6 +11,7 @@ import '../screens/atm_details_screen.dart';
 import './status_tag.dart';
 import '../theme/theme_constants.dart';
 import '../dummy_bank.dart';
+import '../models/bank.dart';
 
 class ATM_item_card extends StatefulWidget {
   final ATM ATMInfo;
@@ -24,7 +25,13 @@ class ATM_item_card extends StatefulWidget {
 
 class _ATM_item_cardState extends State<ATM_item_card> {
   String distance = "";
-
+  String FindBank(String bank){
+    for (int i=0;i<DUMMY_BANKS.length;i=i+1){
+      if (bank == DUMMY_BANKS[i].name)
+        return DUMMY_BANKS[i].avatarLink;
+    }
+      return DUMMY_BANKS[0].avatarLink;
+  }
   Future<void> getDistanceMatrix() async {
     String destination = Uri.encodeComponent(widget.ATMInfo.address);
     try {
@@ -86,7 +93,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
                   leading: CircleAvatar(
                     radius: 16,
                     backgroundColor: AppTheme.colors.white,
-                    backgroundImage: AssetImage(DUMMY_BANKS[0].avatarLink),
+                    backgroundImage: AssetImage(FindBank(widget.ATMInfo.bank)),
                   ),
                   contentPadding: EdgeInsets.zero,
                   minLeadingWidth: 32,
@@ -110,7 +117,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
                   textBaseline: TextBaseline.ideographic,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    StatusTag(Status.working),
+                    StatusTag(widget.ATMInfo.status),
                     Text(
                       distance,
                       style: TextStyle(color: Colors.grey),

@@ -10,6 +10,7 @@ import '../widgets/map.dart';
 import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
 import '../models/atm.dart';
+import '../widgets/status_tag.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -76,7 +77,8 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListScreen(list: ATMItem, origins: _currentLocation as LatLng),
+        builder: (context) =>
+            ListScreen(list: ATMItem, origins: _currentLocation as LatLng),
       ),
     );
   }
@@ -99,11 +101,18 @@ class _MapScreenState extends State<MapScreen> {
           List<Location> locations = await locationFromAddress(item['Address']);
           _addNewMarker(item['Bank'] + ' - ' + item['Name'],
               locations[0].latitude, locations[0].longitude);
+          Status ATMStatus = item['Status'].toString().toLowerCase() == Status.maintenance.name ? Status.maintenance : 
+                            item['Status'].toString().toLowerCase() == Status.crowded.name ? Status.crowded : Status.working;
+          Type ATMType = item['Type'] == Type.Withdraw.name ? Type.Withdraw : 
+                          item['Type'] == Type.Deposit.name ? Type.Deposit : Type.Both; 
           ATMItem.add(ATM(
               bank: item["Bank"] ?? "",
               name: item["Name"] ?? "",
               address: item["Address"] ?? "",
               phone: item["Phone"] ?? "",
+              type: ATMType, 
+              cashThroughBank: item["CTB"] == 1 ? true : false,
+              status: ATMStatus,
               latitude: locations[0].latitude,
               longitude: locations[0].longitude));
         }).toList();
