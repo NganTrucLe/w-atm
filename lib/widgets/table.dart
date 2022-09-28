@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:watm/theme/theme_constants.dart';
+import '../models/atm.dart';
 
 class CustomTable extends StatelessWidget {
+  final ATM ATMInfo;
+  CustomTable({required this.ATMInfo});
   @override
-  static const List<Map<String, Object>> tableData = [
-    {
-      'title': 'Kind of ATM',
-      'value': 'Withdraw',
-    },
-    {
-      'title': 'Minimum limits',
-      'value': '50.000VNĐ',
-    },
-    {
-      'title': 'Cash through bank',
-      'value': 'Available',
-    },
-    {
-      'title': 'Number of ATMs',
-      'value': '2',
-    },
-  ];
   Widget build(BuildContext context) {
+    
+      List<Map<String, Object>> tableData = [
+        {
+          'title': 'Kind of ATM',
+          'value': ATMInfo.type == Type.Withdraw ? 'Withdraw' : 'Deposit',
+        },
+        {
+          'title': 'Minimum limits',
+          'value': '50.000VNĐ',
+        },
+        {
+          'title': 'Cash through bank',
+          'value': ATMInfo.cashThroughBank == 1 ? 'Available' : 'Not availabe',
+        },
+        {
+          'title': 'Number of ATMs',
+          'value': '2',
+        },
+      ];
     return Table(
       children: tableData
           .map((row) => TableRow(

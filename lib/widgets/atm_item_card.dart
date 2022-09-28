@@ -117,7 +117,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
                   textBaseline: TextBaseline.ideographic,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    StatusTag(Status.working),
+                    StatusTag(widget.ATMInfo.status),
                     Text(
                       distance,
                       style: TextStyle(color: Colors.grey),
