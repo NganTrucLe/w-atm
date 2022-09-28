@@ -3,11 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watm/dummy_bank.dart';
+import 'package:watm/models/atm.dart';
+import 'package:watm/models/bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
 import 'package:watm/tab_item.dart';
 import 'package:watm/theme/colors.dart';
 import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:watm/widgets/status_tag.dart';
+import '../models/atm.dart';
+import 'package:geocoding/geocoding.dart';
 
 import '../models/filterModel.dart';
 import 'map_screen.dart';
@@ -17,6 +24,8 @@ class SuggestionScreen extends StatefulWidget {
   final Function(int) selectTabItem;
 
   SuggestionScreen(this.selectTabItem);
+
+  SuggestionScreen();
 
   @override
   _SuggestionScreenState createState() => _SuggestionScreenState(selectTabItem);
@@ -28,12 +37,13 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
 
   TextEditingController bank = TextEditingController();
   TextEditingController amount = TextEditingController();
-
   bool _withdrawing = false;
   bool _deposit = false;
   bool _newNotes = false;
   String message = "demo";
   String instruction = "demo";
+  List<ATM> resultATMs = [];
+  List<ATM> list = [];
   TextStyle subheadRegular = TextStyle(
     fontFamily: "SF Pro Text",
     fontSize: 15,
@@ -46,26 +56,94 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     fontWeight: FontWeight.w600,
   );
 
+  Future<dynamic> readJson() async {
+    final String response = await rootBundle.loadString('assets/data.json');
+    return await json.decode(response);
+  }
+
   @override
   void initState() {
+    readJson().then((data) async {
+      setState(() {
+        var listATM =
+            data["District 1"] + data["District 2"] + data["District 3"];
+        listATM.map((item) async {
+          List<Location> locations = await locationFromAddress(item['Address']);
+          Status ATMStatus = item["Status"] == Status.maintenance.name
+              ? Status.maintenance
+              : item["Status"] == Status.crowded.name
+                  ? Status.crowded
+                  : Status.working;
+          Type ATMType = item['Type'] == Type.Withdraw.name
+              ? Type.Withdraw
+              : item['Type'] == Type.Deposit.name
+                  ? Type.Deposit
+                  : Type.Both;
+
+          list.add(ATM(
+              bank: item["Bank"] ?? "",
+              name: item["Name"] ?? "",
+              address: item["Address"] ?? "",
+              phone: item["Phone"] ?? "",
+              type: ATMType,
+              cashThroughBank: item["CTB"] == 1 ? true : false,
+              status: ATMStatus,
+              latitude: locations[0].latitude,
+              longitude: locations[0].longitude));
+        }).toList();
+      });
+    });
+
     bank.text = "";
+    resultATMs = [];
     amount.text = "";
     super.initState();
   }
 
-  void submitData() {
-    if (bank.text == "" || amount.text == "") {
-      this.message = "You haven’t fill amount yet";
-      this.instruction = "Cancel to view map without filling amount.";
-      _showAlertDialog(context);
-      return;
-    }
-    else if (double.parse(amount.text) < 50000 ||
+  bool submitData() {
+    if (double.parse(amount.text) < 50000 ||
         double.parse(amount.text) > 10000000) {
       this.message = "Your amount is below daily ATM withdrawal limit";
       this.instruction = "Change your amount to view suggestion.";
-      _showAlertDialog(context);
-      return;
+      return true;
+    } else if (bank.text == "" || amount.text == "") {
+      this.message = "You haven’t fill amount yet";
+      this.instruction = "Cancel to view map without filling amount.";
+      return true;
+    } else {
+      //print(_deposit);
+      //print(_withdrawing);
+      if (!(_deposit || _withdrawing)) {
+        resultATMs = list
+            .where((element) =>
+                element.bank.toLowerCase().contains(bank.text.toLowerCase()) &&
+                element.status != Status.maintenance)
+            .toList();
+        print(list[0].bank.contains(bank.text));
+      } else {
+        Type check;
+        if (_deposit && _withdrawing)
+          check = Type.Both;
+        else if (_deposit)
+          check = Type.Deposit;
+        else
+          check = Type.Withdraw;
+        List<ATM> filter1 = list
+            .where((element) =>
+                element.bank.toLowerCase().contains(bank.text.toLowerCase()) &&
+                element.type == check &&
+                element.status != Status.maintenance)
+            .toList();
+        resultATMs = filter1;
+      }
+      if (resultATMs.isEmpty) {
+        this.message = "Oh no";
+        this.instruction = "No ATMs Found.";
+        return true;
+      }
+      print(resultATMs);
+      return false;
+      // use data to filter
     }
     print('Hi');
     var filter = context.read<FilterModel>();
@@ -86,13 +164,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
         actions: [
           CupertinoDialogAction(
             child: Text("Cancel"),
-            isDefaultAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          CupertinoDialogAction(
-            child: Text("Change it"),
             isDefaultAction: true,
             onPressed: () {
               Navigator.pop(context);
@@ -260,7 +331,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
               child: CupertinoButton(
                 color: AppTheme.colors.primary500,
                 onPressed: () {
-                  submitData();
+                  if (submitData()) _showAlertDialog(context);
                 },
                 child: Text(
                   'Apply',
