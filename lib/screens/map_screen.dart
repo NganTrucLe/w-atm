@@ -80,8 +80,8 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            ListScreen(list: ATMItem, origins: _currentLocation as LatLng),
+        builder: (context) => ListScreen(
+            list: RenderedATMItem, origins: _currentLocation as LatLng),
       ),
     );
   }
@@ -149,10 +149,9 @@ class _MapScreenState extends State<MapScreen> {
     setState(() {
       RenderedATMItem = [];
       ATMItem.map((item) => {
-        if (filterATM.bank == "" || item.bank == filterATM.bank){
-          RenderedATMItem.add(item)
-        }
-      }).toList();
+            if (filterATM.bank == "" || item.bank == filterATM.bank)
+              {RenderedATMItem.add(item)}
+          }).toList();
     });
   }
 
