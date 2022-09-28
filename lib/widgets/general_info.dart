@@ -41,7 +41,7 @@ class GeneralInfo extends StatelessWidget {
     final List<Widget> listItem = [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [StatusTag(Status.working), Text(distance)],
+        children: [StatusTag(ATMInfo.status), Text(distance)],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +101,7 @@ class GeneralInfo extends StatelessWidget {
           ),
         ],
       ),
-      CustomTable(),
+      CustomTable(ATMInfo: ATMInfo,),
       Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: 10),

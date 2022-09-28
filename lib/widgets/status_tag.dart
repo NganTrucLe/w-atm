@@ -7,7 +7,9 @@ import '../theme/colors.dart';
 
 enum Status {
   working('Working', const Color(0xFFD1EBBE), const Color(0xFF64BC26)),
-  maintenance('Maintenance', const Color(0xFFFEE0B3), const Color(0xFFFD9900));
+  crowded('Maintenance', const Color(0xFFFEE0B3), const Color(0xFFFD9900)),
+  maintenance('Maintenance', Color.fromARGB(255, 174, 174, 174), Color.fromARGB(255, 92, 92, 92));
+
 
   const Status(this.status, this.backgroundColor, this.textColor);
   final String status;
