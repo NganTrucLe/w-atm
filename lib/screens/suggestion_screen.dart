@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watm/dummy_bank.dart';
+import 'package:watm/models/atm.dart';
+import 'package:watm/models/bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
 import 'package:watm/theme/colors.dart';
 import 'package:watm/widgets/modal_widget.dart';
 
+List<ATM> ATM_item = [];
+
 class SuggestionScreen extends StatefulWidget {
   static const routeName = '/suggestion';
+
+  final List<ATM> list;
+
+  SuggestionScreen({required this.list});
 
   @override
   _SuggestionScreenState createState() => _SuggestionScreenState();
@@ -15,12 +23,12 @@ class SuggestionScreen extends StatefulWidget {
 class _SuggestionScreenState extends State<SuggestionScreen> {
   TextEditingController bank = TextEditingController();
   TextEditingController amount = TextEditingController();
-
   bool _withdrawing = false;
   bool _deposit = false;
   bool _newNotes = false;
   String message = "demo";
   String instruction = "demo";
+  List<ATM> resultATMs = [];
   TextStyle subheadRegular = TextStyle(
     fontFamily: "SF Pro Text",
     fontSize: 15,
@@ -36,6 +44,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   @override
   void initState() {
     bank.text = "";
+    resultATMs = [];
     amount.text = "";
     super.initState();
   }
@@ -48,6 +57,16 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     else if (bank.text == "" || amount.text == "") {
       this.message = "You haven’t fill amount yet";
       this.instruction = "Cancel to view map without filling amount.";
+    }
+    else
+    {
+      List<ATM> sameName = widget.list.where((element) => element.name
+                        .toLowerCase()
+                        .contains(bank.text.toLowerCase()))
+                    .toList();
+      resultATMs = sameName;
+      print(resultATMs);
+      // use data to filter
     }
     //print(bank.text);
     //print(double.parse(amount.text));
