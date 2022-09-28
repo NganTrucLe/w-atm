@@ -1,20 +1,31 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:watm/dummy_bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
+import 'package:watm/tab_item.dart';
 import 'package:watm/theme/colors.dart';
 import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
 
+import '../models/FilterModel';
+import 'map_screen.dart';
+
 class SuggestionScreen extends StatefulWidget {
   static const routeName = '/suggestion';
+  final Function(int) selectTabItem;
+
+  SuggestionScreen(this.selectTabItem);
 
   @override
-  _SuggestionScreenState createState() => _SuggestionScreenState();
+  _SuggestionScreenState createState() => _SuggestionScreenState(selectTabItem);
 }
 
 class _SuggestionScreenState extends State<SuggestionScreen> {
+  final Function(int) selectTabItem;
+  _SuggestionScreenState(this.selectTabItem);
+
   TextEditingController bank = TextEditingController();
   TextEditingController amount = TextEditingController();
 
@@ -43,7 +54,8 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   }
 
   void submitData() {
-    if (double.parse(amount.text) < 50000 || double.parse(amount.text) > 10000000) {
+    if (double.parse(amount.text) < 50000 ||
+        double.parse(amount.text) > 10000000) {
       this.message = "Your amount is below daily ATM withdrawal limit";
       this.instruction = "Change your amount to view suggestion.";
     } else if (bank.text == "" || amount.text == "") {
@@ -52,6 +64,10 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     }
     //print(bank.text);
     //print(double.parse(amount.text));
+
+    var filter = context.read<FilterModel>();
+    filter.update(message, instruction, bank.text, amount.text);
+    selectTabItem(1);
   }
 
   void _showAlertDialog(BuildContext context) {
