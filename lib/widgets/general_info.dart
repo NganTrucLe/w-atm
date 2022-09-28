@@ -8,8 +8,9 @@ import './status_tag.dart';
 
 class GeneralInfo extends StatelessWidget {
   final ATM ATMInfo;
+  final String distance;
 
-  GeneralInfo(this.ATMInfo);
+  GeneralInfo(this.ATMInfo, this.distance);
 
   static Future<void> _launchGoogleMap(ATM ATMInfo) async {
     String query = Uri.encodeComponent(ATMInfo.address);
@@ -37,16 +38,27 @@ class GeneralInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> listItem = <Widget>[
+    final List<Widget> listItem = [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [StatusTag(Status.working), Text(distance)],
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          Expanded(
+            child: Text(
               ATMInfo.name != ""
                   ? '${ATMInfo.bank} - ${ATMInfo.name}'
                   : '${ATMInfo.bank}',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          StatusTag(),
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+              ),
+              maxLines: 1,
+            ),
+          ),
         ],
       ),
       Row(
@@ -56,7 +68,13 @@ class GeneralInfo extends StatelessWidget {
           Icon(Icons.location_on_rounded,
               color: Theme.of(context).primaryColor, size: 24),
           SizedBox(width: 20),
-          Text(ATMInfo.address),
+          Expanded(
+            child: Text(
+              ATMInfo.address,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ),
         ],
       ),
       Row(
@@ -85,6 +103,7 @@ class GeneralInfo extends StatelessWidget {
       ),
       CustomTable(),
       Container(
+        width: double.infinity,
         margin: EdgeInsets.only(top: 10),
         child: ElevatedButton(
           onPressed: () => {_launchGoogleMap(ATMInfo)},
@@ -100,14 +119,19 @@ class GeneralInfo extends StatelessWidget {
         ),
       ),
     ];
-    return ListView.builder(
-      itemCount: listItem.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: 6),
-          child: listItem[index],
-        );
-      },
+    return ListView(
+      children: WidgetBuilder(listItem),
     );
+  }
+
+  List<Widget> WidgetBuilder(List<Widget> listItem) {
+    List<Widget> array = [];
+    for (int i = 0; i < listItem.length; i = i + 1) {
+      array.add(Container(
+        margin: EdgeInsets.symmetric(vertical: 6),
+        child: listItem[i],
+      ));
+    }
+    return array;
   }
 }
