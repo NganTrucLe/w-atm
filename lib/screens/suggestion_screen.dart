@@ -9,7 +9,7 @@ import 'package:watm/theme/colors.dart';
 import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
 
-import '../models/FilterModel';
+import '../models/filterModel.dart';
 import 'map_screen.dart';
 
 class SuggestionScreen extends StatefulWidget {

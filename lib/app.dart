@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
 import './tab_navigator.dart';
-import './models/FilterModel';
+import './models/filterModel.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
