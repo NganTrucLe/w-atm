@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:watm/dummy_bank.dart';
 import 'package:watm/models/atm.dart';
 import 'package:watm/models/bank.dart';
 import 'package:watm/screens/bank_list_screen.dart';
+import 'package:watm/tab_item.dart';
 import 'package:watm/theme/colors.dart';
 import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
@@ -14,16 +16,25 @@ import 'package:watm/widgets/status_tag.dart';
 import '../models/atm.dart';
 import 'package:geocoding/geocoding.dart';
 
+import '../models/filterModel.dart';
+import 'map_screen.dart';
+
 class SuggestionScreen extends StatefulWidget {
   static const routeName = '/suggestion';
+  final Function(int) selectTabItem;
+
+  SuggestionScreen(this.selectTabItem);
 
   SuggestionScreen();
 
   @override
-  _SuggestionScreenState createState() => _SuggestionScreenState();
+  _SuggestionScreenState createState() => _SuggestionScreenState(selectTabItem);
 }
 
 class _SuggestionScreenState extends State<SuggestionScreen> {
+  final Function(int) selectTabItem;
+  _SuggestionScreenState(this.selectTabItem);
+
   TextEditingController bank = TextEditingController();
   TextEditingController amount = TextEditingController();
   bool _withdrawing = false;
@@ -134,8 +145,10 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
       return false;
       // use data to filter
     }
-    //print(bank.text);
-    //print(double.parse(amount.text));
+    print('Hi');
+    var filter = context.read<FilterModel>();
+    filter.update(/*message, instruction, */bank.text, amount.text);
+    selectTabItem(1);
   }
 
   void _showAlertDialog(BuildContext context) {

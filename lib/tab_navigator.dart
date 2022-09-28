@@ -10,16 +10,23 @@ class TabNavigatorRoutes {
 
 class TabNavigator extends StatelessWidget {
   const TabNavigator(
-      {super.key, required this.navigatorKey, required this.tabItem});
+      {super.key,
+      required this.navigatorKey,
+      required this.tabItem,
+      required this.selectTabItem});
+
   final GlobalKey<NavigatorState>? navigatorKey;
   final TabItem tabItem;
+  final Function(int) selectTabItem;
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
       TabNavigatorRoutes.root: (context) {
         Widget screen = MapScreen();
-        if (tabItem.name == 'Account') screen = AccountScreen();
-        else if (tabItem.name == 'Suggestion') screen = SuggestionScreen();
+        if (tabItem.name == 'Account')
+          screen = AccountScreen();
+        else if (tabItem.name == 'Suggestion')
+          screen = SuggestionScreen(selectTabItem);
         return screen;
       },
     };
