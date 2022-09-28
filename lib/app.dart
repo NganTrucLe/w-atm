@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
 import './tab_navigator.dart';
+import './models/filterModel.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -27,6 +29,11 @@ class AppState extends State<App> {
     }
   }
 
+  void _selectTabIndex(int index) {
+    TabItem item = _navigatorKeys.entries.toList()[index].key;
+    _selectTab(item);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -45,16 +52,20 @@ class AppState extends State<App> {
         // let system handle back button if we're on the first route
         return isFirstRouteInCurrentTab;
       },
-      child: Scaffold(
-        body: Stack(children: <Widget>[
-          _buildOffstageNavigator(TabItem.suggestion),
-          _buildOffstageNavigator(TabItem.map),
-          _buildOffstageNavigator(TabItem.account),
-        ]),
-        bottomNavigationBar: BottomNavigation(
-          currentTab: _currentTab,
-          onSelectTab: _selectTab,
-        ),
+      child: Consumer<FilterModel>(
+        builder: (context, filter, child) {
+          return Scaffold(
+            body: Stack(children: <Widget>[
+              _buildOffstageNavigator(TabItem.suggestion),
+              _buildOffstageNavigator(TabItem.map),
+              _buildOffstageNavigator(TabItem.account),
+            ]),
+            bottomNavigationBar: BottomNavigation(
+              currentTab: _currentTab,
+              onSelectTab: _selectTab,
+            ),
+          );
+        },
       ),
     );
   }
@@ -63,9 +74,9 @@ class AppState extends State<App> {
     return Offstage(
       offstage: _currentTab != tabItem,
       child: TabNavigator(
-        navigatorKey: _navigatorKeys[tabItem],
-        tabItem: tabItem,
-      ),
+          navigatorKey: _navigatorKeys[tabItem],
+          tabItem: tabItem,
+          selectTabItem: _selectTabIndex),
     );
   }
 }
