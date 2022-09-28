@@ -54,19 +54,22 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   }
 
   void submitData() {
-    if (double.parse(amount.text) < 50000 ||
+    if (bank.text == "" || amount.text == "") {
+      this.message = "You haven’t fill amount yet";
+      this.instruction = "Cancel to view map without filling amount.";
+      _showAlertDialog(context);
+      return;
+    }
+    else if (double.parse(amount.text) < 50000 ||
         double.parse(amount.text) > 10000000) {
       this.message = "Your amount is below daily ATM withdrawal limit";
       this.instruction = "Change your amount to view suggestion.";
-    } else if (bank.text == "" || amount.text == "") {
-      this.message = "You haven’t fill amount yet";
-      this.instruction = "Cancel to view map without filling amount.";
+      _showAlertDialog(context);
+      return;
     }
-    //print(bank.text);
-    //print(double.parse(amount.text));
-
+    print('Hi');
     var filter = context.read<FilterModel>();
-    filter.update(message, instruction, bank.text, amount.text);
+    filter.update(/*message, instruction, */bank.text, amount.text);
     selectTabItem(1);
   }
 
@@ -258,7 +261,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                 color: AppTheme.colors.primary500,
                 onPressed: () {
                   submitData();
-                  _showAlertDialog(context);
                 },
                 child: Text(
                   'Apply',
