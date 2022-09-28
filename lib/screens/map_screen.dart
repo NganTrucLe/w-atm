@@ -76,7 +76,8 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListScreen(list: ATMItem, origins: _currentLocation as LatLng),
+        builder: (context) =>
+            ListScreen(list: ATMItem, origins: _currentLocation as LatLng),
       ),
     );
   }
