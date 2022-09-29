@@ -5,7 +5,10 @@ enum Type {
   Deposit,
   Both,
 }
-
+class FilterATM {
+  String bank = "";
+  Type type = Type.Both;
+}
 class ATM {
   final String bank;
   final String name;
@@ -23,7 +26,7 @@ class ATM {
       {required this.bank,
       required this.name,
       required this.address,
-      required this.phone,
+      this.phone = "",
       required this.type,
       // required this.minimumLimit,
       required this.cashThroughBank,
