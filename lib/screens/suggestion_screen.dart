@@ -4,28 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watm/dummy_bank.dart';
 import 'package:watm/models/atm.dart';
+import 'package:watm/providers/bottom_navbar_provider.dart';
 import 'package:watm/screens/bank_list_screen.dart';
+import 'package:watm/tab_item.dart';
 import 'package:watm/theme/colors.dart';
 import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
-import '../models/atm.dart';
 
 import '../models/filterModel.dart';
 
 class SuggestionScreen extends StatefulWidget {
   static const routeName = '/suggestion';
-  final Function(int) selectTabItem;
 
-  SuggestionScreen(this.selectTabItem);
-
+  SuggestionScreen();
 
   @override
-  _SuggestionScreenState createState() => _SuggestionScreenState(selectTabItem);
+  _SuggestionScreenState createState() => _SuggestionScreenState();
 }
 
 class _SuggestionScreenState extends State<SuggestionScreen> {
-  final Function(int) selectTabItem;
-  _SuggestionScreenState(this.selectTabItem);
+  _SuggestionScreenState();
 
   TextEditingController bank = TextEditingController();
   TextEditingController amount = TextEditingController();
@@ -47,30 +45,39 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     fontWeight: FontWeight.w600,
   );
 
-  void _showAlertDialog(BuildContext context, String message, String instruction) {
+  void _showAlertDialog(
+      BuildContext context, String message, String instruction) {
     showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => ModalWidget(message: message, instruction: instruction)
-    );
+        context: context,
+        builder: (BuildContext context) =>
+            ModalWidget(message: message, instruction: instruction));
   }
 
   void submitData() {
     if (bank.text == "" || amount.text == "") {
-      _showAlertDialog(context, "You haven’t fill amount yet", "Cancel to view map without filling amount.");
+      _showAlertDialog(context, "You haven’t fill amount yet",
+          "Cancel to view map without filling amount.");
       return;
-    } 
-    else if (double.parse(amount.text) < 50000 ||
+    } else if (double.parse(amount.text) < 50000 ||
         double.parse(amount.text) > 10000000) {
-      _showAlertDialog(context, "Your amount is below daily ATM withdrawal limit", "Change your amount to view suggestion.");
+      _showAlertDialog(
+          context,
+          "Your amount is below daily ATM withdrawal limit",
+          "Change your amount to view suggestion.");
       return;
     } else {
-      if (!_withdraw) filterATM.type = Type.Deposit;
+      if (!_withdraw)
+        filterATM.type = Type.Deposit;
       else if (_deposit) filterATM.type = Type.Deposit;
       filterATM.bank = bank.text;
     }
     var filter = context.read<FilterModel>();
     filter.update(filterATM);
-    selectTabItem(1);
+
+    var provider =
+        Provider.of<BottomNavigationBarProvider>(context, listen: false);
+    TabItem item = provider.navigatorKeys.entries.toList()[1].key;
+    provider.selectTab(item);
   }
 
   Future<void> _bankSelection(BuildContext context) async {

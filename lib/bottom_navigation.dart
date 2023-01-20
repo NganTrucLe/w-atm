@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:watm/providers/bottom_navbar_provider.dart';
 import 'package:watm/theme/theme_constants.dart';
 
 import './tab_item.dart';
 
 class BottomNavigation extends StatelessWidget {
-  const BottomNavigation(
-      {super.key, required this.currentTab, required this.onSelectTab});
-  final TabItem currentTab;
-  final ValueChanged<TabItem> onSelectTab;
+  const BottomNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<BottomNavigationBarProvider>(context);
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       items: [
@@ -19,10 +19,8 @@ class BottomNavigation extends StatelessWidget {
         _buildItem(TabItem.map),
         _buildItem(TabItem.account),
       ],
-      onTap: (index) => onSelectTab(
-        TabItem.values[index],
-      ),
-      currentIndex: currentTab.index,
+      onTap: (index) => provider.selectTab(TabItem.values[index]),
+      currentIndex: provider.currentTab.index,
       selectedItemColor: AppTheme.colors.primary500,
       unselectedItemColor: AppTheme.colors.neutral500,
     );
@@ -40,11 +38,5 @@ class BottomNavigation extends StatelessWidget {
       ),
       label: tabItem.name,
     );
-  }
-
-  Color _colorTabMatching(TabItem item) {
-    return currentTab == item
-        ? AppTheme.colors.primary500
-        : AppTheme.colors.neutral500;
   }
 }
