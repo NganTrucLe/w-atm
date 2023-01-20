@@ -12,7 +12,6 @@ import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
 import '../models/atm.dart';
 import '../models/filterModel.dart';
-import '../widgets/status_tag.dart';
 
 class MapScreen extends StatefulWidget {
   @override
