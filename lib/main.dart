@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watm/providers/bottom_navbar_provider.dart';
 import 'package:watm/theme/theme_constants.dart';
 import './app.dart';
 import './models/filterModel.dart';
@@ -23,7 +24,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'W-ATM',
       theme: AppTheme.lightTheme,
-      home: const App(),
+      home: ChangeNotifierProvider<BottomNavigationBarProvider>(
+        create: (_) => BottomNavigationBarProvider(),
+        child: const App(),
+      ),
     );
   }
 }

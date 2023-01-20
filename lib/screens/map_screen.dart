@@ -144,8 +144,8 @@ class _MapScreenState extends State<MapScreen> {
   void _applyFilter() {
     var filter = context.read<FilterModel>();
     FilterATM filterATM = filter.getFilterATM();
-    print(filterATM.bank);
-    print(ATMItem[0].bank);
+    // print(filterATM.bank);
+    // print(ATMItem[0].bank);
     setState(() {
       RenderedATMItem = [];
       ATMItem.map((item) => {
