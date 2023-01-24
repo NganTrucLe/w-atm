@@ -6,12 +6,14 @@ import 'package:geocoding/geocoding.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
+import '../providers/atms_provider.dart';
 import './atm_list_screen.dart';
 import '../widgets/map.dart';
 import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
 import '../models/atm.dart';
 import '../models/filterModel.dart';
+import '../widgets/status_tag.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -36,7 +38,7 @@ class _MapScreenState extends State<MapScreen> {
       _markers.add(newMarker);
     });
   }
-
+  //done
   Future<void> _getAddressFromLatLng(Position position) async {
     await placemarkFromCoordinates(position.latitude, position.longitude)
         .then((List<Placemark> placemarks) {
@@ -60,7 +62,7 @@ class _MapScreenState extends State<MapScreen> {
       debugPrint(e);
     });
   }
-
+  //done
   Future<Position> getUserCurrentLocation() async {
     await Geolocator.requestPermission()
         .then((value) {})

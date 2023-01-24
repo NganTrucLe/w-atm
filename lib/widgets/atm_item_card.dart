@@ -32,6 +32,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
     }
       return DUMMY_BANKS[0].avatarLink;
   }
+  //done
   Future<void> getDistanceMatrix() async {
     String destination = Uri.encodeComponent(widget.ATMInfo.address);
     try {
@@ -53,7 +54,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
       print(e);
     }
   }
-
+  //done
   double calculateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var a = 0.5 -

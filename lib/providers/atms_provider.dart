@@ -11,10 +11,19 @@ import 'package:flutter/material.dart';
 import '../widgets/location.dart';
 import '../widgets/status_tag.dart';
 import 'package:http/http.dart' as http;
-import '../models/atm.dart';
+import './atm_provider.dart';
 
-class ATMsProvider with ChangeNotifier {
+class ATMs with ChangeNotifier {
+  List<ATM> _items = [];
   
+  List<ATM> get items {
+    return [..._items];
+  }
+
+  ATM findByID(String id) {
+    return _items.firstWhere((element) => (element.id == id));
+  }
+
   Future<void> fetchAndSetATMs() async {
     final url = Uri.https('https://w-atm-6617a-default-rtdb.asia-southeast1.firebasedatabase.app','/atms.json');
     try {
@@ -39,14 +48,13 @@ class ATMsProvider with ChangeNotifier {
                   ? Type.Deposit
                   : Type.Both;
         loadedATMs.add(ATM(
+          id: ATMID,
           address: ATMData['address'],        
           name: ATMData['name'],
           bank: ATMData['bank'],
           type: ATMType,
           cashThroughBank: ATMData['CTB'],
           status: ATMStatus,
-          latitude: 0.0,
-          longitude: 0.0,
         ));
       });
     }
