@@ -12,7 +12,6 @@ class ATMlist extends StatefulWidget {
 }
 
 class _ATMlistState extends State<ATMlist> {
-  late ATM _item;
   var _isInit = true;
   var _isLoading = false;
 
@@ -21,7 +20,7 @@ class _ATMlistState extends State<ATMlist> {
     super.initState();
   }
 
-  @override 
+  @override
   void didChangeDependencies() {
     if (_isInit) {
       setState(() {
@@ -39,21 +38,24 @@ class _ATMlistState extends State<ATMlist> {
 
   @override
   Widget build(BuildContext context) {
-    final list = Provider.of<ATMs>(context).items;
+    final ATMsData = Provider.of<ATMs>(context).items;
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        _isLoading ? CircularProgressIndicator() :
-        Container(
-          padding: EdgeInsets.only(left: 16, bottom: 16),
-          height: 200,
-          child: ListView.builder(
-              itemCount: list.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return ATM_item_card(ATMInfo: list[index]);
-              }),
-        )
+        _isLoading
+            ? CircularProgressIndicator()
+            : Container(
+                padding: EdgeInsets.only(left: 16, bottom: 16),
+                height: 200,
+                child: ListView.builder(
+                  itemCount: ATMsData.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (cxt, i) => ChangeNotifierProvider.value(
+                    value: ATMsData[i],
+                    child: ATM_item_card(),
+                  ),
+                ),
+              )
       ],
     );
   }

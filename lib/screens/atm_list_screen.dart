@@ -18,7 +18,7 @@ class _ListScreen extends State<ListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final allAtm = Provider.of<ATMs>(context, listen: false);
+    final ATMsData = Provider.of<ATMs>(context, listen: false).items;
     return Scaffold(
       appBar: AppBar(
         title: Text('ATM List',
@@ -43,11 +43,9 @@ class _ListScreen extends State<ListScreen> {
               child: TextField(
                 onChanged: (value) {
                   setState(() {
-                    atmOnSearch = allAtm.items
-                        .where((element) => element.name
-                            .toLowerCase()
-                            .contains(value.toLowerCase()))
-                        .toList();
+                    atmOnSearch = ATMsData.where((element) => element.name
+                        .toLowerCase()
+                        .contains(value.toLowerCase())).toList();
                   });
                 },
                 controller: _textEditingController,
@@ -90,12 +88,15 @@ class _ListScreen extends State<ListScreen> {
                       : ListView.builder(
                           itemCount: _textEditingController!.text.isNotEmpty
                               ? atmOnSearch.length
-                              : allAtm.items.length,
-                          itemBuilder: (content, index) {
-                            return _textEditingController!.text.isNotEmpty
-                                ? ATMResult(ATMInfo: atmOnSearch[index], name: '${atmOnSearch[index].bank} - ${atmOnSearch[index].name}')
-                                : ATMResult(ATMInfo: allAtm.items[index], name: '${allAtm.items[index].bank} - ${allAtm.items[index].name}');
-                          },
+                              : ATMsData.length,
+                          itemBuilder: (cxt, i) => ChangeNotifierProvider.value(
+                            value: ATMsData[i],
+                            child: _textEditingController!.text.isNotEmpty
+                                ? ATMResult(
+                                    name: '${atmOnSearch[i].bank} - ${atmOnSearch[i].name}')
+                                : ATMResult(
+                                    name: '${ATMsData[i].bank} - ${ATMsData[i].name}'),
+                          ),
                         ),
             ),
           ],

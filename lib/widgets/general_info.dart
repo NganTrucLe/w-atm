@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 
 import '../providers/atm_provider.dart';
+import '../providers/atms_provider.dart';
 import './table.dart';
 import './status_tag.dart';
 
 class GeneralInfo extends StatelessWidget {
-  final ATMProvider ATMInfo;
-  final String distance;
+  final String ATMId;
 
-  GeneralInfo(this.ATMInfo, this.distance);
+  GeneralInfo(this.ATMId);
 
-  static Future<void> _launchGoogleMap(ATMProvider ATMInfo) async {
-    String query = Uri.encodeComponent(ATMInfo.address);
+  static Future<void> _launchGoogleMap(ATMProvider loadedATM) async {
+    String query = Uri.encodeComponent(loadedATM.address);
     String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
     String appleMapUrl = "http://maps.apple.com/?q=$query";
     if (Platform.isAndroid) {
@@ -38,19 +39,20 @@ class GeneralInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loadedATM = Provider.of<ATMs>(context).findByID(ATMId);
     final List<Widget> listItem = [
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [StatusTag(ATMInfo.status), Text(distance)],
+        children: [StatusTag(loadedATM.status), Text(loadedATM.getDistance())],
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
             child: Text(
-              ATMInfo.name != ""
-                  ? '${ATMInfo.bank} - ${ATMInfo.name}'
-                  : '${ATMInfo.bank}',
+              loadedATM.name != ""
+                  ? '${loadedATM.bank} - ${loadedATM.name}'
+                  : '${loadedATM.bank}',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -70,7 +72,7 @@ class GeneralInfo extends StatelessWidget {
           SizedBox(width: 20),
           Expanded(
             child: Text(
-              ATMInfo.address,
+              loadedATM.address,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
             ),
@@ -83,7 +85,7 @@ class GeneralInfo extends StatelessWidget {
           Icon(Icons.call_rounded,
               color: Theme.of(context).primaryColor, size: 24),
           SizedBox(width: 20),
-          Text(ATMInfo.phone != "" ? ATMInfo.phone : '+84 28 6265 3500'),
+          Text(loadedATM.phone != "" ? loadedATM.phone : '+84 28 6265 3500'),
         ],
       ),
       Row(
@@ -101,12 +103,12 @@ class GeneralInfo extends StatelessWidget {
           ),
         ],
       ),
-      CustomTable(ATMInfo: ATMInfo,),
+      CustomTable(ATMInfo: loadedATM,),
       Container(
         width: double.infinity,
         margin: EdgeInsets.only(top: 10),
         child: ElevatedButton(
-          onPressed: () => {_launchGoogleMap(ATMInfo)},
+          onPressed: () => {_launchGoogleMap(loadedATM)},
           child: Text(
             'Direct',
           ),

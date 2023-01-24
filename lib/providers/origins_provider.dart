@@ -54,6 +54,7 @@ class OriginsProvider with ChangeNotifier {
     _getUserCurrentLocation().then((position) async {
       _currentLocation = LatLng(position.latitude, position.longitude);
       _getAddressFromLatLng(_currentLocation);
+      notifyListeners();
     });
   }
 }

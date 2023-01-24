@@ -1,83 +1,26 @@
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:watm/providers/origins_provider.dart';
 
-import '../helpers/location_helper.dart';
 import '../providers/atm_provider.dart';
 import '../screens/atm_details_screen.dart';
 import './status_tag.dart';
 import '../theme/theme_constants.dart';
 import '../dummy_bank.dart';
-import '../models/bank.dart';
 
-class ATM_item_card extends StatefulWidget {
-  final ATMProvider ATMInfo;
-
-  ATM_item_card({required this.ATMInfo});
-
-  @override
-  State<ATM_item_card> createState() => _ATM_item_cardState();
-}
-
-class _ATM_item_cardState extends State<ATM_item_card> {
+class ATM_item_card extends StatelessWidget {
   String distance = "";
-  String FindBank(String bank){
-    for (int i=0;i<DUMMY_BANKS.length;i=i+1){
-      if (bank == DUMMY_BANKS[i].name)
-        return DUMMY_BANKS[i].avatarLink;
+  String FindBank(String bank) {
+    for (int i = 0; i < DUMMY_BANKS.length; i = i + 1) {
+      if (bank == DUMMY_BANKS[i].name) return DUMMY_BANKS[i].avatarLink;
     }
-      return DUMMY_BANKS[0].avatarLink;
-  }
-  //done
-  Future<void> getDistanceMatrix(LatLng origins) async {
-    String destination = Uri.encodeComponent(widget.ATMInfo.address);
-    try {
-      var response = await Dio().get(
-          'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=${origins.latitude},${origins.longitude}&key=${GOOGLE_API_KEY}');
-      var data = jsonDecode(response.toString());
-      setState(() {
-        data['status'] == 'OK'
-            ? distance = data['rows'][0]['elements'][0]['distance']['text']
-            : distance = calculateDistance(
-                        widget.ATMInfo.latitude,
-                        widget.ATMInfo.longitude,
-                        origins.latitude,
-                        origins.longitude)
-                    .toStringAsFixed(1) +
-                " km";
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-  //done
-  double calculateDistance(lat1, lon1, lat2, lon2) {
-    var p = 0.017453292519943295;
-    var a = 0.5 -
-        cos((lat2 - lat1) * p) / 2 +
-        cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
-    return 12742 * asin(sqrt(a));
-  }
-
-  @override
-  void selectATM(BuildContext context, ATMProvider ATMInfo) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ATMDetailsScreen(ATMInfo, distance),
-      ),
-    );
+    return DUMMY_BANKS[0].avatarLink;
   }
 
   @override
   Widget build(BuildContext context) {
     final origins = Provider.of<OriginsProvider>(context);
-    getDistanceMatrix(origins.currentLocation);
+    final ATM = Provider.of<ATMProvider>(context);
     return Container(
         margin: EdgeInsets.only(right: 16),
         width: 320,
@@ -88,7 +31,12 @@ class _ATM_item_cardState extends State<ATM_item_card> {
           borderRadius: BorderRadius.circular(15),
         ),
         child: InkWell(
-            onTap: () => selectATM(context, widget.ATMInfo),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                ATMDetailsScreen.routeName,
+                arguments: ATM.id,
+              );
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -96,14 +44,12 @@ class _ATM_item_cardState extends State<ATM_item_card> {
                   leading: CircleAvatar(
                     radius: 16,
                     backgroundColor: AppTheme.colors.white,
-                    backgroundImage: AssetImage(FindBank(widget.ATMInfo.bank)),
+                    backgroundImage: AssetImage(FindBank(ATM.bank)),
                   ),
                   contentPadding: EdgeInsets.zero,
                   minLeadingWidth: 32,
                   title: Text(
-                    widget.ATMInfo.name != ""
-                        ? widget.ATMInfo.bank + ' - ' + widget.ATMInfo.name
-                        : widget.ATMInfo.bank,
+                    ATM.name != "" ? ATM.bank + ' - ' + ATM.name : ATM.bank,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
@@ -111,7 +57,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
                     maxLines: 1,
                   ),
                   subtitle: Text(
-                    widget.ATMInfo.address,
+                    ATM.address,
                     maxLines: 2,
                     style: TextStyle(overflow: TextOverflow.ellipsis),
                   ),
@@ -120,7 +66,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
                   textBaseline: TextBaseline.ideographic,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    StatusTag(widget.ATMInfo.status),
+                    StatusTag(ATM.status),
                     Text(
                       distance,
                       style: TextStyle(color: Colors.grey),

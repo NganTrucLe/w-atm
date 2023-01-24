@@ -15,7 +15,7 @@ import './atm_provider.dart';
 
 class ATMs with ChangeNotifier {
   List<ATMProvider> _items = [];
-  
+
   List<ATMProvider> get items {
     return [..._items];
   }
@@ -25,71 +25,82 @@ class ATMs with ChangeNotifier {
   }
 
   Future<void> fetchAndSetATMs() async {
-    final url = Uri.https('https://w-atm-6617a-default-rtdb.asia-southeast1.firebasedatabase.app','/atms.json');
+    final url = Uri.https(
+        'https://w-atm-6617a-default-rtdb.asia-southeast1.firebasedatabase.app',
+        '/atms.json');
     try {
       final response = await http.get(url);
-      final extractedData = json.decode(response.body) as Map<String,dynamic>;
-      if (extractedData == null){
+      final extractedData = json.decode(response.body.toString()) as Map<String, dynamic>;
+      if (extractedData == null) {
         return;
       }
       final List<ATMProvider> loadedATMs = [];
-      extractedData.forEach((ATMID, ATMData) {
-          // ignore: non_constant_identifier_names
-          Status ATMStatus = ATMData['Status'].toString().toLowerCase() ==
-                  Status.maintenance.name
-              ? Status.maintenance
-              : ATMData['Status'].toString().toLowerCase() == Status.crowded.name
-                  ? Status.crowded
-                  : Status.working;
-          // ignore: non_constant_identifier_names
-          Type ATMType = ATMData['Type'] == Type.Withdraw.name
-              ? Type.Withdraw
-              : ATMData['Type'] == Type.Deposit.name
-                  ? Type.Deposit
-                  : Type.Both;
-        loadedATMs.add(ATMProvider(
-          id: ATMID,
-          address: ATMData['address'],        
-          name: ATMData['name'],
-          bank: ATMData['bank'],
-          type: ATMType,
-          cashThroughBank: ATMData['CTB'],
-          status: ATMStatus,
-        ));
-      });
-    }
-    catch (error) {
+      // extractedData.forEach((ATMID, ATMData) {
+      //   // ignore: non_constant_identifier_names
+      //   Status ATMStatus = ATMData['Status'].toString().toLowerCase() ==
+      //           Status.maintenance.name
+      //       ? Status.maintenance
+      //       : ATMData['Status'].toString().toLowerCase() == Status.crowded.name
+      //           ? Status.crowded
+      //           : Status.working;
+      //   // ignore: non_constant_identifier_names
+      //   Type ATMType = ATMData['Type'] == Type.Withdraw.name
+      //       ? Type.Withdraw
+      //       : ATMData['Type'] == Type.Deposit.name
+      //           ? Type.Deposit
+      //           : Type.Both;
+      //   loadedATMs.add(ATMProvider(
+      //     id: ATMID,
+      //     address: ATMData['address'],
+      //     name: ATMData['name'],
+      //     bank: ATMData['bank'],
+      //     type: ATMType,
+      //     cashThroughBank: ATMData['CTB'],
+      //     status: ATMStatus,
+      //   ));
+      // });
+
+      _items = loadedATMs;
+      notifyListeners();
+    } catch (error) {
       rethrow;
     }
   }
 
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/data.json');
-    final data = await json.decode(response);
-    var list = data["District 1"] + data["District 2"] + data["District 3"];
-    list.map((index, item)  {
-      Status ATMStatus = item['Status'].toString().toLowerCase() ==
+    final extractedData = await json.decode(response) as Map<String, dynamic>;
+    if (extractedData == null) {
+      return;
+    }
+    final List<ATMProvider> loadedATMs = [];
+    var cnt = 0;
+    extractedData["ATMs"].forEach((ATMData) {
+      // ignore: non_constant_identifier_names
+      Status ATMStatus = ATMData['Status'].toString().toLowerCase() ==
               Status.maintenance.name
           ? Status.maintenance
-          : item['Status'].toString().toLowerCase() ==
-                  Status.crowded.name
+          : ATMData['Status'].toString().toLowerCase() == Status.crowded.name
               ? Status.crowded
               : Status.working;
-      Type ATMType = item['Type'] == Type.Withdraw.name
+      // ignore: non_constant_identifier_names
+      Type ATMType = ATMData['Type'] == Type.Withdraw.name
           ? Type.Withdraw
-          : item['Type'] == Type.Deposit.name
+          : ATMData['Type'] == Type.Deposit.name
               ? Type.Deposit
               : Type.Both;
-      _items.add(ATMProvider(
-          id: index,
-          bank: item["Bank"] ?? "",
-          name: item["Name"] ?? "",
-          address: item["Address"] ?? "",
-          phone: item["Phone"] ?? "",
-          type: ATMType,
-          cashThroughBank: item["CTB"] == 1 ? true : false,
-          status: ATMStatus,
+      loadedATMs.add(ATMProvider(
+        id: cnt.toString(),
+        address: ATMData['Address']?? "",
+        name: ATMData['Name']??"",
+        bank: ATMData['Bank']??"",
+        type: ATMType,
+        cashThroughBank: ATMData['CTB'],
+        status: ATMStatus,
       ));
+      cnt++;
     });
+    _items = loadedATMs;
+    notifyListeners();
   }
 }

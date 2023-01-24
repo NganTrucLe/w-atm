@@ -100,9 +100,9 @@ class _MapScreenState extends State<MapScreen> {
       child: Scaffold(
         body: Stack(
           children: [
-            _isLoading == true
-                ? const Center(child: CircularProgressIndicator())
-                : Map(_markers, origins.currentLocation),
+            // _isLoading == true
+            //     ? const Center(child: CircularProgressIndicator())
+            //     : Map(_markers, origins.currentLocation),
             //: Center(child: Text("${origins.currentLocation.latitude} ${origins.currentLocation.longitude}")),
             userLocation(),
             _isLoading == true
