@@ -14,13 +14,13 @@ import 'package:http/http.dart' as http;
 import './atm_provider.dart';
 
 class ATMs with ChangeNotifier {
-  List<ATM> _items = [];
+  List<ATMProvider> _items = [];
   
-  List<ATM> get items {
+  List<ATMProvider> get items {
     return [..._items];
   }
 
-  ATM findByID(String id) {
+  ATMProvider findByID(String id) {
     return _items.firstWhere((element) => (element.id == id));
   }
 
@@ -32,7 +32,7 @@ class ATMs with ChangeNotifier {
       if (extractedData == null){
         return;
       }
-      final List<ATM> loadedATMs = [];
+      final List<ATMProvider> loadedATMs = [];
       extractedData.forEach((ATMID, ATMData) {
           // ignore: non_constant_identifier_names
           Status ATMStatus = ATMData['Status'].toString().toLowerCase() ==
@@ -47,7 +47,7 @@ class ATMs with ChangeNotifier {
               : ATMData['Type'] == Type.Deposit.name
                   ? Type.Deposit
                   : Type.Both;
-        loadedATMs.add(ATM(
+        loadedATMs.add(ATMProvider(
           id: ATMID,
           address: ATMData['address'],        
           name: ATMData['name'],
@@ -61,5 +61,35 @@ class ATMs with ChangeNotifier {
     catch (error) {
       rethrow;
     }
+  }
+
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/data.json');
+    final data = await json.decode(response);
+    var list = data["District 1"] + data["District 2"] + data["District 3"];
+    list.map((index, item)  {
+      Status ATMStatus = item['Status'].toString().toLowerCase() ==
+              Status.maintenance.name
+          ? Status.maintenance
+          : item['Status'].toString().toLowerCase() ==
+                  Status.crowded.name
+              ? Status.crowded
+              : Status.working;
+      Type ATMType = item['Type'] == Type.Withdraw.name
+          ? Type.Withdraw
+          : item['Type'] == Type.Deposit.name
+              ? Type.Deposit
+              : Type.Both;
+      _items.add(ATMProvider(
+          id: index,
+          bank: item["Bank"] ?? "",
+          name: item["Name"] ?? "",
+          address: item["Address"] ?? "",
+          phone: item["Phone"] ?? "",
+          type: ATMType,
+          cashThroughBank: item["CTB"] == 1 ? true : false,
+          status: ATMStatus,
+      ));
+    });
   }
 }

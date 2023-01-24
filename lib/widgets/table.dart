@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:watm/theme/theme_constants.dart';
-import '../models/atm.dart';
+
+import '../providers/atm_provider.dart';
+
 
 class CustomTable extends StatelessWidget {
-  final ATM ATMInfo;
+  final ATMProvider ATMInfo;
   CustomTable({required this.ATMInfo});
   @override
   Widget build(BuildContext context) {

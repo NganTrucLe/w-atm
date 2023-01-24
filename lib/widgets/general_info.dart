@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 
+import '../providers/atm_provider.dart';
 import './table.dart';
-import '../models/atm.dart';
 import './status_tag.dart';
 
 class GeneralInfo extends StatelessWidget {
-  final ATM ATMInfo;
+  final ATMProvider ATMInfo;
   final String distance;
 
   GeneralInfo(this.ATMInfo, this.distance);
 
-  static Future<void> _launchGoogleMap(ATM ATMInfo) async {
+  static Future<void> _launchGoogleMap(ATMProvider ATMInfo) async {
     String query = Uri.encodeComponent(ATMInfo.address);
     String googleUrl = "https://www.google.com/maps/search/?api=1&query=$query";
     String appleMapUrl = "http://maps.apple.com/?q=$query";

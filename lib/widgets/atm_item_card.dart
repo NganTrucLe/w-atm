@@ -4,9 +4,11 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:watm/providers/origins_provider.dart';
 
 import '../helpers/location_helper.dart';
-import '../models/atm.dart';
+import '../providers/atm_provider.dart';
 import '../screens/atm_details_screen.dart';
 import './status_tag.dart';
 import '../theme/theme_constants.dart';
@@ -14,10 +16,9 @@ import '../dummy_bank.dart';
 import '../models/bank.dart';
 
 class ATM_item_card extends StatefulWidget {
-  final ATM ATMInfo;
-  final LatLng origins;
+  final ATMProvider ATMInfo;
 
-  ATM_item_card({required this.ATMInfo, required this.origins});
+  ATM_item_card({required this.ATMInfo});
 
   @override
   State<ATM_item_card> createState() => _ATM_item_cardState();
@@ -33,11 +34,11 @@ class _ATM_item_cardState extends State<ATM_item_card> {
       return DUMMY_BANKS[0].avatarLink;
   }
   //done
-  Future<void> getDistanceMatrix() async {
+  Future<void> getDistanceMatrix(LatLng origins) async {
     String destination = Uri.encodeComponent(widget.ATMInfo.address);
     try {
       var response = await Dio().get(
-          'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=${widget.origins.latitude},${widget.origins.longitude}&key=${GOOGLE_API_KEY}');
+          'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=${origins.latitude},${origins.longitude}&key=${GOOGLE_API_KEY}');
       var data = jsonDecode(response.toString());
       setState(() {
         data['status'] == 'OK'
@@ -45,8 +46,8 @@ class _ATM_item_cardState extends State<ATM_item_card> {
             : distance = calculateDistance(
                         widget.ATMInfo.latitude,
                         widget.ATMInfo.longitude,
-                        widget.origins.latitude,
-                        widget.origins.longitude)
+                        origins.latitude,
+                        origins.longitude)
                     .toStringAsFixed(1) +
                 " km";
       });
@@ -64,7 +65,7 @@ class _ATM_item_cardState extends State<ATM_item_card> {
   }
 
   @override
-  void selectATM(BuildContext context, ATM ATMInfo) {
+  void selectATM(BuildContext context, ATMProvider ATMInfo) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -75,7 +76,8 @@ class _ATM_item_cardState extends State<ATM_item_card> {
 
   @override
   Widget build(BuildContext context) {
-    getDistanceMatrix();
+    final origins = Provider.of<OriginsProvider>(context);
+    getDistanceMatrix(origins.currentLocation);
     return Container(
         margin: EdgeInsets.only(right: 16),
         width: 320,

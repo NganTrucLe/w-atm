@@ -12,7 +12,7 @@ enum Type {
   Both,
 }
 
-class ATM with ChangeNotifier {
+class ATMProvider with ChangeNotifier {
   final String id;
   final String bank;
   final String name;
@@ -25,7 +25,7 @@ class ATM with ChangeNotifier {
   final double latitude;
   final double longitude;
   double distance;
-  ATM({
+  ATMProvider({
     required this.id,
     required this.bank,
     required this.name,

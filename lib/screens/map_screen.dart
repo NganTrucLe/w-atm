@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
 import '../providers/atms_provider.dart';
+import '../providers/atm_provider.dart';
+import '../widgets/atm_list.dart';
 import './atm_list_screen.dart';
 import '../widgets/map.dart';
-import '../widgets/atm_list.dart';
 import '../widgets/location.dart';
-import '../models/atm.dart';
 import '../models/filterModel.dart';
-import '../widgets/status_tag.dart';
+import '../providers/origins_provider.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -22,11 +20,40 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final List<Marker> _markers = <Marker>[];
-  LatLng? _currentLocation;
-  String _currentAddress = "";
+  List<ATMProvider> ATMItem = [];
+  List<ATMProvider> RenderedATMItem = [];
+  var _isLoading = false;
+  var _isInit = true;
 
-  List<ATM> ATMItem = [];
-  List<ATM> RenderedATMItem = [];
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        _isLoading = true;
+      });
+      final origins = Provider.of<OriginsProvider>(context);
+      origins.updateLocation().then((_) async {
+        //   _addNewMarker("My current location", origins.currentLocation.latitude,
+        //       origins.currentLocation.longitude);
+        // }).then((_) {
+        // final renderedData = Provider.of<ATMs>(context);
+        // renderedData.readJson().then((_) {
+          setState(() {
+            // ATMItem = renderedData.items;
+            // RenderedATMItem = ATMItem;
+            _isLoading = false;
+          });
+        // });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   void _addNewMarker(String title, double latitude, double longitude) {
     final newMarker = Marker(
@@ -38,39 +65,6 @@ class _MapScreenState extends State<MapScreen> {
       _markers.add(newMarker);
     });
   }
-  //done
-  Future<void> _getAddressFromLatLng(Position position) async {
-    await placemarkFromCoordinates(position.latitude, position.longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      setState(() {
-        if (place.name != "") {
-          _currentAddress = place.name!;
-          if (place.thoroughfare != "") {
-            _currentAddress += " " + place.thoroughfare!;
-          }
-          if (place.locality != "") {
-            _currentAddress += " " + place.locality!;
-          } else {
-            if (place.subAdministrativeArea != "") {
-              _currentAddress += " " + place.subAdministrativeArea!;
-            }
-          }
-        }
-      });
-    }).catchError((e) {
-      debugPrint(e);
-    });
-  }
-  //done
-  Future<Position> getUserCurrentLocation() async {
-    await Geolocator.requestPermission()
-        .then((value) {})
-        .onError((error, stackTrace) async {
-      await Geolocator.requestPermission();
-    });
-    return await Geolocator.getCurrentPosition();
-  }
 
   Future<dynamic> readJson() async {
     final String response = await rootBundle.loadString('assets/data.json');
@@ -81,97 +75,39 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ListScreen(
-            list: RenderedATMItem, origins: _currentLocation as LatLng),
+        builder: (context) => ListScreen(),
       ),
     );
   }
 
-  @override
-  void initState() {
-    // Create current location marker
-    getUserCurrentLocation().then((value) async {
-      setState(() {
-        _currentLocation = LatLng(value.latitude, value.longitude);
-        _getAddressFromLatLng(value);
-        _addNewMarker("My current location", value.latitude, value.longitude);
-      });
-    });
-    // Read json file
-    readJson().then((data) async {
-      setState(() {
-        var list = data["District 1"] + data["District 2"] + data["District 3"];
-        list.map((item) async {
-          List<Location> locations = await locationFromAddress(item['Address']);
-          _addNewMarker(item['Bank'] + ' - ' + item['Name'],
-              locations[0].latitude, locations[0].longitude);
-          Status ATMStatus = item['Status'].toString().toLowerCase() ==
-                  Status.maintenance.name
-              ? Status.maintenance
-              : item['Status'].toString().toLowerCase() == Status.crowded.name
-                  ? Status.crowded
-                  : Status.working;
-          Type ATMType = item['Type'] == Type.Withdraw.name
-              ? Type.Withdraw
-              : item['Type'] == Type.Deposit.name
-                  ? Type.Deposit
-                  : Type.Both;
-          ATMItem.add(ATM(
-              bank: item["Bank"] ?? "",
-              name: item["Name"] ?? "",
-              address: item["Address"] ?? "",
-              phone: item["Phone"] ?? "",
-              type: ATMType,
-              cashThroughBank: item["CTB"] == 1 ? true : false,
-              status: ATMStatus,
-              latitude: locations[0].latitude,
-              longitude: locations[0].longitude));
-          RenderedATMItem.add(ATM(
-              bank: item["Bank"] ?? "",
-              name: item["Name"] ?? "",
-              address: item["Address"] ?? "",
-              phone: item["Phone"] ?? "",
-              type: ATMType,
-              cashThroughBank: item["CTB"] == 1 ? true : false,
-              status: ATMStatus,
-              latitude: locations[0].latitude,
-              longitude: locations[0].longitude));
-        }).toList();
-      });
-    });
-    super.initState();
-  }
-
-  void _applyFilter() {
-    var filter = context.read<FilterModel>();
-    FilterATM filterATM = filter.getFilterATM();
-    // print(filterATM.bank);
-    // print(ATMItem[0].bank);
-    setState(() {
-      RenderedATMItem = [];
-      ATMItem.map((item) => {
-            if (filterATM.bank == "" || item.bank == filterATM.bank)
-              {RenderedATMItem.add(item)}
-          }).toList();
-    });
-  }
+  // void _applyFilter() {
+  //   var filter = context.read<FilterModel>();
+  //   FilterATM filterATM = filter.getFilterATM();
+  //   setState(() {
+  //     RenderedATMItem = [];
+  //     ATMItem.map((item) => {
+  //           if (filterATM.bank == "" || item.bank == filterATM.bank)
+  //             {RenderedATMItem.add(item)}
+  //         }).toList();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _applyFilter();
-
+    //_applyFilter();
+    final origins = Provider.of<OriginsProvider>(context);
     return SafeArea(
       child: Scaffold(
         body: Stack(
           children: [
-            _currentLocation == null
+            _isLoading == true
                 ? const Center(child: CircularProgressIndicator())
-                : Map(_markers, _currentLocation!),
-            userLocation(_currentAddress),
-            _currentLocation == null
+                : Map(_markers, origins.currentLocation),
+            //: Center(child: Text("${origins.currentLocation.latitude} ${origins.currentLocation.longitude}")),
+            userLocation(),
+            _isLoading == true
                 ? const Center(child: CircularProgressIndicator())
-                : ATMlist(
-                    list: RenderedATMItem, currentLocation: _currentLocation!),
+                : ATMlist(),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -199,3 +135,5 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
+    // final dummyATMs = Provider.of<ATMs>(context);
+    // print(dummyATMs.items);

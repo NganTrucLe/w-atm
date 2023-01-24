@@ -4,19 +4,19 @@ import 'package:smooth_corner/smooth_corner.dart';
 
 import '../providers/atms_provider.dart';
 import '../widgets/general_info.dart';
-import '../models/atm.dart';
+import '../providers/atm_provider.dart';
 
 class ATMDetailsScreen extends StatelessWidget {
   static const routeName = '/ATM-details';
-  final ATM ATMInfo;
+  final ATMProvider ATMInfo;
   final String distance;
   ATMDetailsScreen(this.ATMInfo, this.distance);
   @override
   Widget build(BuildContext context) {
     //final routeArgs = ModalRoute.of(context)?.settings.arguments as ATM;
-    //ATM ATMInfo = routeArgs;
-    final dummyATMs = Provider.of<ATMs>(context);
-    print(dummyATMs.items);
+    // //ATM ATMInfo = routeArgs;
+    // final dummyATMs = Provider.of<ATMs>(context);
+    // print(dummyATMs.items);
     return Scaffold(
       appBar: AppBar(
         title: Text('ATM Details',

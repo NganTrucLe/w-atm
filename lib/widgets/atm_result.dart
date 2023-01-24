@@ -5,19 +5,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:watm/providers/origins_provider.dart';
 
 import 'package:watm/theme/theme_constants.dart';
 import '../helpers/location_helper.dart';
 
-import '../models/atm.dart';
+import '../providers/atm_provider.dart';
 import '../screens/atm_details_screen.dart';
 
 class ATMResult extends StatefulWidget {
-  final ATM ATMInfo;
+  final ATMProvider ATMInfo;
   final String name;
-  final LatLng origins;
 
-  ATMResult({required this.ATMInfo, required this.name, required this.origins});
+  ATMResult({required this.ATMInfo, required this.name});
 
   @override
   State<ATMResult> createState() => _ATMResultState();
@@ -26,7 +27,7 @@ class ATMResult extends StatefulWidget {
 class _ATMResultState extends State<ATMResult> {
   String distance = "";
 
-  void selectATM(BuildContext context, ATM ATMInfo) {
+  void selectATM(BuildContext context, ATMProvider ATMInfo) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -35,11 +36,11 @@ class _ATMResultState extends State<ATMResult> {
     );
   }
 
-  Future<void> getDistanceMatrix() async {
+  Future<void> getDistanceMatrix(LatLng origins) async {
     String destination = Uri.encodeComponent(widget.ATMInfo.address);
     try {
       var response = await Dio().get(
-          'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=${widget.origins.latitude},${widget.origins.longitude}&key=${GOOGLE_API_KEY}');
+          'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination}&origins=${origins.latitude},${origins.longitude}&key=${GOOGLE_API_KEY}');
       List<Location> locations =
           await locationFromAddress(widget.ATMInfo.address);
       var data = jsonDecode(response.toString());
@@ -49,8 +50,8 @@ class _ATMResultState extends State<ATMResult> {
             : distance = calculateDistance(
                         locations[0].latitude,
                         locations[0].longitude,
-                        widget.origins.latitude,
-                        widget.origins.longitude)
+                        origins.latitude,
+                        origins.longitude)
                     .toStringAsFixed(1);
       });
     } catch (e) {
@@ -68,7 +69,8 @@ class _ATMResultState extends State<ATMResult> {
 
   @override
   Widget build(BuildContext context) {
-    getDistanceMatrix();
+    final origins = Provider.of<OriginsProvider>(context);
+    getDistanceMatrix(origins.currentLocation);
     return InkWell(
       onTap: () => selectATM(context, widget.ATMInfo),
       child: Column(

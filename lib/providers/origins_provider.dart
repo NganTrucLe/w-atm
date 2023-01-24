@@ -7,7 +7,7 @@ import 'package:geocoding/geocoding.dart';
 class OriginsProvider with ChangeNotifier {
   LatLng _currentLocation = LatLng(0.0, 0.0);
   String _currentAddress = "";
-
+  var _isInit = false;
   LatLng get currentLocation {
     return LatLng(_currentLocation.latitude,_currentLocation.longitude);
   }
@@ -33,13 +33,15 @@ class OriginsProvider with ChangeNotifier {
           }
         }
       }
+      _isInit = true;
       notifyListeners();
     }).catchError((e) {
+      _isInit = false;
       debugPrint(e);
     });
   }
 
-  Future<Position> getUserCurrentLocation() async {
+  Future<Position> _getUserCurrentLocation() async {
     await Geolocator.requestPermission()
         .then((value) {})
         .onError((error, stackTrace) async {
@@ -49,7 +51,7 @@ class OriginsProvider with ChangeNotifier {
   }
 
   Future<void> updateLocation() async {
-    getUserCurrentLocation().then((position) async {
+    _getUserCurrentLocation().then((position) async {
       _currentLocation = LatLng(position.latitude, position.longitude);
       _getAddressFromLatLng(_currentLocation);
     });

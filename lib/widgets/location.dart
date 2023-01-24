@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:watm/theme/colors.dart';
+import '../providers/origins_provider.dart';
 
 class userLocation extends StatelessWidget {
-  String address;
-
-  userLocation(this.address);
 
   @override
   Widget build(BuildContext context) {
+    final origins = Provider.of<OriginsProvider>(context);
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: Colors.white.withOpacity(0.8),
@@ -26,7 +26,7 @@ class userLocation extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              address,
+              "${origins.currentAddress} ${origins.currentLocation.latitude} ${origins.currentLocation.longitude}",
               style: TextStyle(
                   fontFamily: 'SF Pro Text',
                   fontSize: 17,
