@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watm/providers/atm_list.dart';
 import 'package:watm/providers/bottom_navbar_provider.dart';
 import 'package:watm/theme/theme_constants.dart';
+import 'package:watm/widgets/atm_list.dart';
 import './app.dart';
 import './models/filterModel.dart';
 
@@ -20,13 +22,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'W-ATM',
-      theme: AppTheme.lightTheme,
-      home: ChangeNotifierProvider<BottomNavigationBarProvider>(
-        create: (_) => BottomNavigationBarProvider(),
-        child: const App(),
+    return MultiProvider(
+      providers: [
+        // ChangeNotifierProvider.value(
+        //   value: BottomNavigationBarProvider(),
+        // ),
+        ChangeNotifierProvider.value(
+          value: ATMs(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'W-ATM',
+        theme: AppTheme.lightTheme,
+        home: ChangeNotifierProvider<BottomNavigationBarProvider>(
+          create: (_) => BottomNavigationBarProvider(),
+          child: const App(),
+        ),
       ),
     );
   }

@@ -14,6 +14,8 @@ import '../models/atm.dart';
 import '../models/filterModel.dart';
 import '../widgets/status_tag.dart';
 
+import '../providers/atm_list.dart';
+
 class MapScreen extends StatefulWidget {
   @override
   State<MapScreen> createState() => _MapScreenState();
@@ -23,9 +25,6 @@ class _MapScreenState extends State<MapScreen> {
   final List<Marker> _markers = <Marker>[];
   LatLng? _currentLocation;
   String _currentAddress = "";
-
-  List<ATM> ATMItem = [];
-  List<ATM> RenderedATMItem = [];
 
   void _addNewMarker(String title, double latitude, double longitude) {
     final newMarker = Marker(
@@ -81,7 +80,8 @@ class _MapScreenState extends State<MapScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => ListScreen(
-            list: RenderedATMItem, origins: _currentLocation as LatLng),
+            list: Provider.of<ATMs>(context).items,
+            origins: _currentLocation as LatLng),
       ),
     );
   }
@@ -115,7 +115,7 @@ class _MapScreenState extends State<MapScreen> {
               : item['Type'] == Type.Deposit.name
                   ? Type.Deposit
                   : Type.Both;
-          ATMItem.add(ATM(
+          Provider.of<ATMs>(context).addATM(ATM(
               bank: item["Bank"] ?? "",
               name: item["Name"] ?? "",
               address: item["Address"] ?? "",
@@ -125,39 +125,39 @@ class _MapScreenState extends State<MapScreen> {
               status: ATMStatus,
               latitude: locations[0].latitude,
               longitude: locations[0].longitude));
-          RenderedATMItem.add(ATM(
-              bank: item["Bank"] ?? "",
-              name: item["Name"] ?? "",
-              address: item["Address"] ?? "",
-              phone: item["Phone"] ?? "",
-              type: ATMType,
-              cashThroughBank: item["CTB"] == 1 ? true : false,
-              status: ATMStatus,
-              latitude: locations[0].latitude,
-              longitude: locations[0].longitude));
+          // RenderedProvider.of<ATMs>(context).addATM(ATM(
+          //     bank: item["Bank"] ?? "",
+          //     name: item["Name"] ?? "",
+          //     address: item["Address"] ?? "",
+          //     phone: item["Phone"] ?? "",
+          //     type: ATMType,
+          //     cashThroughBank: item["CTB"] == 1 ? true : false,
+          //     status: ATMStatus,
+          //     latitude: locations[0].latitude,
+          //     longitude: locations[0].longitude));
         }).toList();
       });
     });
     super.initState();
   }
 
-  void _applyFilter() {
-    var filter = context.read<FilterModel>();
-    FilterATM filterATM = filter.getFilterATM();
-    // print(filterATM.bank);
-    // print(ATMItem[0].bank);
-    setState(() {
-      RenderedATMItem = [];
-      ATMItem.map((item) => {
-            if (filterATM.bank == "" || item.bank == filterATM.bank)
-              {RenderedATMItem.add(item)}
-          }).toList();
-    });
-  }
+  // void _applyFilter() {
+  //   var filter = context.read<FilterModel>();
+  //   FilterATM filterATM = filter.getFilterATM();
+  //   // print(filterATM.bank);
+  //   // print(Provider.of<ATMs>(context)._items[0].bank);
+  //   setState(() {
+  //     RenderedProvider.of<ATMs>(context)._items = [];
+  //     Provider.of<ATMs>(context)._items.map((item) => {
+  //           if (filterATM.bank == "" || item.bank == filterATM.bank)
+  //             {RenderedProvider.of<ATMs>(context).addATM(item)}
+  //         }).toList();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    _applyFilter();
+    //_applyFilter();
 
     return SafeArea(
       child: Scaffold(
@@ -170,7 +170,8 @@ class _MapScreenState extends State<MapScreen> {
             _currentLocation == null
                 ? const Center(child: CircularProgressIndicator())
                 : ATMlist(
-                    list: RenderedATMItem, currentLocation: _currentLocation!),
+                    list: Provider.of<ATMs>(context).items,
+                    currentLocation: _currentLocation!),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,

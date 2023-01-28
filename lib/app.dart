@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:watm/providers/bottom_navbar_provider.dart';
+import 'package:watm/providers/atm_list.dart';
 import './bottom_navigation.dart';
 import './tab_item.dart';
 import './tab_navigator.dart';
