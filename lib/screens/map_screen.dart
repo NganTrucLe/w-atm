@@ -80,7 +80,7 @@ class _MapScreenState extends State<MapScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => ListScreen(
-            list: Provider.of<ATMs>(context).items,
+            list: Provider.of<ATMs>(context).listATMs,
             origins: _currentLocation as LatLng),
       ),
     );
@@ -141,19 +141,6 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
   }
 
-  // void _applyFilter() {
-  //   var filter = context.read<FilterModel>();
-  //   FilterATM filterATM = filter.getFilterATM();
-  //   // print(filterATM.bank);
-  //   // print(Provider.of<ATMs>(context)._items[0].bank);
-  //   setState(() {
-  //     RenderedProvider.of<ATMs>(context)._items = [];
-  //     Provider.of<ATMs>(context)._items.map((item) => {
-  //           if (filterATM.bank == "" || item.bank == filterATM.bank)
-  //             {RenderedProvider.of<ATMs>(context).addATM(item)}
-  //         }).toList();
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +157,7 @@ class _MapScreenState extends State<MapScreen> {
             _currentLocation == null
                 ? const Center(child: CircularProgressIndicator())
                 : ATMlist(
-                    list: Provider.of<ATMs>(context).items,
+                    list: Provider.of<ATMs>(context).listATMs,
                     currentLocation: _currentLocation!),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -184,7 +171,10 @@ class _MapScreenState extends State<MapScreen> {
                       size: 24,
                       color: Colors.white,
                     ),
-                    onPressed: () => _fullList(context),
+                    onPressed: () {
+                      Provider.of<ATMs>(context, listen: false).removeFilter();
+                      _fullList(context);
+                    },
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                 ),

@@ -14,6 +14,7 @@ import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
 
 import '../models/filterModel.dart';
+import '../providers/atm_list.dart';
 
 class SuggestionScreen extends StatefulWidget {
   static const routeName = '/suggestion';
@@ -83,12 +84,11 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     // var filter = context.read<FilterModel>();
     // filter.update(filterATM);
     filterATM.printVal();
+    Provider.of<ATMs>(context, listen: false).updateFilter(filterATM);
     var provider =
         Provider.of<BottomNavigationBarProvider>(context, listen: false);
-    //Provider
     TabItem item = provider.navigatorKeys.entries.toList()[1].key;
     provider.selectTab(item);
-
   }
 
   Future<void> _bankSelection(BuildContext context) async {
