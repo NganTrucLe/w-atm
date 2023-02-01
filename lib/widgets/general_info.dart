@@ -52,8 +52,8 @@ class GeneralInfo extends StatelessWidget {
             child: Text(
               loadedATM.name != ""
                   ? '${loadedATM.bank} - ${loadedATM.name}'
-                  : '${loadedATM.bank}',
-              style: TextStyle(
+                  : loadedATM.bank,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis,
@@ -69,7 +69,7 @@ class GeneralInfo extends StatelessWidget {
         children: [
           Icon(Icons.location_on_rounded,
               color: Theme.of(context).primaryColor, size: 24),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Expanded(
             child: Text(
               loadedATM.address,
@@ -84,7 +84,7 @@ class GeneralInfo extends StatelessWidget {
         children: [
           Icon(Icons.call_rounded,
               color: Theme.of(context).primaryColor, size: 24),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Text(loadedATM.phone != "" ? loadedATM.phone : '+84 28 6265 3500'),
         ],
       ),
@@ -93,12 +93,13 @@ class GeneralInfo extends StatelessWidget {
         children: [
           Icon(Icons.access_time_filled_rounded,
               color: Theme.of(context).primaryColor, size: 24),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
-              Text('Not too crowded'),
-              Text('Estimated time: 6 mins'),
+              const Text('Not too crowded'),
+              const Text('Estimated time: 6 mins'),
             ],
           ),
         ],
@@ -106,18 +107,18 @@ class GeneralInfo extends StatelessWidget {
       CustomTable(ATMInfo: loadedATM,),
       Container(
         width: double.infinity,
-        margin: EdgeInsets.only(top: 10),
+        margin: const EdgeInsets.only(top: 10),
         child: ElevatedButton(
           onPressed: () => {_launchGoogleMap(loadedATM)},
-          child: Text(
-            'Direct',
-          ),
           style: ElevatedButton.styleFrom(
               onPrimary: Colors.white,
               primary: Theme.of(context).primaryColor,
-              padding: EdgeInsets.symmetric(vertical: 12),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
+          child: const Text(
+            'Direct',
+          ),
         ),
       ),
     ];
@@ -130,7 +131,7 @@ class GeneralInfo extends StatelessWidget {
     List<Widget> array = [];
     for (int i = 0; i < listItem.length; i = i + 1) {
       array.add(Container(
-        margin: EdgeInsets.symmetric(vertical: 6),
+        margin: const EdgeInsets.symmetric(vertical: 6),
         child: listItem[i],
       ));
     }

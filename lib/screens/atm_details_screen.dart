@@ -4,12 +4,12 @@ import 'package:smooth_corner/smooth_corner.dart';
 import '../widgets/general_info.dart';
 
 class ATMDetailsScreen extends StatelessWidget {
+  const ATMDetailsScreen({super.key});
   static const routeName = '/ATM-details';
   @override
   Widget build(BuildContext context) {
-    final ATMId = 
-        ModalRoute.of(context)!.settings.arguments as String; // is the id!
-    //final loadedATM = Provider.of<ATMs>(context).findByID(ATMId);
+    final ATMId=ModalRoute.of(context)!.settings.arguments as String;
+    // final loadedATM = Provider.of<ATMs>(context).findByID(ATMId);
     return Scaffold(
       appBar: AppBar(
         title: Text('ATM Details',

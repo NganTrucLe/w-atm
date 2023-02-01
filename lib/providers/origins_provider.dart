@@ -13,6 +13,7 @@ class OriginsProvider with ChangeNotifier {
   }
 
   String get currentAddress {
+    print(_currentAddress);
     return _currentAddress;
   }
 

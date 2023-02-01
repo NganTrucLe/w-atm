@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:watm/screens/atm_details_screen.dart';
 
 import './providers/bottom_navbar_provider.dart';
 import './providers/origins_provider.dart';
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
           create: (_) => BottomNavigationBarProvider(),
           child: const App(),
         ),
+        routes: {
+          ATMDetailsScreen.routeName: (context) => const ATMDetailsScreen(),
+        },
       ),
     );
   }

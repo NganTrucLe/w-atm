@@ -32,11 +32,12 @@ class ATM_item_card extends StatelessWidget {
         ),
         child: InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(
-                ATMDetailsScreen.routeName,
-                arguments: ATM.id,
-              );
-            },
+            Navigator.pushNamed(
+              context,
+              ATMDetailsScreen.routeName,
+              arguments: ATM.id,
+            );
+          },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -49,7 +50,9 @@ class ATM_item_card extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   minLeadingWidth: 32,
                   title: Text(
-                    ATM.name != "" ? ATM.bank + ' - ' + ATM.name : ATM.bank,
+                    ATM.name != ""
+                        ? ATM.bank + ' - ' + ATM.name
+                        : ATM.bank,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,

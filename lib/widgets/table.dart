@@ -21,7 +21,7 @@ class CustomTable extends StatelessWidget {
         },
         {
           'title': 'Cash through bank',
-          'value': ATMInfo.cashThroughBank == 1 ? 'Available' : 'Not availabe',
+          'value': ATMInfo.cashThroughBank == true ? 'Available' : 'Not availabe',
         },
         {
           'title': 'Number of ATMs',
