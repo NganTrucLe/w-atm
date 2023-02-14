@@ -4,7 +4,6 @@ import 'package:watm/theme/colors.dart';
 import '../providers/origins_provider.dart';
 
 class userLocation extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final origins = Provider.of<OriginsProvider>(context);
@@ -26,7 +25,7 @@ class userLocation extends StatelessWidget {
               ),
             ),
             subtitle: Text(
-              "${origins.currentAddress} ${origins.currentLocation.latitude} ${origins.currentLocation.longitude}",
+              "${origins.currentAddress}",
               style: TextStyle(
                   fontFamily: 'SF Pro Text',
                   fontSize: 17,

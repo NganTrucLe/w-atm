@@ -4,7 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
-import '../providers/atms_provider.dart';
 import '../providers/atm_provider.dart';
 import '../widgets/atm_list.dart';
 import './atm_list_screen.dart';
@@ -19,7 +18,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final List<Marker> _markers = <Marker>[];
+  List<Marker> markers = [];
   List<ATMProvider> ATMItem = [];
   List<ATMProvider> RenderedATMItem = [];
   var _isLoading = false;
@@ -38,32 +37,19 @@ class _MapScreenState extends State<MapScreen> {
       });
       final origins = Provider.of<OriginsProvider>(context);
       origins.updateLocation().then((_) async {
-        //   _addNewMarker("My current location", origins.currentLocation.latitude,
-        //       origins.currentLocation.longitude);
         // }).then((_) {
         // final renderedData = Provider.of<ATMs>(context);
         // renderedData.readJson().then((_) {
-          setState(() {
-            // ATMItem = renderedData.items;
-            // RenderedATMItem = ATMItem;
-            _isLoading = false;
-          });
+        setState(() {
+          // ATMItem = renderedData.items;
+          // RenderedATMItem = ATMItem;
+          _isLoading = false;
+        });
         // });
       });
     }
     _isInit = false;
     super.didChangeDependencies();
-  }
-
-  void _addNewMarker(String title, double latitude, double longitude) {
-    final newMarker = Marker(
-        markerId: MarkerId((_markers.length + 1).toString()),
-        position: LatLng(latitude, longitude),
-        infoWindow: InfoWindow(title: title));
-
-    setState(() {
-      _markers.add(newMarker);
-    });
   }
 
   Future<dynamic> readJson() async {
@@ -100,14 +86,17 @@ class _MapScreenState extends State<MapScreen> {
       child: Scaffold(
         body: Stack(
           children: [
-            // _isLoading == true
-            //     ? const Center(child: CircularProgressIndicator())
-            //     : Map(_markers, origins.currentLocation),
-            //: Center(child: Text("${origins.currentLocation.latitude} ${origins.currentLocation.longitude}")),
+            origins.currentLocation != LatLng(0, 0)
+                ? Map(origins.currentLocation)
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
             userLocation(),
-            _isLoading == true
-                ? const Center(child: CircularProgressIndicator())
-                : ATMlist(),
+            origins.currentLocation != LatLng(0, 0)
+                ? ATMlist()
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.end,

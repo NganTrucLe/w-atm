@@ -9,11 +9,10 @@ class OriginsProvider with ChangeNotifier {
   String _currentAddress = "";
   var _isInit = false;
   LatLng get currentLocation {
-    return LatLng(_currentLocation.latitude,_currentLocation.longitude);
+    return LatLng(_currentLocation.latitude, _currentLocation.longitude);
   }
 
   String get currentAddress {
-    print(_currentAddress);
     return _currentAddress;
   }
 

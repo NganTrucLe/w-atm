@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:dio/dio.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../helpers/location_helper.dart';
 import '../widgets/status_tag.dart';
 
@@ -38,7 +38,7 @@ class ATMProvider with ChangeNotifier {
     this.longitude = 0.0,
     this.distance = 0.0,
   });
-  Future<void> _getDistanceMatrix(Position position) async {
+  Future<void> _getDistanceMatrix(LatLng position) async {
     String destination = Uri.encodeComponent(address);
     try {
       var response = await Dio().get(
@@ -47,13 +47,14 @@ class ATMProvider with ChangeNotifier {
       data['status'] == 'OK'
           ? distance = data['rows'][0]['elements'][0]['distance']['text']
           : 0;
+      notifyListeners();
     } catch (e) {
       // ignore: avoid_print
       print(e);
     }
   }
 
-  double _calculateDistance(lat1, lon1, lat2, lon2) {
+  double _coordinateDistance(lat1, lon1, lat2, lon2) {
     var p = 0.017453292519943295;
     var a = 0.5 -
         cos((lat2 - lat1) * p) / 2 +
@@ -61,17 +62,14 @@ class ATMProvider with ChangeNotifier {
     return 12742 * asin(sqrt(a));
   }
 
-  void updateDistance(Position position) {
-    distance = _calculateDistance(
-      position.latitude, position.longitude, latitude, longitude);
+  Future<void> updateDistance(LatLng position) async {
+    distance = _coordinateDistance(
+        position.latitude, position.longitude, latitude, longitude);
     _getDistanceMatrix(position).then((_) {});
-    notifyListeners();
   }
 
   String getDistance() {
-    if (distance<0) return "${(distance*100).ceil().toStringAsFixed(0)}m";
+    if (distance < 0) return "${(distance * 100).ceil().toStringAsFixed(0)}m";
     return "${distance.toStringAsFixed(1)}km";
   }
-
 }
-// List<Location> locations = await locationFromAddress(item['Address']);

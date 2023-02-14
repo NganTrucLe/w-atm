@@ -9,7 +9,6 @@ import '../theme/theme_constants.dart';
 import '../dummy_bank.dart';
 
 class ATM_item_card extends StatelessWidget {
-  String distance = "";
   String FindBank(String bank) {
     for (int i = 0; i < DUMMY_BANKS.length; i = i + 1) {
       if (bank == DUMMY_BANKS[i].name) return DUMMY_BANKS[i].avatarLink;
@@ -19,8 +18,8 @@ class ATM_item_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final origins = Provider.of<OriginsProvider>(context);
     final ATM = Provider.of<ATMProvider>(context);
+    ATM.updateDistance(Provider.of<OriginsProvider>(context).currentLocation);
     return Container(
         margin: EdgeInsets.only(right: 16),
         width: 320,
@@ -32,12 +31,12 @@ class ATM_item_card extends StatelessWidget {
         ),
         child: InkWell(
             onTap: () {
-            Navigator.pushNamed(
-              context,
-              ATMDetailsScreen.routeName,
-              arguments: ATM.id,
-            );
-          },
+              Navigator.pushNamed(
+                context,
+                ATMDetailsScreen.routeName,
+                arguments: ATM.id,
+              );
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -50,9 +49,7 @@ class ATM_item_card extends StatelessWidget {
                   contentPadding: EdgeInsets.zero,
                   minLeadingWidth: 32,
                   title: Text(
-                    ATM.name != ""
-                        ? ATM.bank + ' - ' + ATM.name
-                        : ATM.bank,
+                    ATM.name != "" ? ATM.bank + ' - ' + ATM.name : ATM.bank,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,
@@ -71,7 +68,7 @@ class ATM_item_card extends StatelessWidget {
                   children: [
                     StatusTag(ATM.status),
                     Text(
-                      distance,
+                      ATM.getDistance(),
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],

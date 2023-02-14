@@ -5,10 +5,10 @@ import 'package:watm/screens/atm_details_screen.dart';
 import './providers/bottom_navbar_provider.dart';
 import './providers/origins_provider.dart';
 import './providers/atms_provider.dart';
-import './providers/atm_provider.dart';
 import './theme/theme_constants.dart';
 import './app.dart';
 import './models/filterModel.dart';
+
 void main() {
   runApp(
     ChangeNotifierProvider(

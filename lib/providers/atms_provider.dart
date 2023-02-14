@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
+
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import '../widgets/location.dart';
 import '../widgets/status_tag.dart';
 import 'package:http/http.dart' as http;
 import './atm_provider.dart';
 
 class ATMs with ChangeNotifier {
   List<ATMProvider> _items = [];
+  List<Marker> _markers = <Marker>[];
 
   List<ATMProvider> get items {
     return [..._items];
+  }
+
+  List<Marker> get markers {
+    return [..._markers];
   }
 
   ATMProvider findByID(String id) {
@@ -30,7 +31,8 @@ class ATMs with ChangeNotifier {
         '/atms.json');
     try {
       final response = await http.get(url);
-      final extractedData = json.decode(response.body.toString()) as Map<String, dynamic>;
+      final extractedData =
+          json.decode(response.body.toString()) as Map<String, dynamic>;
       if (extractedData == null) {
         return;
       }
@@ -67,6 +69,27 @@ class ATMs with ChangeNotifier {
     }
   }
 
+  Future<void> addNewMarker(
+      String title, double latitude, double longitude) async {
+    final newMarker = Marker(
+        markerId: MarkerId((_markers.length + 1).toString()),
+        position: LatLng(latitude, longitude),
+        infoWindow: InfoWindow(title: title));
+    _markers.add(newMarker);
+    // notifyListeners();
+  }
+
+  Future<void> _addMarkers() async {
+    _items.forEach((element) {
+      addNewMarker(
+          element.name != ""
+              ? element.bank + " - " + element.name
+              : element.bank,
+          element.latitude,
+          element.longitude);
+    });
+  }
+
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/data.json');
     final extractedData = await json.decode(response) as Map<String, dynamic>;
@@ -90,17 +113,19 @@ class ATMs with ChangeNotifier {
               ? Type.Deposit
               : Type.Both;
       loadedATMs.add(ATMProvider(
-        id: cnt.toString(),
-        address: ATMData['Address']?? "",
-        name: ATMData['Name']??"",
-        bank: ATMData['Bank']??"",
-        type: ATMType,
-        cashThroughBank: ATMData['CTB'],
-        status: ATMStatus,
-      ));
+          id: cnt.toString(),
+          address: ATMData['Address'] ?? "",
+          name: ATMData['Name'] ?? "",
+          bank: ATMData['Bank'] ?? "",
+          type: ATMType,
+          cashThroughBank: ATMData['CTB'],
+          status: ATMStatus,
+          latitude: ATMData['Latitude'],
+          longitude: ATMData['Longitude']));
       cnt++;
     });
     _items = loadedATMs;
+    _addMarkers();
     notifyListeners();
   }
 }

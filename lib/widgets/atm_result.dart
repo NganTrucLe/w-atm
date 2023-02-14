@@ -1,15 +1,8 @@
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:watm/providers/origins_provider.dart';
 
 import 'package:watm/theme/theme_constants.dart';
-import '../helpers/location_helper.dart';
 
 import '../providers/atm_provider.dart';
 import '../screens/atm_details_screen.dart';
@@ -24,18 +17,17 @@ class ATMResult extends StatefulWidget {
 }
 
 class _ATMResultState extends State<ATMResult> {
-
   @override
   Widget build(BuildContext context) {
-    final origins = Provider.of<OriginsProvider>(context);
     final ATM = Provider.of<ATMProvider>(context);
+    ATM.updateDistance(Provider.of<OriginsProvider>(context).currentLocation);
     return InkWell(
       onTap: () {
-              Navigator.of(context).pushNamed(
-                ATMDetailsScreen.routeName,
-                arguments: ATM.id,
-              );
-            },
+        Navigator.of(context).pushNamed(
+          ATMDetailsScreen.routeName,
+          arguments: ATM.id,
+        );
+      },
       child: Column(
         children: [
           Padding(
