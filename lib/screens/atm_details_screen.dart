@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:smooth_corner/smooth_corner.dart';
 
 import '../widgets/general_info.dart';
-import '../models/atm.dart';
 
 class ATMDetailsScreen extends StatelessWidget {
+  const ATMDetailsScreen({super.key});
   static const routeName = '/ATM-details';
-  final ATM ATMInfo;
-  final String distance;
-  ATMDetailsScreen(this.ATMInfo, this.distance);
   @override
   Widget build(BuildContext context) {
-    //final routeArgs = ModalRoute.of(context)?.settings.arguments as ATM;
-    //ATM ATMInfo = routeArgs;
+    final ATMId=ModalRoute.of(context)!.settings.arguments as String;
+    // final loadedATM = Provider.of<ATMs>(context).findByID(ATMId);
     return Scaffold(
       appBar: AppBar(
         title: Text('ATM Details',
@@ -41,7 +38,7 @@ class ATMDetailsScreen extends StatelessWidget {
                   smoothness: 0.6,
                 ),
               ),
-              child: GeneralInfo(ATMInfo,distance),
+              child: GeneralInfo(ATMId),
             ),
           ],
         ),

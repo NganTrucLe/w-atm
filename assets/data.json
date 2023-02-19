@@ -1,341 +1,489 @@
 {
-    "District 1": [
-        {
-            "Bank": "ACB",
-            "Name": "TÂN ĐỊNH",
-            "Address": "261 Trần Quang Khải, Phường Tân Định, Q.1, TP. HCM",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "BIDV",
-            "Name": "Nguyen Thai Binh OFC",
-            "Address": "No. 99-101, Ham Nghi Avenue, Nguyen Thai Binh Ward, District 1, Ho Chi Minh City",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Maintenance"
-        },
-        {
-            "Bank": "HDBank",
-            "Name": "Sở Y Tế 520",
-            "Address": "59 Nguyễn Thị Minh Khai, Phường Bến Thành, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Crowded"
-        },
-        {
-            "Bank": "Sacombank",
-            "Name": "1785 - Sở kế họach đầu tư",
-            "Address": "32 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Tp.HCM",
-            "Phone": "1800585888",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "MBBank",
-            "Name": "CN Sài Gòn",
-            "Address": "Số 172 Hai Bà Trưng, Đa Kao, quận 1, Hồ Chí Minh",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "OCB",
-            "Name": "Lê Duẩn",
-            "Address": "45 Lê Duẩn, Phường Bến Nghé, Quận 1, Tp.Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Crowded"
-        },
-        {
-            "Bank": "OCB",
-            "Name": "Vincom",
-            "Address": "72 Lê Thánh Tôn, Bến Nghé, Quận 1, TPHCM",
-            "Type": "Withdraw",
-            "CTB": 0,
-            "Status": "Working"
-        },
-        {
-            "Bank": "PVCombank",
-            "Name": "Bảy Hiền",
-            "Address": "45ABCD Đinh Tiên Hoàng, phường Bến Nghé, quận 1, TP.HCM",
-            "Type": "Deposit",
-            "CTB": 0,
-            "Status": "Maintenance"
-        }, 
-        {
-            "Bank": "SeABank",
-            "Name": "CitiPlaza Nguyễn Trãi",
-            "Address": "Số 230 Nguyễn Trãi, phường Nguyễn Cư Trinh, quận 1, Thành phố Hồ Chí Minh",
-            "Type": "Deposit",
-            "CTB": 0,
-            "Status": "Maintenance"
-        },
-        {
-            "Bank": "SeABank",
-            "Name": "Quận 1",
-            "Address": "Số 2 bis Nguyễn Thị Minh Khai, phường DaKao, Quận 1, Thành phố Hồ Chí Minh",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Working"
-        }, 
-        {
-            "Bank": "Standard Chartered",
-            "Address": "45 Vo Thi Sau , Da Kao Quận 1, HCM",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Crowded"
-        },
-        {
-            "Bank": "Standard Chartered",
-            "Address": "96 Ly Tu Trong, Ben Thanh HCM",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Maintenance"
-        },
-        {
-            "Bank": "Standard Chartered",
-            "Address": "230 Nguyen Trai , Quận 1, HCM",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Crowded"
-        },
-        {
-            "Bank": "TPBank",
-            "Name": "Đô Thành",
-            "Address": "Số 93-95 Nguyễn Cư Trinh, P. Nguyễn Cư Trinh, Quận 1, TP. Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "TPBank",
-            "Name": "Mạc Đĩnh Chi",
-            "Address": "12 Mạc Đĩnh Chi, Đa Kao, Quận 1, TP. Hồ Chí Minh",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Crowded"
-        },
-        {
-            "Bank": "VPBank",
-            "Name": "Bến Thành I",
-            "Address": "39 Lê Duẩn, phường Bến Nghé, Quận 1, TPHCM",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "VPBank",
-            "Name": "Hàng Xanh CDM",
-            "Address": "10A Nguyễn Thị Minh Khai, P.Đa Kao, Q1, TP Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        }
-    ], 
-    "District 2": [
-        {
-            "Bank": "ACB",
-            "Name": "SIÊU THỊ AN PHÚ",
-            "Address": "36 Thảo Điền, P. Thảo Điền, Quan 2, Ho Chi Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "BIDV",
-            "Name": "Dai Quang Minh OFC",
-            "Address": "First & Ground Floor, Shophouse A1-0001, Lot M1, M2 (Sarimi), No. 74, Nguyen Co Thach Street, An Loi Dong Ward, District 2, Ho Chi Minh City",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "HDBank",
-            "Name": " Nguyễn Duy Trinh",
-            "Address": "201 Nguyễn Duy Trinh, Phường Bình Trưng Tây, Quận 2, Thành Phố Hồ Chí Minh, Việt Nam",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Crowded"
-        },
-        {
-            "Bank": "Kien Long Bank",
-            "Name": "Showroom Đồng Tâm Quận 2",
-            "Address": "36-38 Trần Não, P.An Phú, TP.Thủ Đức",
-            "Phone": "(028) 3933 3933",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Crowded"
-        },
-        {
-            "Bank": "Standard Chartered",
-            "Address": "204 Tran Nao, Binh An , Quận 2. HCM",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Maintenance"
-        },
-        {
-            "Bank": "Standard Chartered",
-            "Address": "43 Thao Dien, Quận 2, HCM",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "VPBank",
-            "Name": "Thạnh Mỹ Lợi CDM",
-            "Address": "638-640 Nguyễn Thị Định, Q2, TP Hồ Chí Minh",
-            "Type": "Deposit",
-            "CTB": 1,
-            "Status": "Maintenance"
-        },
-        {
-            "Bank": "VPBank",
-            "Name": "BigC Cantavil",
-            "Address": "Số 1 Ấp 3 khu ĐTM An Phú, Q.2",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        }
-    ], 
-    "District 3": [
-        {
-            "Bank": "ACB",
-            "Name": "MINH KHAI – SÀI GÒN",
-            "Address": "442-444-446-448 Nguyễn Thị Minh Khai, Quận 3, TP. Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        }, 
-        {
-            "Bank": "Bac A Bank",
-            "Name": "Nam Kỳ Khởi Nghĩa",
-            "Address": "382C1 Nam Kỳ Khởi Nghĩa, 8, Quận 3, Hồ Chí Minh, Vietnam",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "BIDV",
-            "Name": "127 Vo Van Tan",
-            "Address": "No 127 Vo Van Tan Street, Ward 3, District 3, Ho Chi Minh city, Viet Nam",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "HDBank",
-            "Name": " Nam Kỳ Khởi Nghĩa",
-            "Address": "215 Nam Kỳ Khởi Nghĩa, Phường 7, Quận 3, Thành Phố Hồ Chí Minh, Việt Nam",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "Kien Long Bank",
-            "Name": "Sài Gòn",
-            "Address": "98-108A Cách Mạng Tháng 8, P.Võ Thị Sáu, Q.3, TP.Hồ Chí Minh",
-            "Phone": "(028) 3933 3933",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "Sacombank",
-            "Name": "1548 - CMT8",
-            "Address": "236-238 CMT8, PHƯỜNG 10, QUẬN 3, TPHCM",
-            "Phone": "1800585888",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "Sacombank",
-            "Name": "2044 - Đại Nam",
-            "Address": "158 Võ Văn Tần, Phường Võ Thị Sáu, Quận 3, Tp.HCM",
-            "Phone": "1800585888",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "MBBank",
-            "Name": " Bến Thành",
-            "Address": "Số 414C  - 414D Nguyễn Thị Minh Khai, phường 5, quận 3, Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "OCB",
-            "Name": "Phạm Ngọc Thạch",
-            "Address": "17 Phạm Ngọc Thạch, Phường 6, Quận 3, Tp.Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "SeABank",
-            "Name": "Ga Sài Gòn",
-            "Address": "Số 1 Nguyễn Thông, phường 9, quận 3, Thành phố Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "Standard Chartered",
-            "Address": "331 Dien Bien Phu St., Dist.3, HCM City",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "Standard Chartered",
-            "Address": "442 Nguyễn Thị Minh Khai, Quận 3, TP. Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "Standard Chartered",
-            "Address": "71 Ly Chinh Thang St., W. 8, Dist. 3, HCM City",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "TPBank",
-            "Name": "Bến Thành",
-            "Address": "180 Đường Nam Kỳ Khởi Nghĩa, P.5, Quận 3, TP. Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "TPBank",
-            "Name": "Hồ Chí Minh",
-            "Address": "456A Nguyễn Thị Minh Khai, Phường 5, Quận 3, TP. Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        }, 
-        {
-            "Bank": "VPBank",
-            "Name": "Tòa nhà ACM",
-            "Address": "96 Cao Thắng, phường 4, Quận 3, Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        },
-        {
-            "Bank": "VPBank",
-            "Name": "Nguyễn Thiện Thuật CDM",
-            "Address": "299-301 Nguyễn Thiện Thuật, Q.3, TP Hồ Chí Minh",
-            "Type": "Withdraw",
-            "CTB": 1,
-            "Status": "Working"
-        }
-    ]
+  "ATMs": [
+    {
+      "Address": "261 Trần Quang Khải, Phường Tân Định, Q.1, TP. HCM",
+      "Bank": "ACB",
+      "CTB": true,
+      "District": "1",
+      "Name": "Tân Định",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.7912313,
+      "Longitude": 106.68824529999999
+    },
+    {
+      "Address": "No. 99-101, Ham Nghi Avenue, Nguyen Thai Binh Ward, District 1, Ho Chi Minh City",
+      "Bank": "BIDV",
+      "CTB": true,
+      "District": "1",
+      "Name": "Nguyen Thai Binh OFC",
+      "Phone": "",
+      "Status": "Maintenance",
+      "Type": "Withdraw",
+      "Latitude": 10.7706804,
+      "Longitude": 106.7010284
+    },
+    {
+      "Address": "59 Nguyễn Thị Minh Khai, Phường Bến Thành, Quận 1, Thành Phố Hồ Chí Minh, Việt Nam",
+      "Bank": "HDBank",
+      "CTB": true,
+      "District": "1",
+      "Name": "Sở Y Tế 520",
+      "Phone": "",
+      "Status": "Crowded",
+      "Type": "Withdraw",
+      "Latitude": 10.773697600000002,
+      "Longitude": 106.6900763
+    },
+    {
+      "Address": "32 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Tp.HCM",
+      "Bank": "Sacombank",
+      "CTB": true,
+      "District": "1",
+      "Name": "1785 - Sở kế họach đầu tư",
+      "Phone": "1800585888",
+      "Status": "Working",
+      "Type": "Deposit",
+      "Latitude": 10.779224099999999,
+      "Longitude": 106.7030783
+    },
+    {
+      "Address": "Số 172 Hai Bà Trưng, Đa Kao, quận 1, Hồ Chí Minh",
+      "Bank": "MBBank",
+      "CTB": true,
+      "District": "1",
+      "Name": "CN Sài Gòn",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Deposit",
+      "Latitude": 10.7856345,
+      "Longitude": 106.6952241
+    },
+    {
+      "Address": "45 Lê Duẩn, Phường Bến Nghé, Quận true, Tp.Hồ Chí Minh",
+      "Bank": "OCB",
+      "CTB": true,
+      "District": "1",
+      "Name": "Lê Duẩn",
+      "Phone": "",
+      "Status": "Crowded",
+      "Type": "Withdraw",
+      "Latitude": 10.7811655,
+      "Longitude": 106.6996168
+    },
+    {
+      "Address": "72 Lê Thánh Tôn, Bến Nghé, Quận 1, TPHCM",
+      "Bank": "OCB",
+      "CTB": false,
+      "District": "1",
+      "Name": "Vincom",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.7780202,
+      "Longitude": 106.70199009999999
+    },
+    {
+      "Address": "45ABCD Đinh Tiên Hoàng, phường Bến Nghé, quận 1, TP.HCM",
+      "Bank": "PVCombank",
+      "CTB": false,
+      "District": "1",
+      "Name": "Bảy Hiền",
+      "Phone": "",
+      "Status": "Maintenance",
+      "Type": "Deposit",
+      "Latitude": 10.7884855,
+      "Longitude": 106.6995645
+    },
+    {
+      "Address": "Số 230 Nguyễn Trãi, phường Nguyễn Cư Trinh, quận 1, Thành phố Hồ Chí Minh",
+      "Bank": "SeABank",
+      "CTB": false,
+      "District": "1",
+      "Name": "CitiPlaza Nguyễn Trãi",
+      "Phone": "",
+      "Status": "Maintenance",
+      "Type": "Deposit",
+      "Latitude": 10.764871699999999,
+      "Longitude": 106.68746859999999
+    },
+    {
+      "Address": "Số 2 bis Nguyễn Thị Minh Khai, phường DaKao, Quận 1, Thành phố Hồ Chí Minh",
+      "Bank": "SeABank",
+      "CTB": true,
+      "District": "1",
+      "Name": "Quận 1",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Deposit",
+      "Latitude": 10.7801347,
+      "Longitude": 106.6861576
+    },
+    {
+      "Address": "45 Vo Thi Sau , Da Kao Quận 1, HCM",
+      "Bank": "Standard Chartered",
+      "CTB": true,
+      "District": "1",
+      "Phone": "",
+      "Status": "Crowded",
+      "Type": "Deposit",
+      "Latitude": 10.790588731508532,
+      "Longitude": 106.69474618373891
+    },
+    {
+      "Address": "96 Ly Tu Trong, Ben Thanh HCM",
+      "Bank": "Standard Chartered",
+      "CTB": true,
+      "District": "1",
+      "Phone": "",
+      "Status": "Maintenance",
+      "Type": "Deposit",
+      "Latitude": 10.774490596291216,
+      "Longitude": 106.69733095502934
+    },
+    {
+      "Address": "230 Nguyen Trai , Quận 1, HCM",
+      "Bank": "Standard Chartered",
+      "CTB": true,
+      "District": "1",
+      "Phone": "",
+      "Status": "Crowded",
+      "Type": "Deposit",
+      "Latitude": 10.764885358255828,
+      "Longitude": 106.68747041622908
+    },
+    {
+      "Address": "Số 93-95 Nguyễn Cư Trinh, P. Nguyễn Cư Trinh, Quận 1, TP. Hồ Chí Minh",
+      "Bank": "TPBank",
+      "CTB": true,
+      "District": "1",
+      "Name": "Đô Thành",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.763643032325957,
+      "Longitude": 106.6897635798025
+    },
+    {
+      "Address": "12 Mạc Đĩnh Chi, Đa Kao, Quận 1, TP. Hồ Chí Minh",
+      "Bank": "TPBank",
+      "CTB": true,
+      "District": "1",
+      "Name": "Mạc Đĩnh Chi",
+      "Phone": "",
+      "Status": "Crowded",
+      "Type": "Deposit",
+      "Latitude": 10.785382568596132,
+      "Longitude": 106.69988063228625
+    },
+    {
+      "Address": "39 Lê Duẩn, phường Bến Nghé, Quận 1, TPHCM",
+      "Bank": "VPBank",
+      "CTB": true,
+      "District": "1",
+      "Name": "Bến Thành I",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Deposit",
+      "Latitude": 10.781621135905574,
+      "Longitude": 106.70000426173786
+    },
+    {
+      "Address": "10A Nguyễn Thị Minh Khai, P.Đa Kao, Q1, TP Hồ Chí Minh",
+      "Bank": "VPBank",
+      "CTB": true,
+      "District": "1",
+      "Name": "Hàng Xanh CDM",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.788236809779768,
+      "Longitude": 106.70293867849294
+    },
+    {
+      "Address": "36 Thảo Điền, P. Thảo Điền, Quan 2, Ho Chi Minh",
+      "Bank": "ACB",
+      "CTB": true,
+      "District": "2",
+      "Name": "SIÊU THỊ AN PHÚ",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.80535227278271,
+      "Longitude": 106.73659727751996
+    },
+    {
+      "Address": "First & Ground Floor, Shophouse A1-0001, Lot M1, M2 (Sarimi), No. 74, Nguyen Co Thach Street, An Loi Dong Ward, District 2, Ho Chi Minh City",
+      "Bank": "BIDV",
+      "CTB": true,
+      "District": "2",
+      "Name": "Dai Quang Minh OFC",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Deposit",
+      "Latitude": 10.771022853918005,
+      "Longitude": 106.72427651759381
+    },
+    {
+      "Address": "201 Nguyễn Duy Trinh, Phường Bình Trưng Tây, Quận 2, Thành Phố Hồ Chí Minh, Việt Nam",
+      "Bank": "HDBank",
+      "CTB": true,
+      "District": "2",
+      "Name": " Nguyễn Duy Trinh",
+      "Phone": "",
+      "Status": "Crowded",
+      "Type": "Withdraw",
+      "Latitude": 10.788007964039886,
+      "Longitude": 106.76184773083882
+    },
+    {
+      "Address": "36-38 Trần Não, P.An Phú, TP.Thủ Đức",
+      "Bank": "Kien Long Bank",
+      "CTB": true,
+      "District": "2",
+      "Name": "Showroom Đồng Tâm Quận 2",
+      "Phone": "(028) 3933 3933",
+      "Status": "Crowded",
+      "Type": "Deposit",
+      "Latitude": 10.798979933527427,
+      "Longitude": 106.73353165885001
+    },
+    {
+      "Address": "204 Tran Nao, Binh An , Quận 2. HCM",
+      "Bank": "ACB",
+      "CTB": true,
+      "District": "2",
+      "Name": "CN Đông Sài Gòn",
+      "Phone": "",
+      "Status": "Maintenance",
+      "Type": "Deposit",
+      "Latitude": 10.789865597040624,
+      "Longitude": 106.72985953237801
+    },
+    {
+      "Address": "43 Thao Dien, Quận 2, HCM",
+      "Bank": "Standard Chartered",
+      "CTB": true,
+      "District": "2",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Deposit",
+      "Latitude": 10.805160399840938,
+      "Longitude": 106.73619474294786
+    },
+    {
+      "Address": "638-640 Nguyễn Thị Định, Q2, TP Hồ Chí Minh",
+      "Bank": "VPBank",
+      "CTB": true,
+      "District": "2",
+      "Name": "Thạnh Mỹ Lợi CDM",
+      "Phone": "",
+      "Status": "Maintenance",
+      "Type": "Deposit",
+      "Latitude": 10.77654118157773,
+      "Longitude": 106.76544969505532
+    },
+    {
+      "Address": "BIG C CANTAVIL 1 AP 3 KDT MOI, Thành phố Hồ Chí Minh, Việt Nam",
+      "Bank": "VPBank",
+      "CTB": true,
+      "District": "2",
+      "Name": "BigC Cantavil",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.80325705434005,
+      "Longitude": 106.74677103195253
+    },
+    {
+      "Address": "442-444-446-448 Nguyễn Thị Minh Khai, Quận 3, TP. Hồ Chí Minh",
+      "Bank": "ACB",
+      "CTB": true,
+      "District": "3",
+      "Name": "MINH KHAI – SÀI GÒN",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.770058947218258,
+      "Longitude": 106.68488486413526
+    },
+    {
+      "Address": "382C1 Nam Kỳ Khởi Nghĩa, 8, Quận 3, Hồ Chí Minh, Vietnam",
+      "Bank": "Bac A Bank",
+      "CTB": true,
+      "District": "3",
+      "Name": "Nam Kỳ Khởi Nghĩa",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.790586867988607,
+      "Longitude": 106.6832839920015
+    },
+    {
+      "Address": "No 127 Vo Van Tan Street, Ward 3, District 3, Ho Chi Minh city, Viet Nam",
+      "Bank": "BIDV",
+      "CTB": true,
+      "District": "3",
+      "Name": "127 Vo Van Tan",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.77565764653479,
+      "Longitude": 106.68993537102322
+    },
+    {
+      "Address": "215 Nam Kỳ Khởi Nghĩa, Phường 7, Quận 3, Thành Phố Hồ Chí Minh, Việt Nam",
+      "Bank": "HDBank",
+      "CTB": true,
+      "District": "3",
+      "Name": " Nam Kỳ Khởi Nghĩa",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.788023000251883,
+      "Longitude": 106.68552106773086
+    },
+    {
+      "Address": "98-108A Cách Mạng Tháng 8, P.Võ Thị Sáu, Q.3, TP.Hồ Chí Minh",
+      "Bank": "Kien Long Bank",
+      "CTB": true,
+      "District": "3",
+      "Name": "Sài Gòn",
+      "Phone": "(028) 3933 3933",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.776638943247413,
+      "Longitude": 106.68465935305201
+    },
+    {
+      "Address": "236-238 CMT8, PHƯỜNG 10, QUẬN 3, TPHCM",
+      "Bank": "Sacombank",
+      "CTB": true,
+      "District": "3",
+      "Name": "1548 - CMT8",
+      "Phone": "1800585888",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.780223242733122,
+      "Longitude": 106.67762293770862
+    },
+    {
+      "Address": "158 Võ Văn Tần, Phường Võ Thị Sáu, Quận 3, Tp.HCM",
+      "Bank": "Sacombank",
+      "CTB": true,
+      "District": "3",
+      "Name": "2044 - Đại Nam",
+      "Phone": "1800585888",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.774637567807297,
+      "Longitude": 106.68828809981888
+    },
+    {
+      "Address": "414D Đ. Nguyễn Thị Minh Khai, Phường 5, Quận 3, Thành phố Hồ Chí Minh, Việt Nam",
+      "Bank": "MBBank",
+      "CTB": true,
+      "District": "3",
+      "Name": " Bến Thành",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.774657146358296,
+      "Longitude": 106.68667752978652
+    },
+    {
+      "Address": "17 Phạm Ngọc Thạch, Phường 6, Quận 3, Tp.Hồ Chí Minh",
+      "Bank": "OCB",
+      "CTB": true,
+      "District": "3",
+      "Name": "Phạm Ngọc Thạch",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.78307494693831,
+      "Longitude": 106.69522649613292
+    },
+    {
+      "Address": "Số 1 Nguyễn Thông, phường 9, quận 3, Thành phố Hồ Chí Minh",
+      "Bank": "SeABank",
+      "CTB": true,
+      "District": "3",
+      "Name": "Ga Sài Gòn",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.782333801179668,
+      "Longitude": 106.67903115749056
+    },
+    {
+      "Address": "331 Dien Bien Phu St., Dist.3, HCM City",
+      "Bank": "Standard Chartered",
+      "CTB": true,
+      "District": "3",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.775693897777597,
+      "Longitude": 106.68274467528157
+    },
+    {
+      "Address": "442 Nguyễn Thị Minh Khai, Quận 3, TP. Hồ Chí Minh",
+      "Bank": "Standard Chartered",
+      "CTB": true,
+      "District": "3",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw",
+      "Latitude": 10.7692640274936,
+      "Longitude": 106.68481263342824
+    },
+    {
+      "Address": "180 Đường Nam Kỳ Khởi Nghĩa, P.5, Quận 3, TP. Hồ Chí Minh",
+      "Bank": "TPBank",
+      "CTB": true,
+      "District": "3",
+      "Name": "Bến Thành",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.78050736019209,
+      "Longitude": 106.6942627436944
+    },
+    {
+      "Address": "456A Nguyễn Thị Minh Khai, Phường 5, Quận 3, TP. Hồ Chí Minh",
+      "Bank": "TPBank",
+      "CTB": true,
+      "District": "3",
+      "Name": "Hồ Chí Minh",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.768415883898433,
+      "Longitude": 106.68421723130935
+    },
+    {
+      "Address": "96 Cao Thắng, phường 4, Quận 3, Hồ Chí Minh",
+      "Bank": "VPBank",
+      "CTB": true,
+      "District": "3",
+      "Name": "Tòa nhà ACM",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.77164402149638,
+      "Longitude": 106.68092790660575
+    },
+    {
+      "Address": "299-301 Nguyễn Thiện Thuật, Q.3, TP Hồ Chí Minh",
+      "Bank": "VPBank",
+      "CTB": true,
+      "District": "3",
+      "Name": "Nguyễn Thiện Thuật CDM",
+      "Phone": "",
+      "Status": "Working",
+      "Type": "Withdraw", 
+      "Latitude": 10.769787390983668,
+      "Longitude": 106.67757837613551
+    }
+  ]
 }

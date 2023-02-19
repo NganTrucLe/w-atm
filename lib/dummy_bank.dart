@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import './models/bank.dart';
 
 const DUMMY_BANKS = [

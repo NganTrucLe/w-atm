@@ -1,42 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
-import 'package:watm/models/atm.dart';
 import 'package:watm/widgets/atm_result.dart';
+import '../providers/atms_provider.dart';
+import '../providers/atm_provider.dart';
 import '../theme/theme_constants.dart';
 
 class ListScreen extends StatefulWidget {
   static const routeName = '/list-screen';
-
-  final List<ATM> list;
-  final LatLng origins;
-
-  ListScreen({required this.list, required this.origins});
-
   @override
   _ListScreen createState() => _ListScreen();
 }
 
 class _ListScreen extends State<ListScreen> {
   TextEditingController? _textEditingController = TextEditingController();
-  List<ATMResult> allAtm = [];
-  List<ATMResult> atmOnSearch = [];
-
-
-  @override
-  void initState() {
-    allAtm = widget.list
-        .map((atm) => ATMResult(ATMInfo: atm, name: '${atm.bank} - ${atm.name}', origins: widget.origins))
-        .toList();
-    atmOnSearch = widget.list
-        .map((atm) => ATMResult(ATMInfo: atm, name: '${atm.bank} - ${atm.name}', origins: widget.origins))
-        .toList();
-
-    super.initState();
-  }
+  List<ATMProvider> atmOnSearch = [];
 
   @override
   Widget build(BuildContext context) {
+    final ATMsData = Provider.of<ATMs>(context, listen: false).items;
     return Scaffold(
       appBar: AppBar(
         title: Text('ATM List',
@@ -61,11 +43,9 @@ class _ListScreen extends State<ListScreen> {
               child: TextField(
                 onChanged: (value) {
                   setState(() {
-                    atmOnSearch = allAtm
-                        .where((element) => element.name
-                            .toLowerCase()
-                            .contains(value.toLowerCase()))
-                        .toList();
+                    atmOnSearch = ATMsData.where((element) => element.name
+                        .toLowerCase()
+                        .contains(value.toLowerCase())).toList();
                   });
                 },
                 controller: _textEditingController,
@@ -108,12 +88,15 @@ class _ListScreen extends State<ListScreen> {
                       : ListView.builder(
                           itemCount: _textEditingController!.text.isNotEmpty
                               ? atmOnSearch.length
-                              : allAtm.length,
-                          itemBuilder: (content, index) {
-                            return _textEditingController!.text.isNotEmpty
-                                ? atmOnSearch[index]
-                                : allAtm[index];
-                          },
+                              : ATMsData.length,
+                          itemBuilder: (cxt, i) => ChangeNotifierProvider.value(
+                            value: ATMsData[i],
+                            child: _textEditingController!.text.isNotEmpty
+                                ? ATMResult(
+                                    name: '${atmOnSearch[i].bank} - ${atmOnSearch[i].name}')
+                                : ATMResult(
+                                    name: '${ATMsData[i].bank} - ${ATMsData[i].name}'),
+                          ),
                         ),
             ),
           ],
