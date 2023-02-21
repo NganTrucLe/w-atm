@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,14 +7,14 @@ import 'package:watm/dummy_bank.dart';
 import 'package:watm/models/atm.dart';
 import 'package:watm/providers/bottom_navbar_provider.dart';
 import 'package:watm/screens/bank_list_screen.dart';
-import 'package:watm/screens/map_screen.dart';
+
 import 'package:watm/tab_item.dart';
 import 'package:watm/theme/colors.dart';
 import 'package:watm/theme/theme_constants.dart';
 import 'package:watm/widgets/modal_widget.dart';
 
-import '../models/filterModel.dart';
-import '../providers/atm_list.dart';
+import '../providers/atm_provider.dart';
+import '../providers/atms_provider.dart';
 
 class SuggestionScreen extends StatefulWidget {
   static const routeName = '/suggestion';
@@ -35,7 +35,6 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   bool _newNotes = false;
   String message = "demo";
   String instruction = "demo";
-  FilterATM filterATM = new FilterATM();
   TextStyle subheadRegular = TextStyle(
     fontFamily: "SF Pro Text",
     fontSize: 15,
@@ -60,6 +59,8 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   }
 
   void submitData() {
+    FilterATM filter = new FilterATM();
+
     if (bank.text == "" || amount.text == "") {
       _showAlertDialog(context, "You haven’t fill amount yet",
           "Cancel to view map without filling amount.");
@@ -75,16 +76,13 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
       _form.currentState?.save();
 
       if (!_withdraw)
-        filterATM.type = Type.Deposit;
-      else if (_deposit) filterATM.type = Type.Deposit;
-      filterATM.bank = bank.text;
-      filterATM.cash = int.parse(amount.text);
-      filterATM.newNotes = _newNotes;
+        filter.type = Type.Deposit;
+      else if (_deposit) filter.type = Type.Deposit;
+      filter.bank = bank.text;
+      filter.cash = int.parse(amount.text);
+      filter.newNotes = _newNotes;
     }
-    // var filter = context.read<FilterModel>();
-    // filter.update(filterATM);
-    filterATM.printVal();
-    Provider.of<ATMs>(context, listen: false).updateFilter(filterATM);
+    Provider.of<ATMs>(context, listen: false).updateFilter(filter);
     var provider =
         Provider.of<BottomNavigationBarProvider>(context, listen: false);
     TabItem item = provider.navigatorKeys.entries.toList()[1].key;

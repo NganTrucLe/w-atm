@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/status_tag.dart';
-
-enum Type {
-  Withdraw,
-  Deposit,
-  Both,
-}
+import '../providers/atm_provider.dart';
 
 class FilterATM {
   String bank = "";

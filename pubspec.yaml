@@ -44,6 +44,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^0.22.0
   flutter_launcher_icons: ^0.10.0
+  firebase_database: ^10.0.9
+  http: ^0.13.0
 
 flutter_icons:
   android: true
@@ -88,6 +90,9 @@ flutter:
     - assets/images/map.png
     - assets/images/iconStatus.svg
     - assets/images/Agribank.png
+    - assets/images/Citibank.png
+    - assets/images/Maybank.png
+    - assets/images/UOB.png
     # Json
     - assets/data.json
   fonts:

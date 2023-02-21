@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watm/screens/account_screen.dart';
+import 'package:watm/screens/atm_details_screen.dart';
 import 'package:watm/screens/suggestion_screen.dart';
 import './tab_item.dart';
 import './screens/map_screen.dart';
@@ -39,6 +40,21 @@ class TabNavigator extends StatelessWidget {
       key: navigatorKey,
       initialRoute: '/',
       onGenerateRoute: (routeSettings) {
+        if (routeSettings.name == ATMDetailsScreen.routeName) {
+          final args = routeSettings.arguments as String;
+          print(ATMDetailsScreen.routeName);
+          print(args);
+
+          // Then, extract the required data from
+          // the arguments and pass the data to the
+          // correct screen.
+          return MaterialPageRoute(
+            builder: (context) {
+              return const ATMDetailsScreen();
+            },
+            settings: routeSettings,
+          );
+        }
         return MaterialPageRoute(
           builder: (context) => routeBuilders[routeSettings.name!]!(context),
         );
