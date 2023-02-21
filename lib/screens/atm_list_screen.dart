@@ -18,7 +18,7 @@ class _ListScreen extends State<ListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final ATMsData = Provider.of<ATMs>(context, listen: false).items;
+    final ATMsData = Provider.of<ATMs>(context, listen: false).listATMs;
     return Scaffold(
       appBar: AppBar(
         title: Text('ATM List',
@@ -43,9 +43,10 @@ class _ListScreen extends State<ListScreen> {
               child: TextField(
                 onChanged: (value) {
                   setState(() {
-                    atmOnSearch = ATMsData.where((element) => element.name
-                        .toLowerCase()
-                        .contains(value.toLowerCase())).toList();
+                    atmOnSearch = ATMsData.where((element) =>
+                        '${element.bank} - ${element.name}'
+                            .toLowerCase()
+                            .contains(value.toLowerCase())).toList();
                   });
                 },
                 controller: _textEditingController,
@@ -93,9 +94,13 @@ class _ListScreen extends State<ListScreen> {
                             value: ATMsData[i],
                             child: _textEditingController!.text.isNotEmpty
                                 ? ATMResult(
-                                    name: '${atmOnSearch[i].bank} - ${atmOnSearch[i].name}')
+                                    name: atmOnSearch[i].name != ""
+                                        ? '${atmOnSearch[i].bank} - ${atmOnSearch[i].name}'
+                                        : '${atmOnSearch[i].bank}')
                                 : ATMResult(
-                                    name: '${ATMsData[i].bank} - ${ATMsData[i].name}'),
+                                    name: ATMsData[i].name != ""
+                                        ? '${ATMsData[i].bank} - ${ATMsData[i].name}'
+                                        : '${ATMsData[i].bank}'),
                           ),
                         ),
             ),

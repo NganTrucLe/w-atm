@@ -4,12 +4,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
-import '../providers/atm_provider.dart';
 import '../widgets/atm_list.dart';
 import './atm_list_screen.dart';
 import '../widgets/map.dart';
 import '../widgets/location.dart';
-import '../models/filterModel.dart';
 import '../providers/origins_provider.dart';
 
 class MapScreen extends StatefulWidget {
@@ -18,9 +16,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  List<Marker> markers = [];
-  List<ATMProvider> ATMItem = [];
-  List<ATMProvider> RenderedATMItem = [];
   var _isLoading = false;
   var _isInit = true;
 
@@ -37,15 +32,9 @@ class _MapScreenState extends State<MapScreen> {
       });
       final origins = Provider.of<OriginsProvider>(context);
       origins.updateLocation().then((_) async {
-        // }).then((_) {
-        // final renderedData = Provider.of<ATMs>(context);
-        // renderedData.readJson().then((_) {
         setState(() {
-          // ATMItem = renderedData.items;
-          // RenderedATMItem = ATMItem;
           _isLoading = false;
         });
-        // });
       });
     }
     _isInit = false;
@@ -124,5 +113,3 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 }
-    // final dummyATMs = Provider.of<ATMs>(context);
-    // print(dummyATMs.items);

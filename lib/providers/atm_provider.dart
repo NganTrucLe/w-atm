@@ -24,6 +24,8 @@ class ATMProvider with ChangeNotifier {
   final bool cashThroughBank;
   final double latitude;
   final double longitude;
+  final int minimumLimit;
+  final bool newNotes;
   double distance;
   ATMProvider({
     required this.id,
@@ -36,6 +38,8 @@ class ATMProvider with ChangeNotifier {
     this.cashThroughBank = false,
     this.latitude = 0.0,
     this.longitude = 0.0,
+    this.minimumLimit = 1000000000,
+    this.newNotes = true,
     this.distance = 0.0,
   });
   Future<void> _getDistanceMatrix(LatLng position) async {

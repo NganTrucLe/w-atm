@@ -35,7 +35,7 @@ class _ATMlistState extends State<ATMlist> {
 
   @override
   Widget build(BuildContext context) {
-    final ATMsData = Provider.of<ATMs>(context).items;
+    final ATMsData = Provider.of<ATMs>(context).listATMs;
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [

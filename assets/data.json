@@ -1,6 +1,43 @@
 {
   "ATMs": [
     {
+        "Address": "6 Battery Rd, Singapore 049909", 
+        "Bank": "Standard Chartered", 
+        "CTB": true, 
+        "Status": "Working",
+        "Type": "Withdraw",
+        "Latitude": 1.285667658926035, 
+        "Longitude": 103.85167555574928
+    }, 
+    {
+        "Address": "4 Battery Road Bank of China Building, Singapore 049908", 
+        "Bank": "Citibank", 
+        "CTB": true, 
+        "Status": "Working",
+        "Type": "Withdraw",
+        "Latitude": 1.2860859781529128, 
+        "Longitude": 103.85222272637749
+    }, 
+    {
+        "Address": "2 Battery Rd, Singapore 049907", 
+        "Bank": "Maybank", 
+        "CTB": true, 
+        "Status": "Working",
+        "Type": "Withdraw",
+        "Latitude": 1.2858344643201822, 
+        "Longitude": 103.85259792904688
+    },
+    {
+        "Address": "No. 5 Raffles Place, #B1, Raffles Place MRT Station, Raffles X'change, Singapore 048618", 
+        "Bank": "UOB", 
+        "Name": "Raffles Place MRT Station", 
+        "CTB": true, 
+        "Status": "Working",
+        "Type": "Withdraw",
+        "Latitude": 1.285008001540854, 
+        "Longitude": 103.85162727598383
+    },  
+    {
       "Address": "261 Trần Quang Khải, Phường Tân Định, Q.1, TP. HCM",
       "Bank": "ACB",
       "CTB": true,
