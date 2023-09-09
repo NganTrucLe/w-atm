@@ -1,6 +1,6 @@
 # W-ATM: Wonder app for tracking ATM
 
-W-ATM is a mobile app that track nearby ATMs and their status whether it's available or not. This solution won the [Champion at Female Developer Innovation 2022](https://codelikeagirl-vietnam.com/events/fdi-tournaments/2022/home)organized by Code Like A Girl community. The challenge was to build a solution that uses geolocation and solve a problem about banking.
+W-ATM is a mobile app that track nearby ATMs and their status whether it's available or not. This solution won the [Champion at Female Developer Innovation 2022](https://codelikeagirl-vietnam.com/events/fdi-tournaments/2022/home) organized by Code Like A Girl community. The challenge was to build a solution that uses geolocation and solve a problem about banking.
 
 ## Getting Started
 
